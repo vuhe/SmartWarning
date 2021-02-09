@@ -26,6 +26,6 @@ public class MaintainNotesController {
      */
     @GetMapping("/get")
     public ApiResponse<MaintainNotes> getMaintainNotesById(@RequestParam("id") Integer id) {
-        return ApiResponse.ofSuccessWithDate("data", service.getMaintainNotesById(id));
+        return ApiResponse.ofSuccessWithDate(service.getMaintainNotesById(id));
     }
 }

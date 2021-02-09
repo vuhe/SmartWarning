@@ -26,7 +26,7 @@ public class ApiResponseSerializer extends StdSerializer<ApiResponse<?>> {
         gen.writeNumberField("code", value.getCode());
         gen.writeStringField("message", value.getMessage());
         if (value.getData() != null) {
-            gen.writeObjectField(value.getDataName(), value.getData());
+            gen.writeObjectField("data", value.getData());
         }
         gen.writeEndObject();
     }

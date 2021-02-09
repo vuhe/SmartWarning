@@ -26,6 +26,6 @@ public class UserController {
      */
     @GetMapping("/get")
     public ApiResponse<User> getUserInfoById(@RequestParam("id") Integer id) {
-        return ApiResponse.ofSuccessWithDate("user", userService.getUserInfoById(id));
+        return ApiResponse.ofSuccessWithDate(userService.getUserInfoById(id));
     }
 }

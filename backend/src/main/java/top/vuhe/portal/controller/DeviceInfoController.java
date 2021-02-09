@@ -26,6 +26,6 @@ public class DeviceInfoController {
      */
     @GetMapping("/get")
     public ApiResponse<DeviceInfo> getDeviceInfoById(@RequestParam("id") Integer id) {
-        return ApiResponse.ofSuccessWithDate("data", service.getDeviceInfoById(id));
+        return ApiResponse.ofSuccessWithDate(service.getDeviceInfoById(id));
     }
 }
