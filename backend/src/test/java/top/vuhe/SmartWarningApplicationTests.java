@@ -1,4 +1,4 @@
-package top.vuhe.backend;
+package top.vuhe;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
