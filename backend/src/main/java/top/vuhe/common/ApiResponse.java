@@ -1,5 +1,6 @@
 package top.vuhe.common;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.Getter;
 import top.vuhe.common.exception.ExceptionEnum;
 import top.vuhe.common.exception.SystemProcessingException;
@@ -10,6 +11,7 @@ import top.vuhe.common.exception.SystemProcessingException;
  * @author zhuhe
  */
 @Getter
+@JsonSerialize(using = ApiResponseSerializer.class)
 public class ApiResponse<T> {
     private int code;
     private String message;

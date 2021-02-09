@@ -8,7 +8,7 @@ server:
   port: 8080
   servlet:
     #映射项目路径
-    context-path: /weibo
+    context-path: /
 
 spring:
   profiles:
@@ -35,8 +35,8 @@ spring:
     type: com.alibaba.druid.pool.DruidDataSource
     driverClassName: com.mysql.cj.jdbc.Driver
     druid:
-      url: jdbc:mysql://localhost:3306/weibo?useUnicode=true&characterEncoding=UTF-8&useSSL=false&allowPublicKeyRetrieval=true
-      username: zhuhe
+      url: jdbc:mysql://121.196.30.189:3306/smart_warning?useUnicode=true&characterEncoding=UTF-8&useSSL=false&allowPublicKeyRetrieval=true
+      username: smart_warning
       password: ASDasd12
       initial-size: 10
       max-active: 100
@@ -80,7 +80,7 @@ mybatis-plus:
   #mapper文件
   mapper-locations: classpath:mapper/**/*.xml
   #实体扫描，多个package用逗号或者分号分隔
-  type-aliases-package: site.zhuhe.weibo.entity.*
+  type-aliases-package: top.vuhe.entity.*
   global-config:
     # 数据库相关配置
     db-config:
