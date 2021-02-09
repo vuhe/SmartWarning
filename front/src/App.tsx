@@ -1,36 +1,61 @@
-import React, { memo } from 'react';
+import React from 'react';
 import { hot } from 'react-hot-loader/root';
-
+import { Switch, Route, Redirect } from 'react-router-dom';
+import { Layout } from 'antd';
 import './App.scss';
+import { indexRoutes } from './router/routers';
+import NavigationBar from './components/NavigationBar';
+import Global from './pages/index/global/Global';
+import Statistic from './pages/index/statistic/Statistic';
+import { isLogined } from './utils/authorize';
 
-interface CounterProps {
-    initialCount?: number;
-}
+const { Content } = Layout;
 
-const Counter = memo(function Counter({ initialCount = 0 }: CounterProps) {
-    const [count, setCount] = React.useState(initialCount);
-
-    const add = () => {
-        setCount(count + 1);
-    };
-
+class App extends React.Component<any, any> {
+  render() {
     return (
-        <div className="counter">
-            <input type="text" value={count} readOnly />
-            <button type="button" onClick={add}>
-                +数字
-            </button>
-        </div>
+      <>
+        {isLogined() ? (
+          <Layout style={{ minHeight: '100vh' }}>
+            <NavigationBar />
+            <Content style={{ margin: '16px 12px 0' }}>
+              {/* <div style={{ padding: 24, background: '#fff' }}>{this.props.children}</div> */}
+              <Switch>
+                <Route
+                  path="/index/global"
+                  render={(routeProps: any) => {
+                    return <Global {...routeProps} />;
+                  }}
+                />
+                <Route
+                  path="/index/statistic"
+                  render={(routeProps: any) => {
+                    return <Statistic {...routeProps} />;
+                  }}
+                />
+                {indexRoutes.map((route) => {
+                  return (
+                    <Route
+                      key={route.path}
+                      path={route.path}
+                      exact={route.exact}
+                      render={(routeProps) => {
+                        return <route.component {...routeProps} />;
+                      }}
+                    />
+                  );
+                })}
+                <Redirect to="/404" />
+              </Switch>
+              {/* </BasicLayout> */}
+            </Content>
+          </Layout>
+        ) : (
+          <Redirect to="/login" />
+        )}
+      </>
     );
-});
-
-function App() {
-    return (
-        <div className="app">
-            <h2 className="title">react typescript boilerplate</h2>
-            <Counter />
-        </div>
-    );
+  }
 }
 
 export default hot(App);
