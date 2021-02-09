@@ -6,7 +6,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import top.vuhe.portal.service.intf.MaintainNotesService;
 
 @SpringBootTest
-public class MaintainNotesServiceTest {
+class MaintainNotesServiceTest {
     @Autowired
     private MaintainNotesService maintainNotesService;
 

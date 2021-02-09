@@ -6,7 +6,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import top.vuhe.portal.service.intf.DeviceInfoService;
 
 @SpringBootTest
-public class DeviceInfoServiceTest {
+class DeviceInfoServiceTest {
     @Autowired
     private DeviceInfoService deviceInfoService;
 

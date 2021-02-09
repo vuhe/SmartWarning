@@ -24,7 +24,7 @@ public class ApiResponseSerializer extends StdSerializer<ApiResponse<?>> {
     public void serialize(ApiResponse<?> value, JsonGenerator gen, SerializerProvider provider) throws IOException {
         gen.writeStartObject();
         gen.writeNumberField("code", value.getCode());
-        gen.writeStringField("msg", value.getMessage());
+        gen.writeStringField("message", value.getMessage());
         if (value.getData() != null) {
             gen.writeObjectField(value.getDataName(), value.getData());
         }
