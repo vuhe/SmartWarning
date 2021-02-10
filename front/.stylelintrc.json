@@ -10,14 +10,6 @@
     "stylelint-scss"
   ],
   "rules": {
-    "indentation": [
-      2,
-      {
-        "except": ["block"],
-        "message": "请使用2个空格进行缩进！",
-        "severity": "error"
-      }
-    ],
     "comment-empty-line-before": null,
     "declaration-empty-line-before": null,
     "function-name-case": "lower",

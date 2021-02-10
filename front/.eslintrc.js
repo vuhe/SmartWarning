@@ -79,17 +79,33 @@ module.exports = {
     'unicorn/no-null': OFF,
     'unicorn/prevent-abbreviations': OFF,
     'unicorn/no-process-exit': OFF,
+    // Prefer `.querySelector()` over `.getElementById()`
+    'unicorn/prefer-query-selector': OFF,
 
     '@typescript-eslint/explicit-function-return-type': OFF,
     '@typescript-eslint/no-explicit-any': OFF,
     '@typescript-eslint/no-non-null-assertion': OFF,
     '@typescript-eslint/no-use-before-define': ERROR,
-    '@typescript-eslint/no-useless-constructor': ERROR,
+    // Useless constructor
+    '@typescript-eslint/no-useless-constructor': OFF,
+    // 是否允许空接口
+    '@typescript-eslint/no-empty-interface': OFF,
 
     'react/jsx-filename-extension': [ERROR, { extensions: ['.tsx'] }],
     'react/jsx-indent-props': [ERROR, 2],
     'react/jsx-indent': [ERROR, 2],
+    // props传递给子组件是否要求一定要接受
+    'react/jsx-props-no-spreading': OFF,
     'react/require-default-props': OFF,
+    // 是否要求有必要的写成纯函数的组件
+    // 'react/prefer-stateless-function': [2, { ignorePureComponents: true }],
+    'react/prefer-stateless-function': OFF,
+    // 是否要求有必要的自闭合标签
+    'react/self-closing-comp': OFF,
+    // State initialization should be in a constructor
+    'react/state-in-constructor': OFF,
+    // Must use destructuring state assignment
+    'react/destructuring-assignment': OFF,
 
     'func-names': OFF,
     'lines-between-class-members': OFF,
@@ -102,6 +118,9 @@ module.exports = {
     'no-unused-expressions': OFF,
     'no-use-before-define': OFF,
     'no-useless-constructor': OFF,
+
+    'space-before-function-paren': OFF,
+    'dot-notation': [2, { allowKeywords: true, allowPattern: '' }],
   },
   overrides: [
     {

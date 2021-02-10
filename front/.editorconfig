@@ -1,7 +1,16 @@
+# indent_style    设置缩进风格(tab是硬缩进，space为软缩进)
+# indent_size     用一个整数定义的列数来设置缩进的宽度，如果indent_style为tab，则此属性默认为tab_width
+# tab_width       用一个整数来设置tab缩进的列数。默认是indent_size
+# end_of_line     设置换行符，值为lf、cr和crlf
+# charset         设置编码，值为latin1、utf-8、utf-8-bom、utf-16be和utf-16le，不建议使用utf-8-bom
+# trim_trailing_whitespace  设为true表示会去除换行行首的任意空白字符。
+# insert_final_newline      设为true表示使文件以一个空白行结尾
+# root        　　　表示是最顶层的配置文件，发现设为true时，才会停止查找.editorconfig文件     
+  
 root = true
 
 [*]
-indent_style = space
+indent_style = space #按tab键时，编辑器会自动输出 4 个空格的宽度，而不是之前默认的制表符 (\t)
 indent_size = 2
 charset = utf-8
 trim_trailing_whitespace = false

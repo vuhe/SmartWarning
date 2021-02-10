@@ -1,76 +1,61 @@
-import React, { memo } from 'react';
-import { Layout, Menu } from 'antd';
-import {
-  UserOutlined,
-  UploadOutlined,
-  VideoCameraOutlined,
-  MenuUnfoldOutlined,
-  MenuFoldOutlined,
-} from '@ant-design/icons';
+import React from 'react';
 import { hot } from 'react-hot-loader/root';
+import { Switch, Route, Redirect } from 'react-router-dom';
+import { Layout } from 'antd';
 import './App.scss';
-import Router from '@/component/Router';
-import Foot from '@/component/Foot';
+import { indexRoutes } from './router/routers';
+import NavigationBar from './components/NavigationBar';
+import Global from './pages/index/global/Global';
+import Statistic from './pages/index/statistic/Statistic';
+import { isLogined } from './utils/authorize';
 
-const { Header, Content, Sider } = Layout;
+const { Content } = Layout;
 
-const App = memo(function App() {
-  // 控制侧边栏的显示方式，默认不收起
-  const [collapsed, setCollapsed] = React.useState(false);
-
-  /**
-   * 控制侧边栏改变状态
-   */
-  const toggle = () => {
-    setCollapsed(!collapsed);
-  };
-
-  return (
-    <Layout>
-      <Sider
-        style={{
-          overflow: 'auto',
-          height: '100vh',
-          left: 0,
-        }}
-        trigger={null}
-        collapsible
-        collapsed={collapsed}
-      >
-        <div className="logo" />
-        <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']}>
-          <Menu.Item key="1" icon={<UserOutlined />}>
-            nav 1
-          </Menu.Item>
-          <Menu.Item key="2" icon={<VideoCameraOutlined />}>
-            nav 2
-          </Menu.Item>
-          <Menu.Item key="3" icon={<UploadOutlined />}>
-            nav 3
-          </Menu.Item>
-        </Menu>
-      </Sider>
-      <Layout className="site-layout">
-        <Header className="site-layout-background" style={{ padding: 0 }}>
-          {React.createElement(collapsed ? MenuUnfoldOutlined : MenuFoldOutlined, {
-            className: 'trigger',
-            onClick: toggle,
-          })}
-        </Header>
-        <Content
-          className="site-layout-background"
-          style={{
-            margin: '24px 16px',
-            padding: 24,
-            minHeight: 280,
-          }}
-        >
-          <Router />
-        </Content>
-        <Foot />
-      </Layout>
-    </Layout>
-  );
-});
+class App extends React.Component<any, any> {
+  render() {
+    return (
+      <>
+        {isLogined() ? (
+          <Layout style={{ minHeight: '100vh' }}>
+            <NavigationBar />
+            <Content style={{ margin: '16px 12px 0' }}>
+              {/* <div style={{ padding: 24, background: '#fff' }}>{this.props.children}</div> */}
+              <Switch>
+                <Route
+                  path="/index/global"
+                  render={(routeProps: any) => {
+                    return <Global {...routeProps} />;
+                  }}
+                />
+                <Route
+                  path="/index/statistic"
+                  render={(routeProps: any) => {
+                    return <Statistic {...routeProps} />;
+                  }}
+                />
+                {indexRoutes.map((route) => {
+                  return (
+                    <Route
+                      key={route.path}
+                      path={route.path}
+                      exact={route.exact}
+                      render={(routeProps) => {
+                        return <route.component {...routeProps} />;
+                      }}
+                    />
+                  );
+                })}
+                <Redirect to="/404" />
+              </Switch>
+              {/* </BasicLayout> */}
+            </Content>
+          </Layout>
+        ) : (
+          <Redirect to="/login" />
+        )}
+      </>
+    );
+  }
+}
 
 export default hot(App);
