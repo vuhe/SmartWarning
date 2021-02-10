@@ -87,7 +87,7 @@ module.exports = {
     '@typescript-eslint/no-non-null-assertion': OFF,
     '@typescript-eslint/no-use-before-define': ERROR,
     // Useless constructor
-    '@typescript-eslint/no-useless-constructor': 1,
+    '@typescript-eslint/no-useless-constructor': OFF,
     // 是否允许空接口
     '@typescript-eslint/no-empty-interface': OFF,
 
@@ -121,7 +121,6 @@ module.exports = {
 
     'space-before-function-paren': OFF,
     'dot-notation': [2, { allowKeywords: true, allowPattern: '' }],
-    // "indent": [true, 'spaces', 2],
   },
   overrides: [
     {
