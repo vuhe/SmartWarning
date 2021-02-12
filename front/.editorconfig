@@ -10,7 +10,7 @@
 root = true
 
 [*]
-indent_style = space #按tab键时，编辑器会自动输出 4 个空格的宽度，而不是之前默认的制表符 (\t)
+indent_style = space # 按tab键时，编辑器会自动输出 4 个空格的宽度，而不是之前默认的制表符 (\t)
 indent_size = 2
 charset = utf-8
 trim_trailing_whitespace = false

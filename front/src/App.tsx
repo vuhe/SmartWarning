@@ -19,7 +19,6 @@ class App extends React.Component<any, any> {
           <Layout style={{ minHeight: '100vh' }}>
             <NavigationBar />
             <Content style={{ margin: '16px 12px 0' }}>
-              {/* <div style={{ padding: 24, background: '#fff' }}>{this.props.children}</div> */}
               <Switch>
                 <Route
                   path="/index/global"
@@ -47,7 +46,6 @@ class App extends React.Component<any, any> {
                 })}
                 <Redirect to="/404" />
               </Switch>
-              {/* </BasicLayout> */}
             </Content>
           </Layout>
         ) : (
