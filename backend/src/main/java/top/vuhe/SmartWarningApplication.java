@@ -3,6 +3,9 @@ package top.vuhe;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+/**
+ * @author zhuhe
+ */
 @SpringBootApplication
 public class SmartWarningApplication {
 
