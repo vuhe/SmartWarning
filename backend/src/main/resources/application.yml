@@ -1,9 +1,14 @@
+# Socket
+netty:
+  port: 9001
+
 # Tomcat
 server:
   tomcat:
     uri-encoding: UTF-8
-    max-threads: 1000
-    min-spare-threads: 30
+    threads:
+      max: 1000
+      min-spare: 30
   #端口配置
   port: 8080
   servlet:
