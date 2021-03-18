@@ -1,7 +1,9 @@
-package top.vuhe.netty;
+package top.vuhe.drive;
 
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
+import io.netty.util.Attribute;
+import io.netty.util.AttributeKey;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -11,6 +13,8 @@ import org.springframework.stereotype.Service;
 @Slf4j
 @Service
 public class ServerHandler extends ChannelInboundHandlerAdapter {
+    private final AttributeKey<Byte> key = AttributeKey.valueOf("Id");
+
     /**
      * channelAction
      * channel 通道 action 活跃的
@@ -21,6 +25,7 @@ public class ServerHandler extends ChannelInboundHandlerAdapter {
      */
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
+        Attribute<Byte> channelAttr = ctx.channel().attr(key);
         log.info("One Netty client connected!");
     }
 

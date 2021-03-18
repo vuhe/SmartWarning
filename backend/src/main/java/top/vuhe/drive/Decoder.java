@@ -1,10 +1,10 @@
-package top.vuhe.netty;
+package top.vuhe.drive;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.ByteToMessageDecoder;
 import lombok.extern.slf4j.Slf4j;
-import top.vuhe.common.drive.DecodeHelper;
+import top.vuhe.drive.plc.PlcInfoFrame;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,7 +37,7 @@ public class Decoder extends ByteToMessageDecoder {
         // 如果找到开始位置
         if (findStart(in)) {
             // 剩余长度不足可读取数量[没有内容长度位]
-            if (in.readableBytes() <= BASE_LENGTH - 1) {
+            if (in.readableBytes() < BASE_LENGTH - 1) {
                 in.readerIndex(beginIdx);
                 return;
             }
@@ -61,7 +61,7 @@ public class Decoder extends ByteToMessageDecoder {
             // 如果信息无误
             if (check == (~checkCode + 1)) {
                 // 对信息进行解码
-                list.add(DecodeHelper.decodeMsg(commandType, dataInfo));
+                list.add(new PlcInfoFrame(commandType, dataInfo));
             }
         }
     }

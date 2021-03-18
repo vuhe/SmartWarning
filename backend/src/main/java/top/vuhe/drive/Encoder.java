@@ -1,29 +1,25 @@
-package top.vuhe.netty;
+package top.vuhe.drive;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.MessageToByteEncoder;
 import lombok.extern.slf4j.Slf4j;
-import top.vuhe.common.drive.EncodeHelper;
+import top.vuhe.drive.plc.PlcCodeEnum;
 
 import java.util.Arrays;
-import java.util.LinkedList;
-
-import static top.vuhe.common.drive.PlcCodeEnum.LOGIN_RE;
 
 /**
  * @author zhuhe
  */
 @Slf4j
-public class Encoder extends MessageToByteEncoder {
+public class Encoder extends MessageToByteEncoder<PlcCodeEnum> {
     private static final int HEADER_LEN = 5;
     @Override
     protected void encode(ChannelHandlerContext ctx,
-                          Object msg,
+                          PlcCodeEnum code,
                           ByteBuf out) throws Exception {
-        // TODO("替换为一个实体使用 EncodeHelper 转换")
         // 使用 EncodeHelper 得到 命令类型 和 dataInfo 的字节码
-        byte[] info = EncodeHelper.encodeMsg(LOGIN_RE, new LinkedList<>());
+        byte[] info = encodeMsg(code);
         byte[] send = new byte[HEADER_LEN + info.length + 1];
 
         // 添加帧头
@@ -43,5 +39,14 @@ public class Encoder extends MessageToByteEncoder {
         send[send.length - 1] = (byte) (~check + 1);
         log.info(Arrays.toString(send));
         out.writeBytes(send);
+    }
+
+    private static byte[] encodeMsg(PlcCodeEnum commandType) {
+        log.info(String.valueOf(commandType.getCode()));
+        if (commandType == PlcCodeEnum.LOGIN_RE) {
+            // 登录成功
+            return new byte[]{commandType.getCode(), 0x01};
+        }
+        return new byte[]{commandType.getCode()};
     }
 }

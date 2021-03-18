@@ -5,8 +5,7 @@ import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
-import top.vuhe.netty.Decoder;
-import top.vuhe.netty.Encoder;
+import top.vuhe.drive.plc.PlcCodeEnum;
 
 public class NettyClient {
     public void start() {
@@ -23,7 +22,7 @@ public class NettyClient {
                         ChannelPipeline line = ch.pipeline();
                         // 换成自己的编解码器
                         line.addLast("decoder", new Decoder());
-                        line.addLast("encoder", new Encoder());
+                        line.addLast("encoder", new EncodeTest());
 
                         // 换成自己的处理器
                         line.addLast("handler", new NettyClientHandler());
@@ -34,7 +33,7 @@ public class NettyClient {
             ChannelFuture future = bootstrap.connect("127.0.0.1", 9001).sync();
             System.out.println("客户端成功....");
             //发送消息
-            future.channel().writeAndFlush("7E009F");
+            future.channel().writeAndFlush(PlcCodeEnum.HEARTBEAT_RE);
             future.channel().close();
         } catch (InterruptedException e) {
             e.printStackTrace();
