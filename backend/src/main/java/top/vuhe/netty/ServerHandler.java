@@ -1,7 +1,5 @@
-package top.vuhe.drive.netty;
+package top.vuhe.netty;
 
-import io.netty.buffer.ByteBuf;
-import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import lombok.extern.slf4j.Slf4j;
@@ -23,7 +21,7 @@ public class ServerHandler extends ChannelInboundHandlerAdapter {
      */
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
-        log.info("客户端连接");
+        log.info("One Netty client connected!");
     }
 
     /**
@@ -49,13 +47,13 @@ public class ServerHandler extends ChannelInboundHandlerAdapter {
      */
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
-        log.info("================14. 通道读取服务器发送过来的信息========================");
+        log.info("Netty read channel message...");
 //        ByteBuf buf = (ByteBuf) msg;
 //        byte[] req = new byte[buf.readableBytes()];
 //        buf.readBytes(req);
 //        String body = new String(req, "UTF-8");
 //        buf.release();
-        log.info("[请求报文：][" + msg + "]");
+        log.info("[Netty message: ][" + msg + "]");
 
 //        handleMessage(ctx, body);
     }
@@ -73,7 +71,7 @@ public class ServerHandler extends ChannelInboundHandlerAdapter {
 
     @Override
     public void channelReadComplete(ChannelHandlerContext ctx) throws Exception {
-        log.info("================17. Netty读取信息已经完成啦！！========================");
+        log.info("Netty channel read completed!");
         ctx.flush();
     }
 

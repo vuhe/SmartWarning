@@ -1,38 +1,39 @@
-package top.vuhe.drive.netty;
+package top.vuhe.netty;
 
 import io.netty.bootstrap.ServerBootstrap;
-import io.netty.buffer.ByteBuf;
-import io.netty.buffer.Unpooled;
 import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
-import io.netty.handler.codec.DelimiterBasedFrameDecoder;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.core.annotation.Order;
+import org.springframework.scheduling.annotation.Async;
+import org.springframework.stereotype.Component;
 
-import static top.vuhe.drive.netty.Encoder.toBytes;
+import javax.annotation.PreDestroy;
 
 /**
  * @author zhuhe
  */
 @Slf4j
-public class NettyServer {
-    private static final NettyServer INSTANCE = new NettyServer();
-    /**
-     * 将「fffffff」转换成16进制的
-     */
-    final ByteBuf delimiter = Unpooled.copiedBuffer(toBytes("ffffffff"));
-    EventLoopGroup bossGroup = new NioEventLoopGroup();
-    EventLoopGroup workerGroup = new NioEventLoopGroup();
+@Component
+@Order(value = 1)
+public class NettyServer implements CommandLineRunner {
+    @Value("${netty.port}")
+    private Integer port;
+    private final EventLoopGroup bossGroup = new NioEventLoopGroup();
+    private final EventLoopGroup workerGroup = new NioEventLoopGroup();
+    private Channel channel;
 
-    private NettyServer() {
+    @Async
+    @Override
+    public void run(String... args) throws Exception {
+        init();
     }
 
-    public static NettyServer getInstance() {
-        return INSTANCE;
-    }
-
-    public void start(int port) throws Exception {
+    private void init() throws Exception {
         ServerBootstrap bootstrap = new ServerBootstrap();
         //绑定线程池
         bootstrap.group(bossGroup, workerGroup)
@@ -42,17 +43,10 @@ public class NettyServer {
                         new AdaptiveRecvByteBufAllocator(64, 65535, 65535))
                 // 绑定客户端连接时候触发操作
                 .childHandler(new ChannelInitializer<SocketChannel>() {
-
                     @Override
                     protected void initChannel(SocketChannel ch) throws Exception {
-                        log.info("================7.2 报告，有个socket客户端链接到本服务器, IP为：" +
-                                ch.localAddress().getHostName() + ", Port为：" +
-                                ch.localAddress().getPort() + "========================");
                         // 客户端触发操作
                         ChannelPipeline line = ch.pipeline();
-
-                        // 增加粘包、分包解码器（使用netty自带的）
-                        line.addLast("framer", new DelimiterBasedFrameDecoder(2048, delimiter));
 
                         // 换成自己的编解码器
                         line.addLast("decoder", new Decoder());
@@ -62,13 +56,19 @@ public class NettyServer {
                         line.addLast("handler", new ServerHandler());
                     }
                 });
+        log.info("Netty started on port(s): " + port + " (tcp)");
         ChannelFuture channelFuture = bootstrap.bind(port).sync();
-        channelFuture.channel().closeFuture().sync();
+        channel = channelFuture.channel();
     }
 
-    public void destroy() throws Exception {
-        bossGroup.shutdownGracefully();
-        workerGroup.shutdownGracefully();
-        log.info("NettyServer shutdown!");
+    @PreDestroy
+    public void destroy() {
+        if (channel != null) {
+            channel.close();
+            bossGroup.shutdownGracefully();
+            workerGroup.shutdownGracefully();
+            log.info("NettyServer shutdown!");
+        }
     }
+
 }
