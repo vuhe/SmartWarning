@@ -13,13 +13,14 @@ import java.util.Map;
  * @author zhuhe
  */
 @Data
-public class NowInfo {
+@EqualsAndHashCode(callSuper = true)
+public class RealTimeInfo extends PlcInfo {
     private static final int HEAD_LEN = 2;
     private static final int ROW_LEN = 3;
     private final int status;
     private final Map<Integer, Integer> data = new HashMap<>();
 
-    NowInfo(List<Byte> bytes) {
+    RealTimeInfo(List<Byte> bytes) {
         if (bytes.size() < HEAD_LEN ||
                 (bytes.size() - HEAD_LEN) % ROW_LEN != 0) {
             throw new IllegalArgumentException("读取byte时出错");

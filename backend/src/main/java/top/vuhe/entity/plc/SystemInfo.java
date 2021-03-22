@@ -1,6 +1,7 @@
 package top.vuhe.entity.plc;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.util.HashMap;
 import java.util.Iterator;
@@ -11,7 +12,8 @@ import java.util.Map;
  * @author zhuhe
  */
 @Data
-public class SystemInfo {
+@EqualsAndHashCode(callSuper = true)
+public class SystemInfo extends PlcInfo {
     private static final int ROW_LEN = 3;
     private final Map<Integer, Integer> data = new HashMap<>();
 

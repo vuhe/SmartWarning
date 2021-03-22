@@ -10,7 +10,8 @@ import java.util.List;
  * @author zhuhe
  */
 @Data
-public class DeviceInfo {
+@EqualsAndHashCode(callSuper = true)
+public class DeviceInfo extends PlcInfo {
     private static final int MIN_LEN = 29;
     private static final int IMEI_LEN = 15;
     private static final int ID_LEN = 12;

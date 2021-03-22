@@ -29,7 +29,7 @@ public class NettyClient {
                 });
 
         try {
-            ChannelFuture future = bootstrap.connect("127.0.0.1", 9001).sync();
+            ChannelFuture future = bootstrap.connect("121.196.30.189", 9001).sync();
             System.err.println("客户端连接成功....");
             //发送消息
             future.channel().writeAndFlush(CommandEnum.HEARTBEAT_RE);
