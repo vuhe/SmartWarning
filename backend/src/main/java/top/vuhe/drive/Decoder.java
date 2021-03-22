@@ -4,7 +4,6 @@ import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.ByteToMessageDecoder;
 import lombok.extern.slf4j.Slf4j;
-import top.vuhe.drive.plc.PlcInfoFrame;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +12,7 @@ import java.util.List;
  * @author zhuhe
  */
 @Slf4j
-public class Decoder extends ByteToMessageDecoder {
+class Decoder extends ByteToMessageDecoder {
     /**
      * 数据包最小长度（无 data info)
      */
@@ -61,7 +60,7 @@ public class Decoder extends ByteToMessageDecoder {
             // 如果信息无误
             if (check == (~checkCode + 1)) {
                 // 对信息进行解码
-                list.add(new PlcInfoFrame(commandType, dataInfo));
+                list.add(new DataFrame(commandType, dataInfo));
             }
         }
     }

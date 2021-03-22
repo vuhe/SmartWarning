@@ -3,20 +3,19 @@ package top.vuhe.drive;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.MessageToByteEncoder;
-import top.vuhe.drive.plc.PlcCodeEnum;
 
 import java.util.Arrays;
 
-public class EncodeTest extends MessageToByteEncoder<PlcCodeEnum> {
+public class EncodeTest extends MessageToByteEncoder<CommandEnum> {
     @Override
     protected void encode(ChannelHandlerContext ctx,
-                          PlcCodeEnum msg,
+                          CommandEnum msg,
                           ByteBuf out) throws Exception {
 
         byte[] a = hex2Bytes("7E003100001038363734353930343233373" +
                 "033363131383031303131333031303030" +
                 "314B454E4B4F4E5F544543483230D4");
-        System.out.println(Arrays.toString(a));
+        System.err.println(Arrays.toString(a));
         out.writeBytes(a);
     }
 

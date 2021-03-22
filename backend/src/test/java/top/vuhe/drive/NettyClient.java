@@ -5,7 +5,6 @@ import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
-import top.vuhe.drive.plc.PlcCodeEnum;
 
 public class NettyClient {
     public void start() {
@@ -31,10 +30,11 @@ public class NettyClient {
 
         try {
             ChannelFuture future = bootstrap.connect("127.0.0.1", 9001).sync();
-            System.out.println("客户端成功....");
+            System.err.println("客户端连接成功....");
             //发送消息
-            future.channel().writeAndFlush(PlcCodeEnum.HEARTBEAT_RE);
-            future.channel().close();
+            future.channel().writeAndFlush(CommandEnum.HEARTBEAT_RE);
+            //对关闭通道进行监听
+            future.channel().closeFuture().sync();
         } catch (InterruptedException e) {
             e.printStackTrace();
         } finally {

@@ -4,7 +4,6 @@ import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.MessageToByteEncoder;
 import lombok.extern.slf4j.Slf4j;
-import top.vuhe.drive.plc.PlcCodeEnum;
 
 import java.util.Arrays;
 
@@ -12,11 +11,11 @@ import java.util.Arrays;
  * @author zhuhe
  */
 @Slf4j
-public class Encoder extends MessageToByteEncoder<PlcCodeEnum> {
+class Encoder extends MessageToByteEncoder<CommandEnum> {
     private static final int HEADER_LEN = 5;
     @Override
     protected void encode(ChannelHandlerContext ctx,
-                          PlcCodeEnum code,
+                          CommandEnum code,
                           ByteBuf out) throws Exception {
         // 使用 EncodeHelper 得到 命令类型 和 dataInfo 的字节码
         byte[] info = encodeMsg(code);
@@ -41,9 +40,9 @@ public class Encoder extends MessageToByteEncoder<PlcCodeEnum> {
         out.writeBytes(send);
     }
 
-    private static byte[] encodeMsg(PlcCodeEnum commandType) {
+    private static byte[] encodeMsg(CommandEnum commandType) {
         log.info(String.valueOf(commandType.getCode()));
-        if (commandType == PlcCodeEnum.LOGIN_RE) {
+        if (commandType == CommandEnum.LOGIN_RE) {
             // 登录成功
             return new byte[]{commandType.getCode(), 0x01};
         }

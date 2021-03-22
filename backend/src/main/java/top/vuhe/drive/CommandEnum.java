@@ -1,4 +1,4 @@
-package top.vuhe.drive.plc;
+package top.vuhe.drive;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -8,7 +8,7 @@ import lombok.Getter;
  */
 @Getter
 @AllArgsConstructor
-public enum PlcCodeEnum {
+enum CommandEnum {
     /**
      * 平台登录
      */
@@ -39,8 +39,6 @@ public enum PlcCodeEnum {
      */
     // 查询模块信息
     QUERY_INFO_UP((byte) 0x40), QUERY_INFO_RE((byte) 0x41),
-    // 查询SIM卡信息
-    QUERY_SIM_UP((byte) 0x42), QUERY_SIM_RE((byte) 0x43),
     // 查询实时值
     QUERY_NOW_UP((byte) 0x44), QUERY_NOW_RE((byte) 0x45),
     // 查询阀值
