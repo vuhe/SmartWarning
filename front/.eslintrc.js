@@ -90,6 +90,7 @@ module.exports = {
     '@typescript-eslint/no-useless-constructor': OFF,
     // 是否允许空接口
     '@typescript-eslint/no-empty-interface': OFF,
+    '@typescript-eslint/no-this-alias': OFF,
 
     'react/jsx-filename-extension': [ERROR, { extensions: ['.tsx'] }],
     'react/jsx-indent-props': [ERROR, 2],
@@ -106,6 +107,8 @@ module.exports = {
     'react/state-in-constructor': OFF,
     // Must use destructuring state assignment
     'react/destructuring-assignment': OFF,
+    // 是否允许组件有未使用的 state
+    'react/no-unused-state': OFF,
 
     'func-names': OFF,
     'lines-between-class-members': OFF,

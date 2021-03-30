@@ -1,24 +1,21 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Redirect } from 'react-router-dom';
+import { ConfigProvider } from 'antd';
 import './index.scss';
-import App from './App';
-import { mainRoutes } from './router/routers';
+import { routes, routeType } from './router/routers';
+import RouteWithSubRoutes from './router/RouteWithSubRoutes';
 
 ReactDOM.render(
-  <Router>
-    <Switch>
-      <Route
-        path="/index"
-        render={(routeProps: any) => {
-          return <App {...routeProps} />;
-        }}
-      />
-      {mainRoutes.map((route: any) => {
-        return <Route key={route.path} {...route} />;
-      })}
-      <Redirect to="/404" />
-    </Switch>
-  </Router>,
+  <ConfigProvider>
+    <Router>
+      <Switch>
+        {routes.map((route: routeType, index: number) => {
+          return <RouteWithSubRoutes key={index} {...route} />;
+        })}
+        <Redirect to="/404" />
+      </Switch>
+    </Router>
+  </ConfigProvider>,
   document.querySelector('#root'),
 );

@@ -2,11 +2,11 @@
   "name": "smart-warning",
   "version": "1.0.0",
   "description": "front",
-  "private": true,
+  "private": false,
   "author": {
-    "name": "vuhe",
-    "url": "https://github.com/vuhe",
-    "email": "zhuhe202@qq.com"
+    "name": "chenyh",
+    "url": "https://gitee.com/Chienny/smart-warning.git",
+    "email": "17513366907@163.com"
   },
   "scripts": {
     "start": "cross-env-shell NODE_ENV=development ts-node --files -P ./scripts/tsconfig.json ./scripts/start.ts --open",
@@ -40,13 +40,15 @@
     "ie >= 11"
   ],
   "dependencies": {
+    "@ant-design/charts": "^1.0.21",
     "@ant-design/icons": "^4.4.0",
+    "@antv/l7": "^2.3.9",
+    "@antv/l7-maps": "^2.3.9",
+    "@antv/l7-react": "^2.3.0",
     "@csstools/normalize.css": "^11.0.1",
     "@hot-loader/react-dom": "^17.0.0-rc.2",
     "antd": "^4.12.2",
     "axios": "^0.21.1",
-    "echarts": "^5.0.2",
-    "echarts-for-react": "^2.0.16",
     "react": "^16.13.0",
     "react-dom": "^16.13.0",
     "react-hot-loader": "^4.13.0",
@@ -112,6 +114,7 @@
     "eslint-plugin-react-hooks": "^4.1.2",
     "eslint-plugin-unicorn": "^22.0.0",
     "express": "^4.17.1",
+    "file-loader": "^6.2.0",
     "fork-ts-checker-webpack-plugin": "^5.2.0",
     "friendly-errors-webpack-plugin": "^1.7.0",
     "get-port": "^5.1.1",

@@ -11,48 +11,39 @@ import {
   Typography,
   Button,
   Drawer,
+  Space,
+  Collapse,
+  Tag,
 } from 'antd';
-import * as echarts from 'echarts';
+import { CloseCircleOutlined, ExclamationCircleOutlined } from '@ant-design/icons';
+import ChinaMap from './maps/ChinaMap';
 
-const data = ['发出警告.', '发出警告.', '发出警告.', '发出警告.', '发出警告.'];
-
-// echarts 配置项
-const option: any = {
-  // title: { text: '折线图' },
-  xAxis: {
-    type: 'category',
-    data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
-  },
-  yAxis: {
-    type: 'value',
-  },
-  series: [
-    {
-      data: [150, 230, 224, 218, 135, 147, 260],
-      type: 'line',
-    },
-  ],
-};
+const { Panel } = Collapse;
+const data = ['发出了警告.', '发出警告.', '发出警告.', '发出警告.', '发出警告.'];
 
 export interface GlobalIndexPageState {
-  /** 控制日志右侧Drawer是否显示 */
+  /** 控制日志 Drawer 是否显示 */
   logVisible: boolean;
-  /** 控制设备左侧Drawer是否显示 */
+  /** 控制设备 Drawer 是否显示 */
   equipmentVisible: boolean;
   /** 今日风险系数百分比 */
   percent: number;
 }
 
+/**
+ * 首页 /index/global
+ */
 class GlobalIndexPages extends React.Component<any, GlobalIndexPageState> {
-  state: GlobalIndexPageState = { logVisible: false, equipmentVisible: false, percent: 12 };
+  state: GlobalIndexPageState = { logVisible: false, equipmentVisible: false, percent: 5 };
 
-  constructor(props: any) {
-    super(props);
-  }
-
+  /**
+   * 生命周期函数
+   * 组件加载完成后执行
+   */
   componentDidMount() {
-    const myCharts = echarts.init(document.getElementById('myEcharts') as HTMLElement);
-    myCharts.setOption(option);
+    /** echarts 加载折线图 */
+    // const myCharts = echarts.init(document.querySelector('#myEcharts') as HTMLElement, 'dark');
+    // myCharts.setOption(riskMapOption);
   }
 
   /** 打开右侧日志抽屉 */
@@ -86,57 +77,98 @@ class GlobalIndexPages extends React.Component<any, GlobalIndexPageState> {
   render() {
     return (
       <>
-        <Row justify="center" align="top">
-          <Col span={4}></Col>
-          <Col span={4}></Col>
-          <Col span={4}></Col>
-          <Col span={4}></Col>
-          <Col span={4}></Col>
-          <Col span={2}>
-            <Progress type="circle" percent={this.state.percent} strokeColor="#87d068" />
-          </Col>
-        </Row>
-        <Row justify="space-around" align="middle">
-          <Col span={6}>
-            <Divider orientation="left">
-              <Button onClick={this.openEquipmentDrawer}>设备信息</Button>
-            </Divider>
-            <Card bordered style={{ width: 350 }}>
-              <Statistic title="总设备数" value={1024} />
-              <Alert message="正常：1000" type="success" showIcon style={{ marginTop: '4px' }} />
-              <Alert message="警告：24" type="warning" showIcon style={{ marginTop: '4px' }} />
-              <Alert message="故障：0" type="error" showIcon style={{ marginTop: '4px' }} />
-            </Card>
-          </Col>
-          <Col span={6}>
-            <Card bordered style={{ width: 380, padding: 0 }}>
-              <div id="myEcharts" style={{ margin: 0, width: '100%', height: 250 }}></div>
-            </Card>
-          </Col>
-          <Col span={6}>
+        <Row>
+          <Col span={12}>
             <Divider orientation="right">
-              <Button onClick={this.openLogDrawer}>日志信息</Button>
+              今日风险系数：
+              <Progress
+                type="circle"
+                width={70}
+                percent={this.state.percent}
+                strokeColor="#87d068"
+              />
             </Divider>
 
-            <List
-              bordered
-              dataSource={data}
-              renderItem={(item) => (
-                <List.Item>
-                  <Typography.Text mark>[设备#**]</Typography.Text> {item}
-                </List.Item>
-              )}
-            />
+            <Space align="start" size="large">
+              <div>
+                <Divider orientation="left">
+                  <Button onClick={this.openEquipmentDrawer}>设备信息</Button>
+                </Divider>
+                <Card bordered hoverable style={{ width: 330 }}>
+                  <Statistic title="总设备数" value={1020} />
+                  <Alert message="正常：950" type="success" showIcon style={{ marginTop: '4px' }} />
+                  <Alert message="警告：52" type="warning" showIcon style={{ marginTop: '4px' }} />
+                  <Alert message="故障：18" type="error" showIcon style={{ marginTop: '4px' }} />
+                </Card>
+              </div>
+              <div style={{ marginRight: '10px' }}>
+                <Divider orientation="right">
+                  <Button onClick={this.openLogDrawer}>日志信息</Button>
+                </Divider>
+                <Card bordered hoverable style={{ width: 330 }}>
+                  <List
+                    dataSource={data}
+                    renderItem={(item) => (
+                      <List.Item>
+                        <Typography.Text mark>[设备#**]</Typography.Text> {item}
+                      </List.Item>
+                    )}
+                  />
+                </Card>
+              </div>
+            </Space>
+
+            <Divider orientation="left">
+              <Button onClick={this.openEquipmentDrawer}>待办事项</Button>
+            </Divider>
+            <Collapse accordion={false} bordered ghost>
+              <Panel
+                header="待办事项一"
+                key="1"
+                extra={
+                  <Tag icon={<CloseCircleOutlined />} color="error">
+                    一小时前
+                  </Tag>
+                }
+              >
+                <p>待办事项一</p>
+              </Panel>
+              <Panel
+                header="待办事项二"
+                key="2"
+                extra={
+                  <Tag icon={<ExclamationCircleOutlined />} color="warning">
+                    三小时前
+                  </Tag>
+                }
+              >
+                <p>待办事项二</p>
+              </Panel>
+              <Panel
+                header="待办事项三"
+                key="3"
+                extra={
+                  <Tag icon={<ExclamationCircleOutlined />} color="warning">
+                    一天前
+                  </Tag>
+                }
+              >
+                <p>待办事项三</p>
+              </Panel>
+            </Collapse>
+          </Col>
+
+          <Col span={12}>
+            {/* 中国地图 */}
+            <Card bordered>
+              <div style={{ width: '100%', height: '600px', margin: 0 }}>
+                <ChinaMap />
+              </div>
+            </Card>
           </Col>
         </Row>
-        <Card title="警报窗口" bordered style={{ margin: '40px 5px 5px' }}>
-          <p>地点:</p>
-          <p>已报警显示:</p>
-          <p>负责人:</p>
-          <p>危险警报系数:</p>
-        </Card>
 
-        {/* 右侧日志抽屉 */}
+        {/* 日志抽屉 */}
         <Drawer
           title="详细日志信息"
           placement="right"
@@ -145,8 +177,6 @@ class GlobalIndexPages extends React.Component<any, GlobalIndexPageState> {
           onClose={this.logOnClose}
           visible={this.state.logVisible}
         >
-          <p>Some contents...</p>
-          <p>Some contents...</p>
           <p>Some contents...</p>
           <List
             bordered
@@ -159,17 +189,15 @@ class GlobalIndexPages extends React.Component<any, GlobalIndexPageState> {
           />
         </Drawer>
 
-        {/* 左侧设备抽屉 */}
+        {/* 设备抽屉 */}
         <Drawer
           title="Equipment Drawer"
-          placement="left"
+          placement="right"
           width={512}
           closable={false}
           onClose={this.equipmentOnClose}
           visible={this.state.equipmentVisible}
         >
-          <p>Some contents...</p>
-          <p>Some contents...</p>
           <p>Some contents...</p>
           <List
             bordered
