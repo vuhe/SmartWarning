@@ -1,6 +1,10 @@
 package top.vuhe.common.channel;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import top.vuhe.common.ApiResponse;
 import top.vuhe.entity.plc.*;
+import top.vuhe.portal.controller.WebSocketController;
 
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
@@ -13,25 +17,54 @@ import java.util.concurrent.LinkedBlockingQueue;
  *
  * @author zhuhe
  */
+@Component
 public class BufferChannel {
     /**
-     * 规定每个信息队列最大长度
+     * 用于缓存实时信息
      */
-    private static final int MAX_SIZE = 5;
-    /**
-     * 5 种信息队列
-     * 用于存储信息
-     */
-    private static final BlockingQueue<DeviceInfo> DEVICE_QUEUE = new LinkedBlockingQueue<>();
     private static final BlockingQueue<RealTimeInfo> REAL_TIME_QUEUE = new LinkedBlockingQueue<>();
-    private static final BlockingQueue<StateInfo> STATE_QUEUE = new LinkedBlockingQueue<>();
-    private static final BlockingQueue<SystemInfo> SYSTEM_QUEUE = new LinkedBlockingQueue<>();
-    private static final BlockingQueue<ThresholdInfo> THRESHOLD_QUEUE = new LinkedBlockingQueue<>();
+    @Autowired
+    private WebSocketController webSocketController;
 
-    public synchronized void offer(DeviceInfo data) {
-        if (DEVICE_QUEUE.size() > MAX_SIZE) {
-            DEVICE_QUEUE.poll();
+    public BufferChannel() {
+        // 注册监听器
+        webSocketController.setListener(this::sendToFront);
+    }
+
+    /**
+     * 「实时值」插入队列函数
+     * <p>
+     * 仅实时值会立即尝试转发至前端
+     *
+     * @param data 实时值
+     */
+    public synchronized void offer(RealTimeInfo data) {
+        REAL_TIME_QUEUE.offer(data);
+        sendToFront();
+    }
+
+    /**
+     * 其它信息直接处理
+     * <p>
+     * 其它值直接存储至数据库
+     *
+     * @param data 其它信息
+     */
+    public synchronized void offer(PlcInfo data) {
+        // TODO("存储到数据库")
+    }
+
+    public synchronized void sendToFront() {
+        // 有客户端连接且实时值非空
+        // 此时发送队列数据
+        while (webSocketController.hasConnection() &&
+                !REAL_TIME_QUEUE.isEmpty()) {
+            // 获取实时值信息
+            RealTimeInfo data = REAL_TIME_QUEUE.poll();
+            // 转换为标准 Api 应答信息
+            ApiResponse<RealTimeInfo> jsonData = ApiResponse.ofSuccessWithDate(data);
+            // 发送 json 信息
+            webSocketController.sendMessage(jsonData);
         }
-        DEVICE_QUEUE.offer(data);
     }
 }
