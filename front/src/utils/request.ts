@@ -2,7 +2,7 @@ import axios, { AxiosInstance } from 'axios';
 import { getToken } from './authorize';
 
 const instance: AxiosInstance = axios.create({
-  baseURL: 'http://localhost:3001',
+  baseURL: 'http://localhost:8080',
   timeout: 5000,
 });
 
@@ -46,7 +46,7 @@ instance.interceptors.response.use(
  * @param {string} url 请求地址
  * @param {Object} params 参数
  */
-export function get(url: string, params: any) {
+export function get(url: string, params?: any): Promise<any> {
   return axios.get(url, {
     params,
   });
@@ -57,6 +57,6 @@ export function get(url: string, params: any) {
  * @param {string} url 请求地址
  * @param {Object} data 数据
  */
-export function post(url: string, data: any) {
+export function post(url: string, data: any): Promise<any> {
   return axios.post(url, data);
 }

@@ -1,11 +1,8 @@
 import React from 'react';
+import { withRouter } from 'react-router-dom';
 import { Button, Result } from 'antd';
 
-export interface PageNotFoundState {
-  name?: string;
-}
-
-class PageNotFound extends React.Component<any, PageNotFoundState> {
+class PageNotFound extends React.Component<any, any> {
   render() {
     const { history } = this.props;
     return (
@@ -20,7 +17,7 @@ class PageNotFound extends React.Component<any, PageNotFoundState> {
               history.go(-1);
             }}
           >
-            Back Home
+            Back
           </Button>
         }
       />
@@ -28,4 +25,4 @@ class PageNotFound extends React.Component<any, PageNotFoundState> {
   }
 }
 
-export default PageNotFound;
+export default withRouter(PageNotFound);

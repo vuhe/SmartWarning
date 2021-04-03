@@ -1,22 +1,28 @@
 import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
-import { statisticRoutes } from '../../../router/routers';
-import StatisticLayout from '../../../components/StatisticLayout';
+import StatisticLayout from './StatisticLayout';
+// import RouteWithSubRoutes from '../../../router/RouteWithSubRoutes';
 
+/**
+ * 数据页面的路由处理
+ */
 class Statistic extends React.Component<any, any> {
   render() {
+    const { routes } = this.props;
+    const showRoutes = routes.filter((route: any) => route.isShow);
+    // console.log(showRoutes);
     return (
       <>
-        <StatisticLayout>
+        <StatisticLayout routes={showRoutes}>
           <Switch>
-            {statisticRoutes.map((route) => {
+            {routes.map((route: any) => {
               return (
                 <Route
                   key={route.path}
                   path={route.path}
                   exact={route.exact}
-                  render={(routeProps) => {
-                    return <route.component {...routeProps} />;
+                  render={(routeProps: any) => {
+                    return <route.component {...routeProps} title={route.title} />;
                   }}
                 />
               );
