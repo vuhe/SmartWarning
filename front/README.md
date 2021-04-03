@@ -1,3 +1,27 @@
+# Smart Warning
+
+#### 描述
+
+电气火灾智慧预警系统（前端）
+
+- `typescript` 语言
+- `react` 框架
+- `react-router-dom` 路由
+- `Ant Design of React` 蚂蚁金服 UI 库
+- `axios` http 请求封装库
+- `echarts` 一个基于 JavaScript 的开源可视化图表库
+
+#### 前端项目环境
+
+- `Node.js 8.0+`
+- `WebStorm` 集成开发环境
+- `yarn` 或 `npm` 包管理器
+
+#### 安装
+
+1.  `npm install`
+2.  `npm start`
+
 <div align="center">
 
 # react-typescript-boilerplate

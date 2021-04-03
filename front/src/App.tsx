@@ -1,36 +1,43 @@
-import React, { memo } from 'react';
+import React from 'react';
 import { hot } from 'react-hot-loader/root';
-
+import { Switch, Redirect } from 'react-router-dom';
+import { Layout } from 'antd';
 import './App.scss';
+import NavigationBar from './components/NavigationBar';
+import { isLogined } from './utils/authorize';
+import RouteWithSubRoutes from './router/RouteWithSubRoutes';
 
-interface CounterProps {
-    initialCount?: number;
-}
+const { Content } = Layout;
 
-const Counter = memo(function Counter({ initialCount = 0 }: CounterProps) {
-    const [count, setCount] = React.useState(initialCount);
-
-    const add = () => {
-        setCount(count + 1);
-    };
-
+/**
+ * index页面
+ */
+class App extends React.Component<any, any> {
+  render() {
+    const { routes } = this.props;
     return (
-        <div className="counter">
-            <input type="text" value={count} readOnly />
-            <button type="button" onClick={add}>
-                +数字
-            </button>
-        </div>
+      <>
+        {
+          /** 判断登录后则渲染组件否则将重定向到/login */
+          isLogined() ? (
+            <Layout style={{ minHeight: '100vh' }}>
+              <NavigationBar routes={routes} />
+              <Content style={{ margin: '1px 4px 0px' }}>
+                <Switch>
+                  {routes.map(function (route: any) {
+                    return <RouteWithSubRoutes key={route.path} {...route} />;
+                  })}
+                  <Redirect to="/404" />
+                </Switch>
+              </Content>
+            </Layout>
+          ) : (
+            <Redirect to="/login" />
+          )
+        }
+      </>
     );
-});
-
-function App() {
-    return (
-        <div className="app">
-            <h2 className="title">react typescript boilerplate</h2>
-            <Counter />
-        </div>
-    );
+  }
 }
 
 export default hot(App);

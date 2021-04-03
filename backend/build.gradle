@@ -36,6 +36,7 @@ dependencies {
     // springboot 启动配置
     implementation 'org.springframework.boot:spring-boot-starter-web'
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
+    annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
 
     // 测试插件
     testImplementation('org.springframework.boot:spring-boot-starter-test') {
@@ -54,6 +55,9 @@ dependencies {
     // redis缓存
     implementation 'org.springframework.boot:spring-boot-starter-data-redis'
     implementation 'org.apache.commons:commons-pool2:2.9.0'
+
+    // 单片机连接
+    implementation 'io.netty:netty-all:4.1.60.Final'
 }
 
 test {

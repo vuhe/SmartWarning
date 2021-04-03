@@ -14,13 +14,13 @@ const PROJECT_NAME = path.parse(PROJECT_ROOT).name;
 const HMR_PATH = '/__webpack_hmr';
 
 export {
-    __DEV__,
-    ENABLE_ANALYZE,
-    ENABLE_OPEN,
-    HOST,
-    DEFAULT_PORT,
-    COPYRIGHT,
-    PROJECT_NAME,
-    PROJECT_ROOT,
-    HMR_PATH,
+  __DEV__,
+  ENABLE_ANALYZE,
+  ENABLE_OPEN,
+  HOST,
+  DEFAULT_PORT,
+  COPYRIGHT,
+  PROJECT_NAME,
+  PROJECT_ROOT,
+  HMR_PATH,
 };
