@@ -1,5 +1,6 @@
 package top.vuhe.entity;
 
+import com.baomidou.mybatisplus.annotation.FieldStrategy;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
@@ -31,6 +32,9 @@ public class User extends BaseEntity {
     /**
      * token
      */
+    @TableField(
+            insertStrategy = FieldStrategy.IGNORED,
+            updateStrategy = FieldStrategy.IGNORED)
     private String token;
 
     public enum Role {

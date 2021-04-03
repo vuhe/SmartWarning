@@ -1,5 +1,6 @@
 package top.vuhe.common.util;
 
+import org.apache.shiro.crypto.hash.Sha256Hash;
 import top.vuhe.common.exception.ExceptionEnum;
 import top.vuhe.common.exception.SystemProcessingException;
 
@@ -19,6 +20,10 @@ public final class TokenUtils {
     }
 
     private static final char[] HEX_CODE = "0123456789abcdef".toCharArray();
+
+    public static String sha256Hash(String a, String b){
+        return new Sha256Hash(a, b).toHex();
+    }
 
     public static String toHexString(byte[] data) {
         if (data == null) {
