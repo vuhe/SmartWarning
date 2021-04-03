@@ -14,6 +14,10 @@ import java.io.IOException;
 public final class JsonUtils {
     private final static ObjectMapper OBJ_MAPPER = new ObjectMapper();
 
+    private JsonUtils() {
+        throw new UnsupportedOperationException("Can't instantiation!");
+    }
+
     /**
      * Json 字符串转化成对象
      *

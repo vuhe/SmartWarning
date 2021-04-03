@@ -24,4 +24,19 @@ public class User extends BaseEntity {
      */
     @TableField(value = "password")
     private String password;
+    /**
+     * 角色
+     */
+    private Role role;
+    /**
+     * token
+     */
+    private String token;
+
+    public enum Role {
+        // 管理员
+        Admin,
+        // 普通用户
+        User
+    }
 }

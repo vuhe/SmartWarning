@@ -14,4 +14,12 @@ public interface UserService extends IService<User> {
      * @return User
      */
     User getUserInfoById(Integer id);
+
+    /**
+     * 按 token 获取 User
+     *
+     * @param token token
+     * @return User
+     */
+    User getUserByToken(String token);
 }
