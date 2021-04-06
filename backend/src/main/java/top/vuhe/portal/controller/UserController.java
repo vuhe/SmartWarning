@@ -1,5 +1,6 @@
 package top.vuhe.portal.controller;
 
+import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import top.vuhe.common.ApiResponse;
@@ -28,6 +29,7 @@ public class UserController {
     /**
      * 获取用户信息列表
      */
+    @RequiresRoles("Admin")
     @GetMapping("/getList")
     public ApiResponse<List<User>> getUserList() {
         return ApiResponse.ofSuccessWithDate(userService.getUserList());
@@ -36,6 +38,7 @@ public class UserController {
     /**
      * 添加用户
      */
+    @RequiresRoles("Admin")
     @PostMapping("/add")
     public ApiResponse<?> addUser(@RequestBody User user) {
         return userService.saveUser(user, false);
@@ -44,6 +47,7 @@ public class UserController {
     /**
      * 修改用户
      */
+    @RequiresRoles("Admin")
     @PutMapping("/modify")
     public ApiResponse<?> modifyUserById(@RequestBody User user) {
         return userService.saveUser(user, true);
@@ -52,6 +56,7 @@ public class UserController {
     /**
      * 删除用户
      */
+    @RequiresRoles("Admin")
     @DeleteMapping("/delete")
     public ApiResponse<?> deleteUser(@RequestBody User user) {
         return userService.deleteUser(user);
@@ -60,6 +65,7 @@ public class UserController {
     /**
      * 登出
      */
+    @RequiresRoles("User")
     @PostMapping("/logout")
     public ApiResponse<?> logout() {
         return userService.logout();

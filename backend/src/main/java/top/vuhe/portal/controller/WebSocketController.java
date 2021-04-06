@@ -42,7 +42,9 @@ public class WebSocketController {
         CLIENTS.put(session.getId(), session);
         // 激活连接监听器
         // 每次都会调用
-        listener.processing();
+        if (listener != null) {
+            listener.processing();
+        }
     }
 
     /**

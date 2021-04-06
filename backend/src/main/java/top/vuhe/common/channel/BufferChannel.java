@@ -6,6 +6,7 @@ import top.vuhe.common.ApiResponse;
 import top.vuhe.entity.plc.*;
 import top.vuhe.portal.controller.WebSocketController;
 
+import javax.annotation.PostConstruct;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
@@ -26,7 +27,8 @@ public class BufferChannel {
     @Autowired
     private WebSocketController webSocketController;
 
-    public BufferChannel() {
+    @PostConstruct
+    public void initListener() {
         // 注册监听器
         webSocketController.setListener(this::sendToFront);
     }

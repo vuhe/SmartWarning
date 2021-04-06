@@ -9,7 +9,6 @@ import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.apache.shiro.web.session.mgt.DefaultWebSessionManager;
 import org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import top.vuhe.auth.OAuth2Filter;
 import top.vuhe.auth.OAuth2Realm;
 
@@ -21,7 +20,6 @@ import java.util.Map;
 /**
  * @author zhuhe
  */
-@Configuration
 public class ShiroConfig {
     @Bean("sessionManager")
     public SessionManager sessionManager() {

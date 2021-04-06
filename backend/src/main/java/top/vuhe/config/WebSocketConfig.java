@@ -1,13 +1,11 @@
 package top.vuhe.config;
 
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.web.socket.server.standard.ServerEndpointExporter;
 
 /**
  * @author zhuhe
  */
-@Configuration
 public class WebSocketConfig {
     /**
      * 注入一个 ServerEndpointExporter,

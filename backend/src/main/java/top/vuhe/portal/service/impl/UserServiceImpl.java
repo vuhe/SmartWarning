@@ -22,7 +22,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     public ApiResponse<?> login(User user) {
         // 向数据库查询用户
         QueryWrapper<User> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("name", user.getUsername())
+        queryWrapper.eq("username", user.getUsername())
                 .last("LIMIT 1");
 
         // 检查用户是否存在
@@ -69,6 +69,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         if (!isModify) {
             user.setId(null);
         }
+        user.setPassword(
+                TokenUtils.sha256Hash(user.getUsername(), user.getPassword()));
         user.setToken(null);
         return saveOrUpdate(user) ? ApiResponse.ofSuccess()
                 : ApiResponse.ofErrorEnum(ExceptionEnum.DATA_ERROR);

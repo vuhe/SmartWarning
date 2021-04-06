@@ -19,7 +19,12 @@ import java.util.Set;
 @Component
 public class OAuth2Realm extends AuthorizingRealm {
     @Autowired
-    UserService userService;
+    private UserService userService;
+
+    @Override
+    public boolean supports(AuthenticationToken token) {
+        return token instanceof OAuth2Token;
+    }
 
     /**
      * 授权(验证权限时调用)
