@@ -1,10 +1,15 @@
 package top.vuhe.entity;
 
-import com.baomidou.mybatisplus.annotation.FieldStrategy;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import java.util.Collection;
+import java.util.Set;
 
 /**
  * 用户
@@ -14,7 +19,7 @@ import lombok.EqualsAndHashCode;
 @Data
 @EqualsAndHashCode(callSuper = true)
 @TableName(value = "user")
-public class User extends BaseEntity {
+public class User extends BaseEntity implements UserDetails {
     /**
      * 用户名
      */
@@ -28,19 +33,50 @@ public class User extends BaseEntity {
     /**
      * 角色
      */
-    private Role role;
-    /**
-     * token
-     */
-    @TableField(
-            insertStrategy = FieldStrategy.IGNORED,
-            updateStrategy = FieldStrategy.IGNORED)
-    private String token;
+    private UserRole role = UserRole.User;
 
-    public enum Role {
-        // 管理员
-        Admin,
-        // 普通用户
-        User
+    /**
+     * 具有的角色
+     */
+    @Override
+    @JsonIgnore
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return Set.<GrantedAuthority>of(role);
+    }
+
+    /**
+     * 账户是否过期
+     */
+    @Override
+    @JsonIgnore
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    /**
+     * 账户是否锁定
+     */
+    @Override
+    @JsonIgnore
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    /**
+     * 账号凭证是否未过期
+     */
+    @Override
+    @JsonIgnore
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    /**
+     * 是否使用
+     */
+    @Override
+    @JsonIgnore
+    public boolean isEnabled() {
+        return true;
     }
 }

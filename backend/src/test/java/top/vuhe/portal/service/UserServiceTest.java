@@ -3,16 +3,15 @@ package top.vuhe.portal.service;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import top.vuhe.common.util.TokenUtils;
-import top.vuhe.portal.service.intf.UserService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-@SpringBootTest
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class UserServiceTest {
     @Autowired
-    private UserService userService;
+    private BCryptPasswordEncoder encoder;
 
     @Test
     void test() {
-        System.out.println(TokenUtils.sha256Hash("test", "123456"));
+        System.out.println(encoder.encode("admin"));
     }
 }

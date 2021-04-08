@@ -11,14 +11,6 @@ import java.util.List;
  */
 public interface UserService extends IService<User> {
     /**
-     * 登录
-     *
-     * @param user 登录信息
-     * @return 携带 token 的信息
-     */
-    ApiResponse<?> login(User user);
-
-    /**
      * 按 id 获取 User
      *
      * @return User
@@ -41,19 +33,4 @@ public interface UserService extends IService<User> {
      * @return 是否成功
      */
     ApiResponse<?> deleteUser(User user);
-
-    /**
-     * 按 token 获取 User
-     *
-     * @param token token
-     * @return User
-     */
-    User getUserByToken(String token);
-
-    /**
-     * 登出
-     *
-     * @return 是否成功
-     */
-    ApiResponse<?> logout();
 }

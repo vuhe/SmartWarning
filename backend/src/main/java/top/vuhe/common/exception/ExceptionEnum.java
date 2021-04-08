@@ -15,10 +15,11 @@ public enum ExceptionEnum {
     DATA_ERROR(501, "数据异常"),
 
     // 鉴权错误
-    INVALID_TOKEN(401, "token失效，请重新登录"),
+    INVALID_TOKEN(401, "请重新登录"),
     TOKEN_GENERATOR_ERROR(402, "token生成异常"),
-    INVALID_USER(403, "非法用户"),
-    PASSWORD_WRONG(405, "密码错误");
+    PERMISSION_ERROR(403, "权限错误"),
+    LOGIN_ERROR(405, "登录失败，请检查密码"),
+    INVALID_USER(406, "非法用户");
 
     private final int code;
     private final String message;
