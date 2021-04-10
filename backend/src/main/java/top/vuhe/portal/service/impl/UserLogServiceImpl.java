@@ -23,7 +23,7 @@ public class UserLogServiceImpl extends ServiceImpl<UserLogMapper, UserLogDao> i
         userLogDao.setChangeTime(new Date());
         userLogDao.setUserId(userId);
         userLogDao.setOperationDetail(info);
-        return false;
+        return save(userLogDao);
     }
 
     @Override

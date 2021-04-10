@@ -15,6 +15,7 @@ import top.vuhe.common.util.JsonUtils;
 import top.vuhe.common.util.ResponseUtils;
 import top.vuhe.common.util.TokenUtils;
 import top.vuhe.entity.User;
+import top.vuhe.portal.service.intf.UserLogService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -31,13 +32,14 @@ import java.util.Map;
 public class JsonLoginFilter extends UsernamePasswordAuthenticationFilter {
     private static final String POST = "POST";
 
-    public void init(AuthenticationManager authenticationManager) {
+    public void init(AuthenticationManager authenticationManager, UserLogService userLogService) {
         setAuthenticationManager(authenticationManager);
         // 登录成功处理器
         setAuthenticationSuccessHandler((request, response, authentication) -> {
             User user = (User) authentication.getPrincipal();
             String token = TokenUtils.generateToken(user);
             ResponseUtils.send(response, ApiResponse.ofSuccessWithDate(token));
+            userLogService.insertLogByUserId(user.getId(), "用户登录成功");
         });
         // 登录失败处理器
         setAuthenticationFailureHandler((request, response, exception) -> {

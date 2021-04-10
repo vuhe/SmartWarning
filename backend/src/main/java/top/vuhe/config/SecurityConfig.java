@@ -17,6 +17,7 @@ import top.vuhe.auth.JwtTokenFilter;
 import top.vuhe.common.ApiResponse;
 import top.vuhe.common.exception.ExceptionEnum;
 import top.vuhe.common.util.ResponseUtils;
+import top.vuhe.portal.service.intf.UserLogService;
 
 /**
  * @author zhuhe
@@ -24,9 +25,17 @@ import top.vuhe.common.util.ResponseUtils;
 @Slf4j
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+    /**
+     * 用于鉴权
+     */
     @Autowired
     @Qualifier("UserService")
     private UserDetailsService userService;
+    /**
+     * 用于记录日志
+     */
+    @Autowired
+    private UserLogService userLogService;
     /**
      * 需要放行的URL
      */
@@ -58,7 +67,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         // 配置 AuthenticationFilter
         JsonLoginFilter authenticationFilter = new JsonLoginFilter();
-        authenticationFilter.init(authenticationManagerBean());
+        authenticationFilter.init(authenticationManagerBean(), userLogService);
 
         // 添加过滤器
         http.addFilterAt(authenticationFilter, UsernamePasswordAuthenticationFilter.class);
