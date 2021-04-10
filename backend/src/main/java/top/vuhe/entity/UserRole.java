@@ -5,7 +5,6 @@ import org.springframework.security.core.GrantedAuthority;
 /**
  * @author zhuhe
  */
-
 public enum UserRole implements GrantedAuthority {
     // 管理员
     Admin,
