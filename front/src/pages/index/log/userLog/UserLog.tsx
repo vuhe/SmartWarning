@@ -6,13 +6,13 @@ import { getUserLogs } from '@/services/user';
 class UserLog extends React.Component<any, any> {
   state = { userLogs: [] };
 
-  componentDidMount = () => {
+  componentDidMount = (): void => {
     getUserLogs()
       .then((res) => res.data)
       .then((result) => {
         console.log(result);
       })
-      .catch((err) => console.log(err));
+      .catch((error) => console.log(error));
   };
 
   render() {

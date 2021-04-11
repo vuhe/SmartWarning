@@ -1,7 +1,7 @@
 import axios, { AxiosInstance } from 'axios';
 import { getToken } from './authorize';
 
-export const baseURL_1 = 'https://sw.zhuhe.site';
+export const BASE_URL_1 = 'https://sw.zhuhe.site';
 
 const instance: AxiosInstance = axios.create({
   baseURL: 'https://sw.zhuhe.site/api',
@@ -23,7 +23,7 @@ instance.interceptors.request.use(
   },
   function (error) {
     // Do something with request error
-    console.log('ERROR: ' + error);
+    console.log(error);
     return Promise.reject(error);
   },
 );

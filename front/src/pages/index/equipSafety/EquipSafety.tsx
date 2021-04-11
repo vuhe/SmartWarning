@@ -13,9 +13,9 @@ import {
 } from 'antd';
 import { WifiOutlined } from '@ant-design/icons';
 import { Pie } from '@ant-design/charts';
-import EquipMessage from './equipMessage/EquipMessage';
 import { pieConfig } from '@/utils/simulatedData';
 import SWFooter from '@/components/SWFooter';
+import EquipMessage from './equipMessage/EquipMessage';
 
 const { Content } = Layout;
 const { Panel } = Collapse;
@@ -125,47 +125,39 @@ const columns = [
     title: '时间',
     dataIndex: 'time',
     key: 'time',
-    render: (time: any, record: any) => {
-      return <Typography.Text mark={record.status === 0 ? true : false}>[{time}]</Typography.Text>;
+    render: (time: any, record: any): JSX.Element => {
+      return <Typography.Text mark={record.status === 0}>[{time}]</Typography.Text>;
     },
   },
   {
     title: '地点',
     dataIndex: 'address',
     key: 'address',
-    render: (address: any, record: any) => {
-      return (
-        <Typography.Text mark={record.status === 0 ? true : false}>[{address}]</Typography.Text>
-      );
+    render: (address: any, record: any): any => {
+      return <Typography.Text mark={record.status === 0}>[{address}]</Typography.Text>;
     },
   },
   {
     title: '设备',
     dataIndex: 'equipment',
     key: 'equipment',
-    render: (equipment: any, record: any) => {
-      return (
-        <Typography.Text mark={record.status === 0 ? true : false}>[{equipment}]</Typography.Text>
-      );
+    render: (equipment: any, record: any): any => {
+      return <Typography.Text mark={record.status === 0}>[{equipment}]</Typography.Text>;
     },
   },
   {
     title: '警报等级',
     dataIndex: 'alertLevel',
     key: 'alertLevel',
-    render: (alertLevel: any, record: any) => {
-      return (
-        <Typography.Text mark={record.status === 0 ? true : false}>
-          [{alertLevel}级]
-        </Typography.Text>
-      );
+    render: (alertLevel: any, record: any): any => {
+      return <Typography.Text mark={record.status === 0}>[{alertLevel}级]</Typography.Text>;
     },
   },
   {
     title: '处理状态',
     dataIndex: 'status',
     key: 'status',
-    render: (status: number) => {
+    render: (status: number): any => {
       return status === 0 ? (
         <>
           <Typography.Text mark>[未处理]</Typography.Text>
@@ -185,12 +177,12 @@ class EquipSafety extends React.Component<any, any> {
   changeCollapse = (params?: any): any => {
     if (params) {
       this.setState({
-        meterMessage: messages.find((item) => item.meterName == params),
+        meterMessage: messages.find((item) => item.meterName === params),
       });
     }
   };
 
-  render() {
+  render(): any {
     return (
       <>
         <Layout>

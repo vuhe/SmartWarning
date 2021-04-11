@@ -1,11 +1,11 @@
-import { get, post, baseURL_1 } from '../utils/request';
+import { get, post, BASE_URL_1 } from '../utils/request';
 
 /**
  * 获得所有用户列表
  * @returns {Promise<any>}
  */
 export function getAllUserList(): Promise<any> {
-  return get(`${baseURL_1}/api/user/getList`);
+  return get(`${BASE_URL_1}/api/user/getList`);
 }
 
 /**
@@ -14,7 +14,7 @@ export function getAllUserList(): Promise<any> {
  * @returns {Promise<any>}
  */
 export function addUser(user: { username: string; password: string; role: string }): Promise<any> {
-  return post(`${baseURL_1}/api/user/add`, user);
+  return post(`${BASE_URL_1}/api/user/add`, user);
 }
 
 /**
@@ -22,5 +22,5 @@ export function addUser(user: { username: string; password: string; role: string
  * @returns {Promise<any>}
  */
 export function getUserLogs(): Promise<any> {
-  return get(`${baseURL_1}/api/log/userLog`);
+  return get(`${BASE_URL_1}/api/log/userLog`);
 }

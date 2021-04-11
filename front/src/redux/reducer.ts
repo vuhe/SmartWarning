@@ -3,7 +3,7 @@ import { SWITCH_MENU_ITEM } from './actions';
 // 默认 state
 const defaultState = {
   userInfo: {},
-  navigator_current: 'index',
+  navigatorCurrent: 'index',
 };
 
 /**
@@ -12,12 +12,12 @@ const defaultState = {
  * @param action {Object} action
  * @returns
  */
-const reducer = (state: {} = defaultState, action: any) => {
+const reducer = (state: any = defaultState, action: any): any => {
   switch (action.type) {
     case SWITCH_MENU_ITEM: {
       // 深度拷贝state
-      let newState = JSON.parse(JSON.stringify(state));
-      newState.navigator_current = action.key;
+      const newState = JSON.parse(JSON.stringify(state));
+      newState.navigatorCurrent = action.key;
       return newState;
     }
 

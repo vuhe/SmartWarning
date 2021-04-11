@@ -12,9 +12,9 @@ const SWFooter = () => {
           fontSize: 13,
         }}
       >
-        <a>京ICP备********号-3</a>
+        <a href="#">京ICP备********号-3</a>
         <Divider type="vertical" />
-        <a>京公网安备**************</a>
+        <a href="#">京公网安备**************</a>
       </Typography.Text>
     </Footer>
   );

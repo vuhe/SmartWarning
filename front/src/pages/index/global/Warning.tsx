@@ -1,5 +1,5 @@
 import React from 'react';
-import { List, Typography, Statistic, Space, Divider, Descriptions } from 'antd';
+import { List, Typography, Divider, Descriptions } from 'antd';
 import { WarningOutlined } from '@ant-design/icons';
 
 const data = [
@@ -17,7 +17,7 @@ export default React.memo(function Waring() {
         title={
           <Divider orientation="left">
             <WarningOutlined />
-            <a style={{ color: 'red' }}>最近一次警报</a>
+            <p style={{ color: 'red' }}>最近一次警报</p>
             发生在一小时前
           </Divider>
         }

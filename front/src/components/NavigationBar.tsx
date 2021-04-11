@@ -19,13 +19,13 @@ const { SubMenu } = Menu;
 const { confirm } = Modal;
 
 export interface NavigationBarState {
-  navigator_current: string;
+  navigatorCurrent: string;
   date: Date;
 }
 
 // 应用头部 Header 导航栏
 class NavigationBar extends React.Component<any, NavigationBarState> {
-  state: NavigationBarState = { navigator_current: '', date: new Date() };
+  state: NavigationBarState = { navigatorCurrent: '', date: new Date() };
 
   constructor(props: any) {
     super(props);
@@ -43,7 +43,7 @@ class NavigationBar extends React.Component<any, NavigationBarState> {
    * @param e
    */
   handleClick = (e: any) => {
-    this.setState({ navigator_current: e.key });
+    this.setState({ navigatorCurrent: e.key });
     store.dispatch(changeMenuitemActionCreator(e.key));
   };
 
@@ -95,7 +95,7 @@ class NavigationBar extends React.Component<any, NavigationBarState> {
             <Col span={8}>
               <Menu
                 onClick={this.handleClick}
-                selectedKeys={[this.state.navigator_current]}
+                selectedKeys={[this.state.navigatorCurrent]}
                 mode="horizontal"
                 theme="light"
               >

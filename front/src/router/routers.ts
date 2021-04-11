@@ -9,32 +9,12 @@ import Log from '../pages/index/more/log/Log';
 import Schedule from '../pages/index/more/schedule/Schedule';
 import Risk from '../pages/index/more/risk/Risk';
 import Equipment from '../pages/index/more/equipment/Equipment';
-import EquipSafety from '@/pages/index/equipSafety/EquipSafety';
-import User from '@/pages/index/usermanage/User';
-import UserLog from '@/pages/index/log/userLog/UserLog';
-
-/**
- * 路由类型
- * path {string} 路由
- * component {any} 加载组件
- * exact {boolean} 是否精准匹配
- * icon? {any} 图标
- * title? {string} 标题
- * isShow? {boolean} 是否展示
- * children? {routeType[]} 子路由
- */
-export interface routeType {
-  path: string;
-  component: any;
-  exact: boolean;
-  icon?: any;
-  title?: string;
-  isShow?: boolean;
-  children?: routeType[];
-}
+import EquipSafety from '../pages/index/equipSafety/EquipSafety';
+import User from '../pages/index/usermanage/User';
+import UserLog from '../pages/index/log/userLog/UserLog';
 
 // 模拟电表路由
-export const metersRoutes: routeType[] = [
+export const metersRoutes: SmartWarning.routeType[] = [
   {
     path: '/index/statistic/charts/10',
     exact: true,
@@ -75,7 +55,7 @@ export const metersRoutes: routeType[] = [
 /**
  * 所有页面嵌套路由
  */
-export const routes: routeType[] = [
+export const routes: SmartWarning.routeType[] = [
   {
     path: '/',
     component: Login,

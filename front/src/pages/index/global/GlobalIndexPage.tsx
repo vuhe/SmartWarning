@@ -17,8 +17,8 @@ import {
   Modal,
 } from 'antd';
 import { CloseCircleOutlined, ExclamationCircleOutlined } from '@ant-design/icons';
-import ChinaMap from './maps/ChinaMap';
 import Warning from '@/pages/index/global/Warning';
+import ChinaMap from './maps/ChinaMap';
 
 const { Panel } = Collapse;
 const data = ['发出了警告.', '发出警告.', '发出警告.', '发出警告.', '发出警告.'];

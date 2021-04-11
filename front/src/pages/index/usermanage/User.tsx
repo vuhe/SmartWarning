@@ -25,7 +25,7 @@ class User extends React.Component<any, any> {
       type: '超级管理员',
       id: '2018001',
       name: '_lax',
-      authority: 'all',
+      authority: ['all'],
       status: '正常登入使用中',
     },
     userList: [],
@@ -49,9 +49,9 @@ class User extends React.Component<any, any> {
         title: '权限',
         key: 'authority',
         dataIndex: 'authority',
-        render: (tags: any) => (
+        render: (tags: string[]): any => (
           <>
-            {tags.map((tag: any) => {
+            {tags.map((tag: string) => {
               let color = tag.length > 5 ? 'geekblue' : 'green';
               if (tag === 'loser') {
                 color = 'volcano';
@@ -68,7 +68,7 @@ class User extends React.Component<any, any> {
       {
         title: '操作',
         key: 'action',
-        render: () => (
+        render: (): any => (
           <Space size="middle">
             <Button type="primary" icon={<FormOutlined />}>
               修改
@@ -82,10 +82,11 @@ class User extends React.Component<any, any> {
     ],
   };
 
-  componentDidMount = () => {
+  componentDidMount = (): void => {
     this.getList();
   };
 
+  // 获取所有用户信息
   getList = () => {
     // 获取所有用户信息
     getAllUserList()
@@ -106,18 +107,19 @@ class User extends React.Component<any, any> {
           message.error(result);
         }
       })
-      .catch((err) => {
-        console.log(err);
+      .catch((error) => {
+        console.log(error);
       });
   };
 
-  showModal = () => {
+  // 展示添加用户模态框
+  showModal = (): void => {
     this.setState({
       visible: true,
     });
   };
 
-  onFinish = (values: any) => {
+  onFinish = (values: any): void => {
     console.log(values);
     addUser({ username: values.username, password: values.password, role: 'User' })
       .then((res) => res.data)
@@ -133,10 +135,10 @@ class User extends React.Component<any, any> {
           message.error('添加失败');
         }
       })
-      .catch((err) => console.log(err));
+      .catch((error) => console.log(error));
   };
 
-  render() {
+  render(): any {
     return (
       <>
         <Layout>

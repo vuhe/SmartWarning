@@ -19,12 +19,7 @@ class StatisticLayout extends React.Component<any, any> {
       <Layout>
         <Sider width={144} theme="light" style={{ minHeight: '92vh' }}>
           <Anchor>
-            <Menu
-              theme="light"
-              mode="inline"
-              defaultSelectedKeys={['tables']}
-              inlineCollapsed={true}
-            >
+            <Menu theme="light" mode="inline" defaultSelectedKeys={['tables']} inlineCollapsed>
               <Menu.Item key="tables">
                 <Link to="/index/statistic/all">
                   <span>总数据</span>
