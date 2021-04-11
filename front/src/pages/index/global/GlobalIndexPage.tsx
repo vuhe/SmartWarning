@@ -14,9 +14,11 @@ import {
   Space,
   Collapse,
   Tag,
+  Modal,
 } from 'antd';
 import { CloseCircleOutlined, ExclamationCircleOutlined } from '@ant-design/icons';
 import ChinaMap from './maps/ChinaMap';
+import Warning from '@/pages/index/global/Warning';
 
 const { Panel } = Collapse;
 const data = ['发出了警告.', '发出警告.', '发出警告.', '发出警告.', '发出警告.'];
@@ -44,6 +46,17 @@ class GlobalIndexPages extends React.Component<any, GlobalIndexPageState> {
     /** echarts 加载折线图 */
     // const myCharts = echarts.init(document.querySelector('#myEcharts') as HTMLElement, 'dark');
     // myCharts.setOption(riskMapOption);
+    Modal.warning({
+      title: '今日风险警告信息',
+      closable: true,
+      content: (
+        <>
+          <Warning />
+        </>
+      ),
+      width: 800,
+      okText: '知道了',
+    });
   }
 
   /** 打开右侧日志抽屉 */
@@ -79,15 +92,41 @@ class GlobalIndexPages extends React.Component<any, GlobalIndexPageState> {
       <>
         <Row>
           <Col span={12}>
-            <Divider orientation="right">
-              今日风险系数：
-              <Progress
-                type="circle"
-                width={70}
-                percent={this.state.percent}
-                strokeColor="#87d068"
-              />
-            </Divider>
+            <Row>
+              <Col span={16}>
+                <div style={{ height: '100px', overflow: 'auto', background: '#EEEEEE' }}>
+                  <Typography.Text mark>[危险]</Typography.Text>
+                  ：***火灾风险系数升高80%
+                  <br />
+                  <Typography.Text mark>[警告]</Typography.Text>：***设备电流不正常
+                  <br />
+                  <Typography.Text mark>[警告]</Typography.Text>：***设备烟雾报警
+                  <br />
+                  <Typography.Text mark>[警告]</Typography.Text>：***设备电压不正常
+                  <br />
+                  <Typography.Text mark>[警告]</Typography.Text>：***设备低压
+                  <br />
+                  <Typography.Text mark>[警告]</Typography.Text>：***设备温感75C°
+                  <br />
+                  <Typography.Text mark>[危险]</Typography.Text>
+                  ：***设备电流不正常
+                  <br />
+                  <Typography.Text mark>[危险]</Typography.Text>
+                  ：***火灾风险系数升高60%
+                </div>
+              </Col>
+              <Col span={8}>
+                <Divider orientation="right">
+                  今日风险系数：
+                  <Progress
+                    type="circle"
+                    width={70}
+                    percent={this.state.percent}
+                    strokeColor="#87d068"
+                  />
+                </Divider>
+              </Col>
+            </Row>
 
             <Space align="start" size="large">
               <div>
@@ -117,7 +156,6 @@ class GlobalIndexPages extends React.Component<any, GlobalIndexPageState> {
                 </Card>
               </div>
             </Space>
-
             <Divider orientation="left">
               <Button onClick={this.openEquipmentDrawer}>待办事项</Button>
             </Divider>

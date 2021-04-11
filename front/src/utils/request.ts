@@ -1,8 +1,10 @@
 import axios, { AxiosInstance } from 'axios';
 import { getToken } from './authorize';
 
+export const baseURL_1 = 'https://sw.zhuhe.site';
+
 const instance: AxiosInstance = axios.create({
-  baseURL: 'http://localhost:8080',
+  baseURL: 'https://sw.zhuhe.site/api',
   timeout: 5000,
 });
 
@@ -11,14 +13,17 @@ const instance: AxiosInstance = axios.create({
  * 全局请求拦截
  */
 instance.interceptors.request.use(
+  // config: 请求发送前的配置对象
   function (config) {
     // Do something before request is sent
     // config.headers['authorization'] = 'Bearer '.concat(getToken());
-    config.headers.authorization = 'Bearer '.concat(getToken());
+    console.log(config);
+    config.headers.Authorization = getToken();
     return config;
   },
   function (error) {
     // Do something with request error
+    console.log('ERROR: ' + error);
     return Promise.reject(error);
   },
 );
@@ -49,6 +54,10 @@ instance.interceptors.response.use(
 export function get(url: string, params?: any): Promise<any> {
   return axios.get(url, {
     params,
+    headers: {
+      'Content-Type': 'application/json;charset=utf-8',
+      Authorization: getToken(),
+    },
   });
 }
 
@@ -58,5 +67,10 @@ export function get(url: string, params?: any): Promise<any> {
  * @param {Object} data 数据
  */
 export function post(url: string, data: any): Promise<any> {
-  return axios.post(url, data);
+  return axios.post(url, data, {
+    headers: {
+      'Content-Type': 'application/json;charset=utf-8',
+      Authorization: getToken(),
+    },
+  });
 }

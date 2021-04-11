@@ -4,6 +4,8 @@ import { createProxyMiddleware } from 'http-proxy-middleware';
 
 import proxyTable from '../configs/proxy';
 
+console.log(proxyTable);
+
 function link(str: string): string {
   return chalk.magenta.underline(str);
 }

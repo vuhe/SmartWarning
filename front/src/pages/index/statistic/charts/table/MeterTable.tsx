@@ -1,45 +1,6 @@
 import React from 'react';
 import { Table } from 'antd';
-
-// 模拟电表数据
-const dataSource = [
-  {
-    key: '1',
-    time: '8:00',
-    leakage: 170,
-    temperature: 30,
-    electricity: 75,
-    voltage: 200,
-    power: 13,
-  },
-  {
-    key: '2',
-    time: '12:00',
-    leakage: 120,
-    temperature: 35,
-    electricity: 72,
-    voltage: 212,
-    power: 13,
-  },
-  {
-    key: '3',
-    time: '16:00',
-    leakage: 150,
-    temperature: 37,
-    electricity: 75,
-    voltage: 220,
-    power: 12,
-  },
-  {
-    key: '4',
-    time: '22:00',
-    leakage: 110,
-    temperature: 45,
-    electricity: 80,
-    voltage: 170,
-    power: 14,
-  },
-];
+import { meterDataSource } from '@/utils/simulatedData';
 
 // 电表表头
 const columns = [
@@ -56,20 +17,32 @@ const columns = [
   },
   {
     title: '温度(℃)',
-    dataIndex: 'temperature',
     key: 'temperature',
+    children: [
+      { title: 'A相', dataIndex: 'temperatureA', key: 'temperatureA' },
+      { title: 'B相', dataIndex: 'temperatureB', key: 'temperatureB' },
+      { title: 'C相', dataIndex: 'temperatureC', key: 'temperatureC' },
+    ],
   },
   {
     // 单位 A, 阈值 160
     title: '电流(A)',
-    dataIndex: 'electricity',
     key: 'electricity',
+    children: [
+      { title: 'A相', dataIndex: 'electricityA', key: 'electricityA' },
+      { title: 'B相', dataIndex: 'electricityB', key: 'electricityB' },
+      { title: 'C相', dataIndex: 'electricityC', key: 'electricityC' },
+    ],
   },
   {
     // 单位 V, 阈值 过压264 欠压187
     title: '电压(V)',
-    dataIndex: 'voltage',
     key: 'voltage',
+    children: [
+      { title: 'A相', dataIndex: 'voltageA', key: 'voltageA' },
+      { title: 'B相', dataIndex: 'voltageB', key: 'voltageB' },
+      { title: 'C相', dataIndex: 'voltageC', key: 'voltageC' },
+    ],
   },
   {
     // 单位 KW
@@ -89,8 +62,12 @@ class MeterTable extends React.Component<any, any> {
       <>
         <Table
           bordered
-          dataSource={dataSource}
+          dataSource={meterDataSource}
           columns={columns}
+          pagination={{
+            position: ['bottomRight'],
+            pageSize: 6,
+          }}
           // style={{
           //   borderRadius: '2px',
           //   background: '#f8f8f8',

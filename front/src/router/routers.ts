@@ -9,6 +9,9 @@ import Log from '../pages/index/more/log/Log';
 import Schedule from '../pages/index/more/schedule/Schedule';
 import Risk from '../pages/index/more/risk/Risk';
 import Equipment from '../pages/index/more/equipment/Equipment';
+import EquipSafety from '@/pages/index/equipSafety/EquipSafety';
+import User from '@/pages/index/usermanage/User';
+import UserLog from '@/pages/index/log/userLog/UserLog';
 
 /**
  * 路由类型
@@ -29,6 +32,45 @@ export interface routeType {
   isShow?: boolean;
   children?: routeType[];
 }
+
+// 模拟电表路由
+export const metersRoutes: routeType[] = [
+  {
+    path: '/index/statistic/charts/10',
+    exact: true,
+    component: Charts,
+    title: '#电表10',
+    isShow: true,
+  },
+  {
+    path: '/index/statistic/charts/11',
+    exact: true,
+    component: Charts,
+    title: '#电表11',
+    isShow: true,
+  },
+  {
+    path: '/index/statistic/charts/12',
+    exact: true,
+    component: Charts,
+    title: '#电表12',
+    isShow: true,
+  },
+  {
+    path: '/index/statistic/charts/13',
+    exact: true,
+    component: Charts,
+    title: '#电表13',
+    isShow: true,
+  },
+  {
+    path: '/index/statistic/charts/14',
+    exact: true,
+    component: Charts,
+    title: '#电表14',
+    isShow: true,
+  },
+];
 
 /**
  * 所有页面嵌套路由
@@ -64,16 +106,17 @@ export const routes: routeType[] = [
         component: Global,
         title: '首页',
       },
+      { path: '/index/equip_safety', exact: true, component: EquipSafety, title: '首页' },
       {
         path: '/index/more',
         exact: false,
         component: MoreRoute,
         title: '更多',
         children: [
-          { path: '/index/more/risk', exact: true, component: Risk, title: '风险' },
-          { path: '/index/more/schedule', exact: true, component: Schedule, title: '待办' },
-          { path: '/index/more/equipment', exact: true, component: Equipment, title: '设备' },
-          { path: '/index/more/log', exact: true, component: Log, title: '日志' },
+          { path: '/index/more/risk', exact: true, component: Risk, title: '今日风险图' },
+          { path: '/index/more/schedule', exact: true, component: Schedule, title: '待办事项' },
+          { path: '/index/more/equipment', exact: true, component: Equipment, title: '设备信息' },
+          { path: '/index/more/log', exact: true, component: Log, title: '日志记录' },
         ],
       },
       {
@@ -97,21 +140,24 @@ export const routes: routeType[] = [
             isShow: false,
           },
           {
-            path: '/index/statistic/charts/1',
+            path: '/index/statistic/charts/15/1',
             exact: true,
             component: Charts,
-            title: '电表一',
+            title: '#电表一',
             isShow: true,
           },
           {
-            path: '/index/statistic/charts/2',
+            path: '/index/statistic/charts/15/2',
             exact: true,
             component: Charts,
-            title: '电表二',
+            title: '#电表二',
             isShow: true,
           },
+          ...metersRoutes,
         ],
       },
+      { path: '/index/user', exact: true, component: User, title: '用户' },
+      { path: '/index/userLog', exact: true, component: UserLog, title: '用户操作日志' },
     ],
   },
   {
