@@ -3,7 +3,7 @@ package top.vuhe.portal.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import top.vuhe.common.ApiResponse;
-import top.vuhe.entity.User;
+import top.vuhe.entity.auth.User;
 import top.vuhe.portal.service.intf.UserService;
 
 import java.util.List;

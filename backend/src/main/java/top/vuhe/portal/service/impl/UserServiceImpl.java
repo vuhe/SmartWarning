@@ -10,7 +10,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import top.vuhe.common.ApiResponse;
 import top.vuhe.common.exception.ExceptionEnum;
-import top.vuhe.entity.User;
+import top.vuhe.entity.auth.User;
 import top.vuhe.mapper.UserMapper;
 import top.vuhe.portal.service.intf.UserService;
 

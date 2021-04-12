@@ -12,5 +12,4 @@ import lombok.EqualsAndHashCode;
 @TableName(value = "user_log_view")
 public class UserLogVO extends UserLog {
     private String username;
-
 }

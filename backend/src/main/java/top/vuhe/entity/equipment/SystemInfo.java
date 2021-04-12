@@ -1,4 +1,4 @@
-package top.vuhe.entity.plc;
+package top.vuhe.entity.equipment;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -13,11 +13,11 @@ import java.util.Map;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class StateInfo extends PlcInfo {
-    private static final int ROW_LEN = 2;
+public class SystemInfo extends PlcInfo {
+    private static final int ROW_LEN = 3;
     private final Map<Integer, Integer> data = new HashMap<>();
 
-    StateInfo(List<Byte> bytes) {
+    SystemInfo(List<Byte> bytes) {
         if (bytes.size() % ROW_LEN != 0) {
             throw new IllegalArgumentException("读取byte时出错");
         }
@@ -27,6 +27,7 @@ public class StateInfo extends PlcInfo {
         for (int i = 0; i < length; i++) {
             int channel = it.next();
             int value = it.next();
+            value = value << 8 + it.next();
             data.put(channel, value);
         }
     }

@@ -2,7 +2,7 @@ package top.vuhe.portal.service.intf;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import top.vuhe.common.ApiResponse;
-import top.vuhe.entity.User;
+import top.vuhe.entity.auth.User;
 
 import java.util.List;
 

@@ -7,7 +7,6 @@ import io.netty.util.AttributeKey;
 import lombok.extern.slf4j.Slf4j;
 
 import static top.vuhe.drive.CommandEnum.*;
-import static top.vuhe.drive.CommandEnum.SYS_INFO_RE;
 
 /**
  * @author zhuhe
@@ -68,24 +67,5 @@ class ServerHandler extends ChannelInboundHandlerAdapter {
         log.error("Netty Exception ExceptionCaught :" + ctx.channel().id().asShortText() + " "
                 + cause.getMessage(), cause);
         ctx.close();
-    }
-
-    private static CommandEnum getResponseCode(int b) {
-        switch (b) {
-            case 0x10:
-                return LOGIN_RE;
-            case 0x20:
-                return HEARTBEAT_RE;
-            case 0x30:
-                return NOW_VALUE_RE;
-            case 0x32:
-                return THRESHOLD_RE;
-            case 0x34:
-                return STATUS_RE;
-            case 0x36:
-                return SYS_INFO_RE;
-            default:
-                return null;
-        }
     }
 }

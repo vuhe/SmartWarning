@@ -1,4 +1,4 @@
-package top.vuhe.entity.plc;
+package top.vuhe.entity.equipment;
 
 import lombok.Data;
 

@@ -14,7 +14,7 @@ import top.vuhe.common.exception.ExceptionEnum;
 import top.vuhe.common.util.JsonUtils;
 import top.vuhe.common.util.ResponseUtils;
 import top.vuhe.common.util.TokenUtils;
-import top.vuhe.entity.User;
+import top.vuhe.entity.auth.User;
 import top.vuhe.portal.service.intf.UserLogService;
 
 import javax.servlet.http.HttpServletRequest;

@@ -11,7 +11,7 @@ import top.vuhe.common.exception.ExceptionEnum;
 import top.vuhe.common.util.ResponseUtils;
 import top.vuhe.common.util.TokenUtils;
 import top.vuhe.config.SecurityConfig;
-import top.vuhe.entity.User;
+import top.vuhe.entity.auth.User;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;

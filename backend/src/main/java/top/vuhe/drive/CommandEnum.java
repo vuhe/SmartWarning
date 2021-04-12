@@ -45,7 +45,7 @@ enum CommandEnum {
     QUERY_THRESHOLD_UP((byte) 0x46), QUERY_THRESHOLD_RE((byte) 0x47),
     // 查询状态值
     QUERY_STATUS_UP((byte) 0x48), QUERY_STATUS_RE((byte) 0x49),
-    //
+    // 查询系统信息
     QUERY_SYS_UP((byte) 0x4A), QUERY_SYS_RE((byte) 0x4B);
     /**
      * 数据设置、远程控制、远程升级
@@ -53,4 +53,32 @@ enum CommandEnum {
      */
 
     private final byte code;
+
+    public static CommandEnum getCommandByCode(int b) {
+        for (CommandEnum command : CommandEnum.values()) {
+            if (command.getCode() == b) {
+                return command;
+            }
+        }
+        return null;
+    }
+
+    public static CommandEnum getResponseCode(CommandEnum b) {
+        switch (b) {
+            case LOGIN_UP:
+                return LOGIN_RE;
+            case HEARTBEAT_UP:
+                return HEARTBEAT_RE;
+            case NOW_VALUE_UP:
+                return NOW_VALUE_RE;
+            case THRESHOLD_UP:
+                return THRESHOLD_RE;
+            case STATUS_UP:
+                return STATUS_RE;
+            case SYS_INFO_UP:
+                return SYS_INFO_RE;
+            default:
+                return null;
+        }
+    }
 }

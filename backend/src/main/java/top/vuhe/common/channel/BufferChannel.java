@@ -3,7 +3,8 @@ package top.vuhe.common.channel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import top.vuhe.common.ApiResponse;
-import top.vuhe.entity.plc.*;
+import top.vuhe.entity.equipment.*;
+import top.vuhe.entity.equipment.bo.RealTimeBO;
 import top.vuhe.portal.controller.WebSocketController;
 
 import javax.annotation.PostConstruct;
@@ -23,7 +24,7 @@ public class BufferChannel {
     /**
      * 用于缓存实时信息
      */
-    private static final BlockingQueue<RealTimeInfo> REAL_TIME_QUEUE = new LinkedBlockingQueue<>();
+    private static final BlockingQueue<RealTimeBO> REAL_TIME_QUEUE = new LinkedBlockingQueue<>();
     @Autowired
     private WebSocketController webSocketController;
 
@@ -40,7 +41,7 @@ public class BufferChannel {
      *
      * @param data 实时值
      */
-    public synchronized void offer(RealTimeInfo data) {
+    public synchronized void offer(RealTimeBO data) {
         REAL_TIME_QUEUE.offer(data);
         sendToFront();
     }
@@ -62,9 +63,9 @@ public class BufferChannel {
         while (webSocketController.hasConnection() &&
                 !REAL_TIME_QUEUE.isEmpty()) {
             // 获取实时值信息
-            RealTimeInfo data = REAL_TIME_QUEUE.poll();
+            RealTimeBO data = REAL_TIME_QUEUE.poll();
             // 转换为标准 Api 应答信息
-            ApiResponse<RealTimeInfo> jsonData = ApiResponse.ofSuccessWithDate(data);
+            ApiResponse<RealTimeBO> jsonData = ApiResponse.ofSuccessWithDate(data);
             // 发送 json 信息
             webSocketController.sendMessage(jsonData);
         }

@@ -1,4 +1,4 @@
-package top.vuhe.entity;
+package top.vuhe.entity.auth;
 
 import org.springframework.security.core.GrantedAuthority;
 

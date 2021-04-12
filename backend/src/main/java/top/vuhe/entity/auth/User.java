@@ -1,4 +1,4 @@
-package top.vuhe.entity;
+package top.vuhe.entity.auth;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import top.vuhe.entity.BaseEntity;
 
 import java.util.Collection;
 import java.util.Set;
