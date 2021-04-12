@@ -2,7 +2,6 @@ package top.vuhe.entity.equipment.bo;
 
 import lombok.Data;
 import top.vuhe.entity.equipment.ElectricInfo;
-import top.vuhe.entity.equipment.dto.RealTimeDTO;
 import top.vuhe.entity.equipment.dto.StatusDTO;
 import top.vuhe.entity.equipment.dto.ThresholdDTO;
 
@@ -18,7 +17,7 @@ public class ThresholdBO implements ElectricInfo {
     private final List<ThresholdDTO> thresholds;
     private final Map<Integer, Integer> data = new HashMap<>();
 
-    ThresholdBO(List<Byte> bytes) {
+    public ThresholdBO(List<Byte> bytes) {
         if (bytes.size() % ROW_LEN != 0) {
             throw new IllegalArgumentException("读取byte时出错");
         }
@@ -43,7 +42,7 @@ public class ThresholdBO implements ElectricInfo {
     }
 
     @Override
-    public List<RealTimeDTO> getRealTimeDTO() {
+    public Map<Integer, Double> getRealTimeDTO() {
         return null;
     }
 

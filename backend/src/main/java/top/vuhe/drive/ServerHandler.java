@@ -5,6 +5,7 @@ import io.netty.channel.ChannelInboundHandlerAdapter;
 import io.netty.util.Attribute;
 import io.netty.util.AttributeKey;
 import lombok.extern.slf4j.Slf4j;
+import top.vuhe.common.channel.BufferChannel;
 
 import static top.vuhe.drive.CommandEnum.*;
 
@@ -14,6 +15,14 @@ import static top.vuhe.drive.CommandEnum.*;
 @Slf4j
 class ServerHandler extends ChannelInboundHandlerAdapter {
     private final AttributeKey<Byte> key = AttributeKey.valueOf("Id");
+    /**
+     * 信息传送通道
+     */
+    private final BufferChannel bufferChannel;
+
+    ServerHandler(BufferChannel bufferChannel) {
+        this.bufferChannel = bufferChannel;
+    }
 
     /**
      * channel 通道活跃时回调
@@ -53,7 +62,9 @@ class ServerHandler extends ChannelInboundHandlerAdapter {
         if (code != null) {
             ctx.writeAndFlush(code);
         }
-        // TODO("将数据转换为通用信息 放入系统通道")
+        // 信息存入缓存队列
+        bufferChannel.offer(
+                getInfoByCode(obj.getCommand(), obj.getDataInfo()));
     }
 
     @Override

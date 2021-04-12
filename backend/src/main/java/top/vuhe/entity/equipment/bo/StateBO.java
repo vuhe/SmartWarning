@@ -2,7 +2,6 @@ package top.vuhe.entity.equipment.bo;
 
 import lombok.Data;
 import top.vuhe.entity.equipment.ElectricInfo;
-import top.vuhe.entity.equipment.dto.RealTimeDTO;
 import top.vuhe.entity.equipment.dto.StatusDTO;
 import top.vuhe.entity.equipment.dto.ThresholdDTO;
 
@@ -33,7 +32,7 @@ public class StateBO implements ElectricInfo {
     }
 
     @Override
-    public List<RealTimeDTO> getRealTimeDTO() {
+    public Map<Integer, Double> getRealTimeDTO() {
         return null;
     }
 

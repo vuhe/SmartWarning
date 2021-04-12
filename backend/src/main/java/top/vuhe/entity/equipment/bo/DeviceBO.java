@@ -1,7 +1,6 @@
-package top.vuhe.entity.equipment;
+package top.vuhe.entity.equipment.bo;
 
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 
 import java.util.Iterator;
 import java.util.List;
@@ -10,8 +9,7 @@ import java.util.List;
  * @author zhuhe
  */
 @Data
-@EqualsAndHashCode(callSuper = true)
-public class DeviceInfo extends PlcInfo {
+public class DeviceBO {
     private static final int MIN_LEN = 29;
     private static final int IMEI_LEN = 15;
     private static final int ID_LEN = 12;
@@ -28,7 +26,7 @@ public class DeviceInfo extends PlcInfo {
      *
      * @param bytes 帧读取的byte流
      */
-    DeviceInfo(List<Byte> bytes) {
+    DeviceBO(List<Byte> bytes) {
         if (bytes.size() < MIN_LEN) {
             throw new IllegalArgumentException("读取byte时出错");
         }

@@ -1,10 +1,10 @@
 package top.vuhe.entity.equipment;
 
-import top.vuhe.entity.equipment.dto.RealTimeDTO;
 import top.vuhe.entity.equipment.dto.StatusDTO;
 import top.vuhe.entity.equipment.dto.ThresholdDTO;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author zhuhe
@@ -15,7 +15,7 @@ public interface ElectricInfo {
      *
      * @return 实时值DTO
      */
-    List<RealTimeDTO> getRealTimeDTO();
+    Map<Integer, Double> getRealTimeDTO();
 
     /**
      * 获取状态信息

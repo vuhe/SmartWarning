@@ -12,6 +12,5 @@ import top.vuhe.entity.BaseEntity;
 public class ChannelDao extends BaseEntity {
     private String perUnit;
     private Integer currentState;
-    private Integer currentValue;
     private String channelName;
 }

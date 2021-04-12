@@ -1,7 +1,6 @@
-package top.vuhe.entity.equipment;
+package top.vuhe.entity.equipment.bo;
 
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 
 import java.util.HashMap;
 import java.util.Iterator;
@@ -12,12 +11,11 @@ import java.util.Map;
  * @author zhuhe
  */
 @Data
-@EqualsAndHashCode(callSuper = true)
-public class SystemInfo extends PlcInfo {
+public class SystemBO {
     private static final int ROW_LEN = 3;
     private final Map<Integer, Integer> data = new HashMap<>();
 
-    SystemInfo(List<Byte> bytes) {
+    SystemBO(List<Byte> bytes) {
         if (bytes.size() % ROW_LEN != 0) {
             throw new IllegalArgumentException("读取byte时出错");
         }

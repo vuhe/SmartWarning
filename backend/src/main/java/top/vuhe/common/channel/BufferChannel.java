@@ -4,10 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import top.vuhe.common.ApiResponse;
 import top.vuhe.entity.equipment.*;
-import top.vuhe.entity.equipment.bo.RealTimeBO;
+import top.vuhe.entity.equipment.vo.RealTimeVO;
 import top.vuhe.portal.controller.WebSocketController;
 
 import javax.annotation.PostConstruct;
+import java.util.List;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
@@ -24,7 +25,7 @@ public class BufferChannel {
     /**
      * 用于缓存实时信息
      */
-    private static final BlockingQueue<RealTimeBO> REAL_TIME_QUEUE = new LinkedBlockingQueue<>();
+    private static final BlockingQueue<List<RealTimeVO>> REAL_TIME_QUEUE = new LinkedBlockingQueue<>();
     @Autowired
     private WebSocketController webSocketController;
 
@@ -35,25 +36,17 @@ public class BufferChannel {
     }
 
     /**
-     * 「实时值」插入队列函数
+     * 处理电气信息
      * <p>
-     * 仅实时值会立即尝试转发至前端
-     *
-     * @param data 实时值
-     */
-    public synchronized void offer(RealTimeBO data) {
-        REAL_TIME_QUEUE.offer(data);
-        sendToFront();
-    }
-
-    /**
-     * 其它信息直接处理
-     * <p>
-     * 其它值直接存储至数据库
+     * 除实时值外其它值存储至数据库
+     * 实时值经过转换直接放入发送队列中
      *
      * @param data 其它信息
      */
-    public synchronized void offer(PlcInfo data) {
+    public synchronized void offer(ElectricInfo data) {
+        if (data == null) {
+            return;
+        }
         // TODO("存储到数据库")
     }
 
@@ -63,9 +56,9 @@ public class BufferChannel {
         while (webSocketController.hasConnection() &&
                 !REAL_TIME_QUEUE.isEmpty()) {
             // 获取实时值信息
-            RealTimeBO data = REAL_TIME_QUEUE.poll();
+            List<RealTimeVO> data = REAL_TIME_QUEUE.poll();
             // 转换为标准 Api 应答信息
-            ApiResponse<RealTimeBO> jsonData = ApiResponse.ofSuccessWithDate(data);
+            ApiResponse<List<RealTimeVO>> jsonData = ApiResponse.ofSuccessWithDate(data);
             // 发送 json 信息
             webSocketController.sendMessage(jsonData);
         }

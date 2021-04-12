@@ -6,11 +6,13 @@ import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.core.annotation.Order;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
+import top.vuhe.common.channel.BufferChannel;
 
 import javax.annotation.PreDestroy;
 
@@ -26,6 +28,8 @@ public class NettyServer implements CommandLineRunner {
     private final EventLoopGroup bossGroup = new NioEventLoopGroup();
     private final EventLoopGroup workerGroup = new NioEventLoopGroup();
     private Channel channel;
+    @Autowired
+    private BufferChannel bufferChannel;
 
     @Async
     @Override
@@ -53,7 +57,7 @@ public class NettyServer implements CommandLineRunner {
                         line.addLast("encoder", new Encoder());
 
                         // 换成自己的处理器
-                        line.addLast("handler", new ServerHandler());
+                        line.addLast("handler", new ServerHandler(bufferChannel));
                     }
                 });
         log.info("Netty started on port(s): " + port + " (tcp)");

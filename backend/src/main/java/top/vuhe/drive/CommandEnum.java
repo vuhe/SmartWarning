@@ -2,6 +2,12 @@ package top.vuhe.drive;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import top.vuhe.entity.equipment.ElectricInfo;
+import top.vuhe.entity.equipment.bo.RealTimeBO;
+import top.vuhe.entity.equipment.bo.StateBO;
+import top.vuhe.entity.equipment.bo.ThresholdBO;
+
+import java.util.List;
 
 /**
  * @author zhuhe
@@ -54,7 +60,7 @@ enum CommandEnum {
 
     private final byte code;
 
-    public static CommandEnum getCommandByCode(int b) {
+    static CommandEnum getCommandByCode(int b) {
         for (CommandEnum command : CommandEnum.values()) {
             if (command.getCode() == b) {
                 return command;
@@ -63,7 +69,7 @@ enum CommandEnum {
         return null;
     }
 
-    public static CommandEnum getResponseCode(CommandEnum b) {
+    static CommandEnum getResponseCode(CommandEnum b) {
         switch (b) {
             case LOGIN_UP:
                 return LOGIN_RE;
@@ -77,6 +83,22 @@ enum CommandEnum {
                 return STATUS_RE;
             case SYS_INFO_UP:
                 return SYS_INFO_RE;
+            default:
+                return null;
+        }
+    }
+
+    static ElectricInfo getInfoByCode(CommandEnum command, List<Byte> list) {
+        switch (command) {
+            case NOW_VALUE_UP:
+            case QUERY_NOW_RE:
+                return new RealTimeBO(list);
+            case THRESHOLD_UP:
+            case QUERY_THRESHOLD_RE:
+                return new ThresholdBO(list);
+            case STATUS_UP:
+            case QUERY_STATUS_RE:
+                return new StateBO(list);
             default:
                 return null;
         }
