@@ -4,6 +4,9 @@ import io.netty.buffer.ByteBuf
 import io.netty.channel.ChannelHandlerContext
 import io.netty.handler.codec.ByteToMessageDecoder
 
+/**
+ * ## 电气设备解码器
+ */
 class Decoder : ByteToMessageDecoder() {
     companion object {
         /**

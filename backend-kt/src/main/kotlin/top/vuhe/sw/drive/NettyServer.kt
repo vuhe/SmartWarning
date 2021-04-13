@@ -15,6 +15,13 @@ import org.springframework.stereotype.Component
 import top.vuhe.sw.common.channel.BufferChannel
 import javax.annotation.PreDestroy
 
+/**
+ * ## 电气设备服务
+ *
+ * 用于监听电气设备端口并响应
+ *
+ * @property port 端口
+ */
 @Component
 @Order(value = 1)
 class NettyServer(@Value("\${netty.port}") private val port: Int) :

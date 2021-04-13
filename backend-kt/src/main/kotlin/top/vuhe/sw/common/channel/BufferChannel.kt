@@ -12,12 +12,12 @@ import java.util.concurrent.LinkedBlockingQueue
 import javax.annotation.PostConstruct
 
 /**
- * 缓冲通道
- * <p>
- * 作为设备、设备和数据库的缓冲
+ * ## 缓冲通道
+ * 作为设备、前端和数据库的缓冲
+ *
  * 用于调平各个数据端的存储速度和间隔
  *
- * @author zhuhe
+ * @author vuhe
  */
 @Component
 class BufferChannel {
@@ -40,7 +40,6 @@ class BufferChannel {
 
     /**
      * 处理电气信息
-     *
      *
      * 除实时值外其它值存储至数据库
      * 实时值经过转换直接放入发送队列中

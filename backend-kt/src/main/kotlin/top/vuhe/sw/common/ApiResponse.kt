@@ -4,6 +4,11 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize
 import top.vuhe.sw.common.exception.ExceptionEnum
 import top.vuhe.sw.common.exception.SystemProcessingException
 
+/**
+ * 通用返回类
+ *
+ * @author zhuhe
+ */
 @JsonSerialize(using = ApiResponseSerializer::class)
 class ApiResponse<T> private constructor(
     val code: Int,

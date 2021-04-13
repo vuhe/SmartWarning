@@ -2,6 +2,11 @@ package top.vuhe.sw.common.exception
 
 import java.lang.RuntimeException
 
+/**
+ * 系统运行异常
+ *
+ * @author zhuhe
+ */
 class SystemProcessingException : RuntimeException {
     val msg: String
     val code: Int

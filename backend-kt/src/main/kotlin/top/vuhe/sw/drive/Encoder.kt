@@ -3,11 +3,13 @@ package top.vuhe.sw.drive
 import io.netty.buffer.ByteBuf
 import io.netty.channel.ChannelHandlerContext
 import io.netty.handler.codec.MessageToByteEncoder
-import org.slf4j.LoggerFactory
 import kotlin.Byte
 import kotlin.ByteArray
 import kotlin.byteArrayOf
 
+/**
+ * ## 电气设备编码器
+ */
 class Encoder : MessageToByteEncoder<CommandEnum>() {
     companion object {
         private const val HEADER_LEN = 5

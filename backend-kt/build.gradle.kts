@@ -1,6 +1,7 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
+    id("org.jetbrains.dokka") version "1.4.30"
     id("org.springframework.boot") version "2.4.4"
     id("io.spring.dependency-management") version "1.0.11.RELEASE"
     kotlin("jvm") version "1.4.31"
@@ -26,6 +27,7 @@ repositories {
     maven(url = "https://maven.aliyun.com/repository/apache-snapshots/")
     // maven 中央库
     mavenCentral()
+    jcenter()
 }
 
 dependencies {
@@ -62,6 +64,9 @@ dependencies {
     // springboot 默认测试框架
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.springframework.security:spring-security-test")
+
+    // 文档
+    dokkaHtmlPlugin("org.jetbrains.dokka:kotlin-as-java-plugin:1.4.30")
 }
 
 val fatJar = task("fatJar", type = Jar::class) {

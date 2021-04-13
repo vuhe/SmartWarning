@@ -1,9 +1,10 @@
 package top.vuhe.sw.common.channel
 
 /**
+ * ## 连接监听器
  * 用于监听客户端是否连接
  *
- * @author zhuhe
+ * @author vuhe
  */
 fun interface ConnectListener {
     /**

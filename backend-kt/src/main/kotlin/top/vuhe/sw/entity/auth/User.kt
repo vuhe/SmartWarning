@@ -1,12 +1,24 @@
 package top.vuhe.sw.entity.auth
 
+import com.baomidou.mybatisplus.annotation.IdType
+import com.baomidou.mybatisplus.annotation.TableId
 import com.baomidou.mybatisplus.annotation.TableName
 import com.fasterxml.jackson.annotation.JsonIgnore
 import org.springframework.security.core.GrantedAuthority
 import org.springframework.security.core.userdetails.UserDetails
 
+/**
+ * 用户信息
+ *
+ * @property id id
+ * @property username 用户名
+ * @property password 密码
+ * @property role 权限角色
+ */
 @TableName(value = "user")
 data class User(
+    @field:JsonIgnore
+    @field:TableId(value = "id", type = IdType.AUTO)
     val id: Int?,
     private val username: String,
     private val password: String,

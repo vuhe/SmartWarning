@@ -6,6 +6,12 @@ import top.vuhe.sw.entity.equipment.bo.StateBO
 import top.vuhe.sw.entity.equipment.bo.ThresholdBO
 import java.lang.IllegalArgumentException
 
+/**
+ * ## 电气设备应答命令
+ * 用于整合设备与平台之间的通信
+ *
+ * @property code 命令
+ */
 enum class CommandEnum(val code: Byte) {
     /**
      * 平台登录

@@ -21,7 +21,9 @@ import top.vuhe.sw.portal.service.UserLogService
 import javax.servlet.http.HttpServletResponse
 
 /**
- * @author zhuhe
+ * ## 鉴权配置
+ *
+ * @author vuhe
  */
 @Configuration
 class SecurityConfig : WebSecurityConfigurerAdapter() {

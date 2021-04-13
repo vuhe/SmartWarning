@@ -8,6 +8,13 @@ import top.vuhe.sw.common.channel.BufferChannel
 import top.vuhe.sw.drive.CommandEnum.Companion.getInfoByCode
 import top.vuhe.sw.drive.CommandEnum.Companion.getResponseCode
 
+/**
+ * ## 电气设备服务处理器
+ *
+ * 用于处理电气设备的信息并进行转发等操作
+ *
+ * @property bufferChannel 缓冲通道
+ */
 class ServerHandler(private val bufferChannel: BufferChannel) :
     ChannelInboundHandlerAdapter() {
     companion object {

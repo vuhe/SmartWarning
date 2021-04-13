@@ -18,6 +18,12 @@ import top.vuhe.sw.portal.service.UserLogService
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 
+/**
+ * ## 登录认证 Filter
+ * 使用 Json 登录
+ *
+ * @author vuhe
+ */
 class JsonLoginFilter : UsernamePasswordAuthenticationFilter() {
     private val post = "POST"
 

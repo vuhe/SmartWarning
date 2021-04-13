@@ -15,6 +15,12 @@ import javax.servlet.ServletException
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 
+/**
+ * ## token 认证 Filter
+ * 使用token登录(验证用户)
+ *
+ * @author vuhe
+ */
 class JwtTokenFilter(authenticationManager: AuthenticationManager) :
     BasicAuthenticationFilter(authenticationManager) {
     @Throws(IOException::class, ServletException::class)

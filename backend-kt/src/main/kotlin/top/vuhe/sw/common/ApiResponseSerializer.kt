@@ -4,6 +4,11 @@ import com.fasterxml.jackson.core.JsonGenerator
 import com.fasterxml.jackson.databind.SerializerProvider
 import com.fasterxml.jackson.databind.ser.std.StdSerializer
 
+/**
+ * 序列化 通用返回类
+ *
+ * @author zhuhe
+ */
 class ApiResponseSerializer : StdSerializer<ApiResponse<*>> {
 
     constructor() : this(null)
