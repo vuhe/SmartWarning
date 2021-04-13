@@ -25,6 +25,7 @@ class JwtTokenFilter(authenticationManager: AuthenticationManager) :
     BasicAuthenticationFilter(authenticationManager) {
     @Throws(IOException::class, ServletException::class)
     override fun doFilterInternal(request: HttpServletRequest, response: HttpServletResponse, chain: FilterChain) {
+        // 删除 context_path 前缀
         val url = request.requestURI.substring(request.contextPath.length)
         val header = request.getHeader(AUTHORIZATION)
 

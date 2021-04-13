@@ -1,5 +1,6 @@
 package top.vuhe.sw.entity.equipment
 
+import top.vuhe.sw.entity.equipment.dto.RealTimeDTO
 import top.vuhe.sw.entity.equipment.dto.StatusDTO
 import top.vuhe.sw.entity.equipment.dto.ThresholdDTO
 
@@ -12,19 +13,19 @@ interface ElectricInfo {
      *
      * @return 实时值DTO
      */
-    fun getRealTimeDTO(): Map<Int, Double>?
+    fun getRealTimeDTO(): RealTimeDTO?
 
     /**
      * 获取状态信息
      *
      * @return 状态DTO
      */
-    fun getStatusDTO(): List<StatusDTO>?
+    fun getStatusDTO(): StatusDTO?
 
     /**
      * 获取阈值信息
      *
      * @return 阈值DTO
      */
-    fun getThresholdDTO(): List<ThresholdDTO>?
+    fun getThresholdDTO(): ThresholdDTO?
 }

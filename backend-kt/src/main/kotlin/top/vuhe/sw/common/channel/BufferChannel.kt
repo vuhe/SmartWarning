@@ -47,11 +47,14 @@ class BufferChannel {
      * @param data 其它信息
      */
     @Synchronized
-    fun offer(data: ElectricInfo?) {
-        if (data == null) {
-            return
-        }
+    fun offer(data: ElectricInfo) {
         // TODO("存储到数据库")
+        // 处理实时信息
+        val realTimeInfo = data.getRealTimeDTO()
+        // 处理阈值信息
+        val thresholdInfo = data.getThresholdDTO()
+        // 处理状态信息
+        val statusInfo = data.getStatusDTO()
     }
 
     @Synchronized
