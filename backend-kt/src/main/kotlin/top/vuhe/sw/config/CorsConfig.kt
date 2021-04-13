@@ -16,7 +16,7 @@ class CorsConfig {
     @Bean
     fun corsFilter(): CorsFilter? {
         val config = CorsConfiguration()
-        config.addAllowedOrigin("*")
+        config.addAllowedOriginPattern("*")
         config.allowCredentials = true
         config.addAllowedMethod("*")
         config.addAllowedHeader("*")

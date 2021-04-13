@@ -33,6 +33,7 @@ class WebSocketController {
      */
     @OnOpen
     fun onOpen(session: Session) {
+        log.info("websocket ${session.id} 已连接")
         // 记录客户端信息
         clients[session.id] = session
         // 激活连接监听器
@@ -74,7 +75,7 @@ class WebSocketController {
      * @param message json 消息内容
      */
     fun sendMessage(message: ApiResponse<*>) {
-        // 给所以客户端发信息
+        // 给所有客户端发信息
         for ((_, toSession) in clients) {
             // 发送信息
             toSession.asyncRemote.sendText(toJson(message))

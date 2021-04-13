@@ -25,11 +25,11 @@ class JwtTokenFilter(authenticationManager: AuthenticationManager) :
     BasicAuthenticationFilter(authenticationManager) {
     @Throws(IOException::class, ServletException::class)
     override fun doFilterInternal(request: HttpServletRequest, response: HttpServletResponse, chain: FilterChain) {
-        val url = request.requestURI
+        val url = request.requestURI.substring(request.contextPath.length)
         val header = request.getHeader(AUTHORIZATION)
 
         //跳过不需要验证的路径
-        if (listOf<Any>(SecurityConfig.authWhitelist).contains(url)) {
+        if (SecurityConfig.authWhitelist.contains(url)) {
             chain.doFilter(request, response)
             return
         }
