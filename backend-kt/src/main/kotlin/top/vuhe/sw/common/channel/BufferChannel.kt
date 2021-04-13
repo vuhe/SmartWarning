@@ -6,10 +6,9 @@ import org.springframework.stereotype.Component
 import top.vuhe.sw.common.ApiResponse
 import top.vuhe.sw.entity.equipment.ElectricInfo
 import top.vuhe.sw.entity.equipment.vo.RealTimeVO
-import top.vuhe.sw.portal.controller.WebSocketController
+import top.vuhe.sw.portal.service.ChannelService
 import java.util.concurrent.BlockingQueue
 import java.util.concurrent.LinkedBlockingQueue
-import javax.annotation.PostConstruct
 
 /**
  * ## 缓冲通道
@@ -24,19 +23,14 @@ class BufferChannel {
     companion object {
         private val log = LoggerFactory.getLogger(BufferChannel::class.java)
     }
+
     /**
      * 用于缓存实时信息
      */
     private val realTimeQueue: BlockingQueue<List<RealTimeVO>> = LinkedBlockingQueue()
 
     @Autowired
-    private lateinit var webSocketController: WebSocketController
-
-    @PostConstruct
-    fun initListener() {
-        // 注册监听器
-        webSocketController.listener = ConnectListener { sendToFront() }
-    }
+    private lateinit var channelService: ChannelService
 
     /**
      * 处理电气信息
@@ -48,28 +42,35 @@ class BufferChannel {
      */
     @Synchronized
     fun offer(data: ElectricInfo) {
-        // TODO("存储到数据库")
         // 处理实时信息
         val realTimeInfo = data.getRealTimeDTO()
+        if (realTimeInfo != null) {
+            val realTime = channelService.getRealTimeInfo(realTimeInfo)
+            realTimeQueue.offer(realTime)
+            sendToFront()
+        }
+
         // 处理阈值信息
         val thresholdInfo = data.getThresholdDTO()
+        // TODO("阈值信息格式不清楚，暂缓处理")
+
         // 处理状态信息
         val statusInfo = data.getStatusDTO()
+        if (statusInfo != null) {
+            channelService.updateStates(statusInfo)
+        }
     }
 
     @Synchronized
     fun sendToFront() {
         // 有客户端连接且实时值非空
         // 此时发送队列数据
-        while (webSocketController.hasConnection() &&
-            !realTimeQueue.isEmpty()
-        ) {
+        while (!realTimeQueue.isEmpty()) {
             // 获取实时值信息
             val data = realTimeQueue.poll()
             // 转换为标准 Api 应答信息
             val jsonData = ApiResponse.ofSuccessWithDate(data)
             // 发送 json 信息
-            webSocketController.sendMessage(jsonData)
         }
     }
 }
