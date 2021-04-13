@@ -3,7 +3,7 @@ package top.vuhe.entity.equipment.vo;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import top.vuhe.entity.BaseEntity;
-import top.vuhe.entity.equipment.dao.StatusDao;
+import top.vuhe.entity.equipment.dao.StatusDAO;
 
 /**
  * @author zhuhe
@@ -14,7 +14,7 @@ public class RealTimeVO extends BaseEntity {
     private String perUnit;
     private Integer currentState;
     private String statusName;
-    private StatusDao.Color statusColor;
+    private StatusDAO.Color statusColor;
     private String channelName;
     private Double value;
 }

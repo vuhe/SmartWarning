@@ -17,13 +17,13 @@ import java.util.List;
 public class UserLogServiceImpl extends ServiceImpl<UserLogMapper, UserLogDao> implements UserLogService {
 
     @Override
-    public boolean insertLogByUserId(Integer userId, String info) {
+    public void insertLogByUserId(Integer userId, String info) {
         UserLogDao userLogDao = new UserLogDao();
         userLogDao.setUserId(null);
         userLogDao.setChangeTime(new Date());
         userLogDao.setUserId(userId);
         userLogDao.setOperationDetail(info);
-        return save(userLogDao);
+        save(userLogDao);
     }
 
     @Override

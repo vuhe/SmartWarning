@@ -1,5 +1,6 @@
 package top.vuhe.entity.equipment.dao;
 
+import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import top.vuhe.entity.BaseEntity;
@@ -9,7 +10,8 @@ import top.vuhe.entity.BaseEntity;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class StatusDao extends BaseEntity {
+@TableName(value = "status_info")
+public class StatusDAO extends BaseEntity {
     private String statusName;
     private Color statusColor;
 

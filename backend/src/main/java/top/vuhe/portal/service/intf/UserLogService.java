@@ -14,9 +14,9 @@ public interface UserLogService extends IService<UserLogDao> {
      * 通过userId添加数据
      *
      * @param userId userId
-     * @return 是否成功
+     * @param info   操作信息
      */
-    boolean insertLogByUserId(Integer userId, String info);
+    void insertLogByUserId(Integer userId, String info);
 
     /**
      * 查询所有 log 信息
