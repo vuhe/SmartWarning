@@ -2,6 +2,12 @@ package top.vuhe.drive;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import top.vuhe.entity.equipment.ElectricInfo;
+import top.vuhe.entity.equipment.bo.RealTimeBO;
+import top.vuhe.entity.equipment.bo.StateBO;
+import top.vuhe.entity.equipment.bo.ThresholdBO;
+
+import java.util.List;
 
 /**
  * @author zhuhe
@@ -45,7 +51,7 @@ enum CommandEnum {
     QUERY_THRESHOLD_UP((byte) 0x46), QUERY_THRESHOLD_RE((byte) 0x47),
     // 查询状态值
     QUERY_STATUS_UP((byte) 0x48), QUERY_STATUS_RE((byte) 0x49),
-    //
+    // 查询系统信息
     QUERY_SYS_UP((byte) 0x4A), QUERY_SYS_RE((byte) 0x4B);
     /**
      * 数据设置、远程控制、远程升级
@@ -53,4 +59,48 @@ enum CommandEnum {
      */
 
     private final byte code;
+
+    static CommandEnum getCommandByCode(int b) {
+        for (CommandEnum command : CommandEnum.values()) {
+            if (command.getCode() == b) {
+                return command;
+            }
+        }
+        return null;
+    }
+
+    static CommandEnum getResponseCode(CommandEnum b) {
+        switch (b) {
+            case LOGIN_UP:
+                return LOGIN_RE;
+            case HEARTBEAT_UP:
+                return HEARTBEAT_RE;
+            case NOW_VALUE_UP:
+                return NOW_VALUE_RE;
+            case THRESHOLD_UP:
+                return THRESHOLD_RE;
+            case STATUS_UP:
+                return STATUS_RE;
+            case SYS_INFO_UP:
+                return SYS_INFO_RE;
+            default:
+                return null;
+        }
+    }
+
+    static ElectricInfo getInfoByCode(CommandEnum command, List<Byte> list) {
+        switch (command) {
+            case NOW_VALUE_UP:
+            case QUERY_NOW_RE:
+                return new RealTimeBO(list);
+            case THRESHOLD_UP:
+            case QUERY_THRESHOLD_RE:
+                return new ThresholdBO(list);
+            case STATUS_UP:
+            case QUERY_STATUS_RE:
+                return new StateBO(list);
+            default:
+                return null;
+        }
+    }
 }

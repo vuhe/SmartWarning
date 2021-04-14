@@ -1,7 +1,14 @@
 package top.vuhe.common.channel;
 
-import top.vuhe.entity.plc.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import top.vuhe.common.ApiResponse;
+import top.vuhe.entity.equipment.*;
+import top.vuhe.entity.equipment.vo.RealTimeVO;
+import top.vuhe.portal.controller.WebSocketController;
 
+import javax.annotation.PostConstruct;
+import java.util.List;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
@@ -13,25 +20,47 @@ import java.util.concurrent.LinkedBlockingQueue;
  *
  * @author zhuhe
  */
+@Component
 public class BufferChannel {
     /**
-     * 规定每个信息队列最大长度
+     * 用于缓存实时信息
      */
-    private static final int MAX_SIZE = 5;
-    /**
-     * 5 种信息队列
-     * 用于存储信息
-     */
-    private static final BlockingQueue<DeviceInfo> DEVICE_QUEUE = new LinkedBlockingQueue<>();
-    private static final BlockingQueue<RealTimeInfo> REAL_TIME_QUEUE = new LinkedBlockingQueue<>();
-    private static final BlockingQueue<StateInfo> STATE_QUEUE = new LinkedBlockingQueue<>();
-    private static final BlockingQueue<SystemInfo> SYSTEM_QUEUE = new LinkedBlockingQueue<>();
-    private static final BlockingQueue<ThresholdInfo> THRESHOLD_QUEUE = new LinkedBlockingQueue<>();
+    private static final BlockingQueue<List<RealTimeVO>> REAL_TIME_QUEUE = new LinkedBlockingQueue<>();
+    @Autowired
+    private WebSocketController webSocketController;
 
-    public synchronized void offer(DeviceInfo data) {
-        if (DEVICE_QUEUE.size() > MAX_SIZE) {
-            DEVICE_QUEUE.poll();
+    @PostConstruct
+    public void initListener() {
+        // 注册监听器
+        webSocketController.setListener(this::sendToFront);
+    }
+
+    /**
+     * 处理电气信息
+     * <p>
+     * 除实时值外其它值存储至数据库
+     * 实时值经过转换直接放入发送队列中
+     *
+     * @param data 其它信息
+     */
+    public synchronized void offer(ElectricInfo data) {
+        if (data == null) {
+            return;
         }
-        DEVICE_QUEUE.offer(data);
+        // TODO("存储到数据库")
+    }
+
+    public synchronized void sendToFront() {
+        // 有客户端连接且实时值非空
+        // 此时发送队列数据
+        while (webSocketController.hasConnection() &&
+                !REAL_TIME_QUEUE.isEmpty()) {
+            // 获取实时值信息
+            List<RealTimeVO> data = REAL_TIME_QUEUE.poll();
+            // 转换为标准 Api 应答信息
+            ApiResponse<List<RealTimeVO>> jsonData = ApiResponse.ofSuccessWithDate(data);
+            // 发送 json 信息
+            webSocketController.sendMessage(jsonData);
+        }
     }
 }

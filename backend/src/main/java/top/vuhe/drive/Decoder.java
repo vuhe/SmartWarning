@@ -60,7 +60,9 @@ class Decoder extends ByteToMessageDecoder {
             // 如果信息无误
             if (check == (~checkCode + 1)) {
                 // 对信息进行解码
-                list.add(new DataFrame(commandType, dataInfo));
+                list.add(new DataFrame(
+                        CommandEnum.getCommandByCode(commandType),
+                        dataInfo));
             }
         }
     }

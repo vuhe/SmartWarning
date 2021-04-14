@@ -17,6 +17,6 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 class DataFrame {
-    private int command;
+    private CommandEnum command;
     private List<Byte> dataInfo;
 }

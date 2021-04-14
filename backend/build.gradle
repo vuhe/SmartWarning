@@ -48,9 +48,9 @@ dependencies {
     annotationProcessor 'org.projectlombok:lombok'
 
     // 数据库配置
-    compile 'com.baomidou:mybatis-plus-boot-starter:3.4.0'
-    implementation 'com.alibaba:druid-spring-boot-starter:1.2.2'
-    implementation 'mysql:mysql-connector-java:8.0.22'
+    compile 'com.baomidou:mybatis-plus-boot-starter:3.4.2'
+    implementation 'com.alibaba:druid-spring-boot-starter:1.2.5'
+    implementation 'mysql:mysql-connector-java:8.0.23'
 
     // redis缓存
     implementation 'org.springframework.boot:spring-boot-starter-data-redis'
@@ -58,6 +58,15 @@ dependencies {
 
     // 单片机连接
     implementation 'io.netty:netty-all:4.1.60.Final'
+
+    // websocket
+    implementation 'org.springframework.boot:spring-boot-starter-websocket'
+
+    // 权限管理
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'io.jsonwebtoken:jjwt-api:0.11.2'
+    runtime 'io.jsonwebtoken:jjwt-impl:0.11.2'
+    runtime 'io.jsonwebtoken:jjwt-jackson:0.11.2'
 }
 
 test {

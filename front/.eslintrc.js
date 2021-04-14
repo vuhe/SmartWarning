@@ -1,6 +1,7 @@
 const { resolve } = require;
 
 const OFF = 0;
+const WARNING = 1;
 const ERROR = 2;
 
 module.exports = {
@@ -59,9 +60,13 @@ module.exports = {
         js: 'never',
       },
     ],
-
+    'import/no-cycle': OFF,
+    'import/prefer-default-export': WARNING,
+    // 模块导入顺序要求
+    'import/order': WARNING,
+    // 命名要求
     'unicorn/filename-case': [
-      ERROR,
+      WARNING,
       {
         cases: {
           // 中划线
@@ -69,7 +74,7 @@ module.exports = {
           // 小驼峰
           camelCase: true,
           // 下划线
-          snakeCase: false,
+          snakeCase: true,
           // 大驼峰
           pascalCase: true,
         },
@@ -80,7 +85,9 @@ module.exports = {
     'unicorn/prevent-abbreviations': OFF,
     'unicorn/no-process-exit': OFF,
     // Prefer `.querySelector()` over `.getElementById()`
-    'unicorn/prefer-query-selector': OFF,
+    'unicorn/prefer-query-selector': ERROR,
+    // Prefer `error` over `err` in Promise-catch-code-block
+    'unicorn/catch-error-name': WARNING,
 
     '@typescript-eslint/explicit-function-return-type': OFF,
     '@typescript-eslint/no-explicit-any': OFF,
@@ -91,6 +98,8 @@ module.exports = {
     // 是否允许空接口
     '@typescript-eslint/no-empty-interface': OFF,
     '@typescript-eslint/no-this-alias': OFF,
+    // 是否允许多余的类型注解
+    '@typescript-eslint/no-inferrable-types': WARNING,
 
     'react/jsx-filename-extension': [ERROR, { extensions: ['.tsx'] }],
     'react/jsx-indent-props': [ERROR, 2],
@@ -100,7 +109,7 @@ module.exports = {
     'react/require-default-props': OFF,
     // 是否要求有必要的写成纯函数的组件
     // 'react/prefer-stateless-function': [2, { ignorePureComponents: true }],
-    'react/prefer-stateless-function': OFF,
+    'react/prefer-stateless-function': WARNING,
     // 是否要求有必要的自闭合标签
     'react/self-closing-comp': OFF,
     // State initialization should be in a constructor
@@ -108,7 +117,8 @@ module.exports = {
     // Must use destructuring state assignment
     'react/destructuring-assignment': OFF,
     // 是否允许组件有未使用的 state
-    'react/no-unused-state': OFF,
+    'react/no-unused-state': WARNING,
+    'react/display-name': WARNING,
 
     'func-names': OFF,
     'lines-between-class-members': OFF,
@@ -121,9 +131,22 @@ module.exports = {
     'no-unused-expressions': OFF,
     'no-use-before-define': OFF,
     'no-useless-constructor': OFF,
+    'no-script-url': OFF,
+    // 在 else 前是否有 return, allowElseIf: true (默认) 允许在 return 之后有 else if 块
+    'no-else-return': [WARNING, { allowElseIf: true }],
+    'no-restricted-syntax': WARNING,
 
     'space-before-function-paren': OFF,
     'dot-notation': [2, { allowKeywords: true, allowPattern: '' }],
+    'consistent-return': OFF,
+    'promise/always-return': WARNING,
+    'jsx-a11y/anchor-is-valid': [
+      WARNING,
+      {
+        components: ['Link'],
+        specialLink: ['to'],
+      },
+    ],
   },
   overrides: [
     {

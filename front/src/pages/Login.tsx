@@ -4,14 +4,18 @@ import { Form, Input, Button, Checkbox, Row, Col, Card, message } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import bgImg from '../../public/login_background.jpg'; // 需要 file-loader
 import { setToken } from '../utils/authorize';
-// import { loginApi } from '../services/authorize';
+import { loginApi } from '../services/authorize';
+import { changeUserInfoActionCreator } from '../redux/actionCreator';
+import store from '@/redux/store';
+
+const bg = 'https://vuhe.oss-cn-hangzhou.aliyuncs.com/sw/login_background.jpg';
 
 // 背景样式
 const bgImgStyle: CSSProperties = {
   position: 'absolute',
   width: '100%',
   height: '100%',
-  backgroundImage: `url(${bgImg})`,
+  backgroundImage: `url(${bg})`,
   backgroundRepeat: 'no-repeat',
   backgroundSize: '100% 100%',
 };
@@ -21,31 +25,34 @@ class Login extends React.Component<any, any> {
   onFinish = (values: { username: string; password: string; remember: boolean }) => {
     const { history } = this.props;
     // 测试使用
-    if (values.username === '123' && values.password === '123') {
-      setToken(values.username);
-      history.push('/index');
-      message.success('登录成功');
-    } else {
-      message.error('登录失败');
-    }
+    // if (values.username === '123' && values.password === '123') {
+    //   setToken(values.username);
+    //   history.push('/index');
+    //   message.success('登录成功');
+    // } else {
+    //   message.error('登录失败');
+    // }
 
-    /**
-     * 登录
-     */
-    // loginApi({
-    //   username: values.username,
-    //   password: values.password,
-    // })
-    //   .then((res) => {
-    //     message.success('登录成功');
-    //     history.push('/index/global');
-    //     setToken(values.username);
-    //     console.log(res);
-    //   })
-    //   .catch((err) => {
-    //     message.error('登录失败');
-    //     console.log(err);
-    //   });
+    // 登录
+    loginApi({
+      username: values.username,
+      password: values.password,
+    })
+      .then((res) => {
+        // console.log(res.data);
+        if (res.data.message === 'success') {
+          message.success('登录成功');
+          history.push('/index/global');
+          setToken(res.data.data);
+          store.dispatch(changeUserInfoActionCreator({ username: values.username }));
+        } else {
+          message.info(res);
+        }
+      })
+      .catch((err) => {
+        message.error('登录失败');
+        console.log(err);
+      });
   };
 
   render() {
@@ -55,14 +62,15 @@ class Login extends React.Component<any, any> {
           <Col span={9}></Col>
           <Col span={6}>
             <Card
-              title="登录"
+              title="电气火灾智慧预警平台"
               size="small"
               bordered
+              extra={<a>登录</a>}
               style={{
                 width: 380,
                 borderRadius: '8px',
                 background: '#fafafa',
-                boxShadow: '5px 5px 10px #52b8d5, -5px -5px 10px #70f8ff',
+                boxShadow: '7px 7px 22px #c4c4c4, -7px -7px 22px #ffffff',
               }}
             >
               <Form
