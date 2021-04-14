@@ -15,6 +15,6 @@ interface UserLogMapper: BaseMapper<UserLogDAO> {
      *
      * @return 视图信息
      */
-    @Select("select * from user_log_view")
+    @Select("select * from user_log_view order by change_time desc")
     fun selectAllLog(): List<UserLogVO>
 }

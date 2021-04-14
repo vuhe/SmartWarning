@@ -52,8 +52,9 @@ dependencies {
     // 单片机连接
     implementation("io.netty:netty-all:4.1.60.Final")
 
-    // websocket
-    implementation("org.springframework.boot:spring-boot-starter-websocket")
+    // redis 缓存
+    implementation("org.springframework.boot:spring-boot-starter-data-redis")
+    implementation("org.apache.commons:commons-pool2:2.9.0")
 
     // 权限管理
     implementation("org.springframework.boot:spring-boot-starter-security")

@@ -2,8 +2,10 @@ package top.vuhe.sw.common.util
 
 import org.springframework.web.context.request.RequestContextHolder
 import org.springframework.web.context.request.ServletRequestAttributes
+import top.vuhe.sw.common.ApiResponse
 import java.util.*
 import javax.servlet.http.HttpServletRequest
+import javax.servlet.http.HttpServletResponse
 
 fun getHttpServletRequest(): HttpServletRequest {
     return (Objects.requireNonNull(RequestContextHolder.getRequestAttributes()) as ServletRequestAttributes).request
@@ -18,4 +20,15 @@ fun getDomain(): String {
 fun getOrigin(): String? {
     val request = getHttpServletRequest()
     return request.getHeader("Origin")
+}
+
+fun send(response: HttpServletResponse, data: ApiResponse<*>) {
+    response.characterEncoding = "UTF-8"
+    response.contentType = "application/json; charset=utf-8"
+    response.setHeader("Access-Control-Allow-Credentials", "true")
+    response.setHeader("Access-Control-Allow-Origin", getOrigin())
+    response.writer.use { out ->
+        out.append(toJson(data))
+        out.flush()
+    }
 }
