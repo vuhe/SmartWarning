@@ -2,22 +2,15 @@ import React from 'react';
 import { List, Typography, Divider, Descriptions } from 'antd';
 import { WarningOutlined } from '@ant-design/icons';
 
-const data = [
-  'Racing car sprays burning fuel into crowd.',
-  'Japanese princess to wed commoner.',
-  'Australian walks 100km after outback crash.',
-  'Man charged over missing wedding girl.',
-  'Los Angeles battles huge wildfires.',
-];
-
-export default React.memo(function Waring() {
+export default React.memo(function Waring(props: any) {
+  const { warningMessage } = props;
   return (
     <>
       <Descriptions
         title={
           <Divider orientation="left">
             <WarningOutlined />
-            <p style={{ color: 'red' }}>最近一次警报</p>
+            <a style={{ color: 'red' }}>最近一次警报</a>
             发生在一小时前
           </Divider>
         }
@@ -35,10 +28,10 @@ export default React.memo(function Waring() {
       <div style={{ height: '150px', overflow: 'auto', background: '#EEEEEE' }}>
         <List
           bordered
-          dataSource={data}
-          renderItem={(item) => (
+          dataSource={warningMessage}
+          renderItem={(item: { type: string; message: string }) => (
             <List.Item>
-              <Typography.Text mark>[ITEM]</Typography.Text> {item}
+              <Typography.Text mark> [{item.type}]</Typography.Text>：{item.message}
             </List.Item>
           )}
         />

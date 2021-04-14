@@ -1,5 +1,5 @@
 import React from 'react';
-import { Layout, Typography, Divider } from 'antd';
+import { Layout, Typography } from 'antd';
 
 const { Footer } = Layout;
 
@@ -12,9 +12,9 @@ const SWFooter = () => {
           fontSize: 13,
         }}
       >
-        <a href="#">京ICP备********号-3</a>
-        <Divider type="vertical" />
-        <a href="#">京公网安备**************</a>
+        <a href="http://beian.miit.gov.cn/" target="_blank" rel="noreferrer">
+          豫ICP备19043858号
+        </a>
       </Typography.Text>
     </Footer>
   );

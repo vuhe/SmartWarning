@@ -15,16 +15,17 @@ import {
 import { FormOutlined, CloseCircleOutlined, UserOutlined, LockOutlined } from '@ant-design/icons';
 import { getAllUserList, addUser } from '@/services/user';
 import SWFooter from '@/components/SWFooter';
+import store from '@/redux/store';
 
 const { Content } = Layout;
 
 class User extends React.Component<any, any> {
   state = {
     visible: false,
-    userinfo: {
-      type: '超级管理员',
+    userInfo: {
+      username: '',
+      type: 'admin',
       id: '2018001',
-      name: '_lax',
       authority: ['all'],
       status: '正常登入使用中',
     },
@@ -80,6 +81,17 @@ class User extends React.Component<any, any> {
         ),
       },
     ],
+  };
+
+  constructor(props: any) {
+    super(props);
+    // 订阅Redux的状态
+    store.subscribe(this.storeChange);
+  }
+
+  // 状态改变
+  storeChange = () => {
+    this.setState(store.getState());
   };
 
   componentDidMount = (): void => {
@@ -144,15 +156,15 @@ class User extends React.Component<any, any> {
         <Layout>
           <Content style={{ margin: '0 4px 0px 4px' }}>
             <div style={{ padding: 16, background: '#fff', minHeight: 370 }}>
-              <Descriptions title={<h2>{this.state.userinfo.name}</h2>} bordered>
-                <Descriptions.Item label="用户名">{this.state.userinfo.name}</Descriptions.Item>
-                <Descriptions.Item label="id">{this.state.userinfo.id}</Descriptions.Item>
-                <Descriptions.Item label="用户类型">{this.state.userinfo.type}</Descriptions.Item>
+              <Descriptions title={<h2>{this.state.userInfo.username}</h2>} bordered>
+                <Descriptions.Item label="用户名">{this.state.userInfo.username}</Descriptions.Item>
+                <Descriptions.Item label="id">{this.state.userInfo.id}</Descriptions.Item>
+                <Descriptions.Item label="用户类型">{this.state.userInfo.type}</Descriptions.Item>
                 <Descriptions.Item label="权限" span={2}>
-                  {this.state.userinfo.authority}
+                  {this.state.userInfo.authority}
                 </Descriptions.Item>
                 <Descriptions.Item label="用户状态" span={1}>
-                  {this.state.userinfo.status}
+                  {this.state.userInfo.status}
                 </Descriptions.Item>
                 <Descriptions.Item label="备注">
                   ********************

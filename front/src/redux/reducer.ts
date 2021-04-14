@@ -1,4 +1,4 @@
-import { SWITCH_MENU_ITEM } from './actions';
+import { SWITCH_MENU_ITEM, CHANGE_USERINFO } from './actions';
 
 // 默认 state
 const defaultState = {
@@ -18,6 +18,12 @@ const reducer = (state: any = defaultState, action: any): any => {
       // 深度拷贝state
       const newState = JSON.parse(JSON.stringify(state));
       newState.navigatorCurrent = action.key;
+      return newState;
+    }
+
+    case CHANGE_USERINFO: {
+      const newState = JSON.parse(JSON.stringify(state));
+      newState.userInfo = action.user;
       return newState;
     }
 

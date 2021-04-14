@@ -1,7 +1,7 @@
 import React from 'react';
 import { Layout, Menu, Anchor } from 'antd';
 import { Link, withRouter, RouteComponentProps } from 'react-router-dom';
-import { CreditCardOutlined } from '@ant-design/icons';
+import { AreaChartOutlined, BarChartOutlined } from '@ant-design/icons';
 import { metersRoutes } from '@/router/routers';
 import SWFooter from '@/components/SWFooter';
 
@@ -19,9 +19,10 @@ class StatisticLayout extends React.Component<any, any> {
       <Layout>
         <Sider width={144} theme="light" style={{ minHeight: '92vh' }}>
           <Anchor>
-            <Menu theme="light" mode="inline" defaultSelectedKeys={['tables']} inlineCollapsed>
+            <Menu theme="light" mode="inline" defaultSelectedKeys={['tables']}>
               <Menu.Item key="tables">
                 <Link to="/index/statistic/all">
+                  <AreaChartOutlined />
                   <span>总数据</span>
                 </Link>
               </Menu.Item>
@@ -29,7 +30,7 @@ class StatisticLayout extends React.Component<any, any> {
                 key="index"
                 title={
                   <span>
-                    <CreditCardOutlined />
+                    <BarChartOutlined />
                     <span>#15号宿舍楼</span>
                   </span>
                 }
@@ -50,8 +51,8 @@ class StatisticLayout extends React.Component<any, any> {
                 key="#14"
                 title={
                   <span>
-                    <CreditCardOutlined />
-                    <span>#14号宿舍楼</span>
+                    <BarChartOutlined />
+                    <span>#14号楼设备数据</span>
                   </span>
                 }
               >

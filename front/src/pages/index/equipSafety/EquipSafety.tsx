@@ -22,54 +22,42 @@ const { Panel } = Collapse;
 
 const messages = [
   {
-    meterName: '传感器#1001',
+    meterName: '14号宿舍楼一楼设备#1001',
     safeOfficer: '_chan_',
     location: '#14号宿舍楼14549',
     status: 1,
     record: `已处理电流值超标8%警报（2小时前）`,
   },
   {
-    meterName: '传感器#1002',
+    meterName: '14号宿舍楼一楼设备#1002',
     safeOfficer: '_chenyh',
     location: '#14号宿舍楼14550',
     status: 1,
     record: `已处理电流值超标10%警报（3小时前）`,
   },
   {
-    meterName: '传感器#1003',
+    meterName: '14号宿舍楼一楼设备#1003',
     safeOfficer: '_chad',
     location: '#15号宿舍楼15551',
     status: 1,
-    record: `Data disk type: MongoDB
-    Database version: 3.4
-    Package: dds.mongo.mid
-    Storage space: 10 GB
-    Replication factor: 3`,
+    record: `已处理电流值超标10%警报（5小时前）`,
   },
   {
-    meterName: '传感器#1004',
+    meterName: '14号宿舍楼一楼设备#1004',
     safeOfficer: '_liu',
     location: '#14号宿舍楼14552',
     status: 0,
-    record: `Data disk type: MongoDB
-    Database version: 3.4
-    Package: dds.mongo.mid
-    Storage space: 10 GB
-    Replication factor: 3`,
+    record: `已处理电流值超标10%警报（6小时前）`,
   },
   {
-    meterName: '传感器#1005',
+    meterName: '14号宿舍楼一楼设备#1005',
     safeOfficer: '_wang',
     location: '#14号宿舍楼14553',
     status: 0,
-    record: `Data disk type: MongoDB
-    Database version: 3.4
-    Package: dds.mongo.mid
-    Storage space: 10 GB
-    Replication factor: 3`,
+    record: `已处理电流值超标10%警报（7小时前）`,
   },
   {
-    meterName: '传感器#1006',
+    meterName: '14号宿舍楼一楼设备#1006',
     safeOfficer: '_lax',
     location: '#14号宿舍楼14554',
     status: 1,
@@ -170,6 +158,7 @@ const columns = [
   },
 ];
 
+// 设备安全页面
 class EquipSafety extends React.Component<any, any> {
   state = { meterMessage: messages[0] };
 

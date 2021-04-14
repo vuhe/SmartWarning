@@ -22,6 +22,50 @@ import ChinaMap from './maps/ChinaMap';
 
 const { Panel } = Collapse;
 const data = ['发出了警告.', '发出警告.', '发出警告.', '发出警告.', '发出警告.'];
+// 警告模拟信息
+const warningMessage = [
+  {
+    type: '危险',
+    message: '14号宿舍楼一层火灾风险系数升高 20%',
+  },
+  {
+    type: '警告',
+    message: '15号宿舍楼四层设备电流值偏差较大',
+  },
+  {
+    type: '警告',
+    message: '14号宿舍楼一层烟感设备未联网',
+  },
+  {
+    type: '警告',
+    message: '14号宿舍楼二层电压设备未联网',
+  },
+];
+
+// 待办事项模拟信息
+const schedule = [
+  {
+    title: '待办事项一',
+    message: '请检查14号宿舍楼烟感设备',
+    tagIcon: CloseCircleOutlined,
+    tagColor: 'error',
+    time: '一小时前',
+  },
+  {
+    title: '待办事项二',
+    message: '请检查14号宿舍二层电表是否联网',
+    tagIcon: ExclamationCircleOutlined,
+    tagColor: 'warning',
+    time: '三小时前',
+  },
+  {
+    title: '待办事项三',
+    message: '请检查15号宿舍楼电表连接是否正常',
+    tagIcon: CloseCircleOutlined,
+    tagColor: 'warning',
+    time: '一天前',
+  },
+];
 
 export interface GlobalIndexPageState {
   /** 控制日志 Drawer 是否显示 */
@@ -43,15 +87,12 @@ class GlobalIndexPages extends React.Component<any, GlobalIndexPageState> {
    * 组件加载完成后执行
    */
   componentDidMount() {
-    /** echarts 加载折线图 */
-    // const myCharts = echarts.init(document.querySelector('#myEcharts') as HTMLElement, 'dark');
-    // myCharts.setOption(riskMapOption);
     Modal.warning({
       title: '今日风险警告信息',
       closable: true,
       content: (
         <>
-          <Warning />
+          <Warning warningMessage={warningMessage} />
         </>
       ),
       width: 800,
@@ -95,24 +136,17 @@ class GlobalIndexPages extends React.Component<any, GlobalIndexPageState> {
             <Row>
               <Col span={16}>
                 <div style={{ height: '100px', overflow: 'auto', background: '#EEEEEE' }}>
-                  <Typography.Text mark>[危险]</Typography.Text>
-                  ：***火灾风险系数升高80%
-                  <br />
-                  <Typography.Text mark>[警告]</Typography.Text>：***设备电流不正常
-                  <br />
-                  <Typography.Text mark>[警告]</Typography.Text>：***设备烟雾报警
-                  <br />
-                  <Typography.Text mark>[警告]</Typography.Text>：***设备电压不正常
-                  <br />
-                  <Typography.Text mark>[警告]</Typography.Text>：***设备低压
-                  <br />
-                  <Typography.Text mark>[警告]</Typography.Text>：***设备温感75C°
-                  <br />
-                  <Typography.Text mark>[危险]</Typography.Text>
-                  ：***设备电流不正常
-                  <br />
-                  <Typography.Text mark>[危险]</Typography.Text>
-                  ：***火灾风险系数升高60%
+                  {warningMessage.map((item: { type: string; message: string }) => {
+                    return (
+                      <>
+                        <Typography.Text key={item.type + item.message} mark>
+                          [{item.type}]
+                        </Typography.Text>
+                        ：{item.message}
+                        <br />
+                      </>
+                    );
+                  })}
                 </div>
               </Col>
               <Col span={8}>
@@ -160,39 +194,21 @@ class GlobalIndexPages extends React.Component<any, GlobalIndexPageState> {
               <Button onClick={this.openEquipmentDrawer}>待办事项</Button>
             </Divider>
             <Collapse accordion={false} bordered ghost>
-              <Panel
-                header="待办事项一"
-                key="1"
-                extra={
-                  <Tag icon={<CloseCircleOutlined />} color="error">
-                    一小时前
-                  </Tag>
-                }
-              >
-                <p>待办事项一</p>
-              </Panel>
-              <Panel
-                header="待办事项二"
-                key="2"
-                extra={
-                  <Tag icon={<ExclamationCircleOutlined />} color="warning">
-                    三小时前
-                  </Tag>
-                }
-              >
-                <p>待办事项二</p>
-              </Panel>
-              <Panel
-                header="待办事项三"
-                key="3"
-                extra={
-                  <Tag icon={<ExclamationCircleOutlined />} color="warning">
-                    一天前
-                  </Tag>
-                }
-              >
-                <p>待办事项三</p>
-              </Panel>
+              {schedule.map((item: any) => {
+                return (
+                  <Panel
+                    key={item.title + item.message}
+                    header={item.title}
+                    extra={
+                      <Tag icon={<item.tagIcon />} color={item.tagColor}>
+                        {item.time}
+                      </Tag>
+                    }
+                  >
+                    <p>{item.message}</p>
+                  </Panel>
+                );
+              })}
             </Collapse>
           </Col>
 

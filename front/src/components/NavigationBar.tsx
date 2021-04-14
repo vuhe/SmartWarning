@@ -2,9 +2,10 @@ import React from 'react';
 import { withRouter, Link } from 'react-router-dom';
 import { Menu, Dropdown, Input, Row, Col, Modal, Anchor, message, Calendar, Popover } from 'antd';
 import {
-  MailOutlined,
-  AppstoreOutlined,
-  SettingOutlined,
+  HomeOutlined,
+  SafetyOutlined,
+  LineChartOutlined,
+  BarsOutlined,
   UserOutlined,
   ExclamationCircleOutlined,
 } from '@ant-design/icons';
@@ -99,20 +100,20 @@ class NavigationBar extends React.Component<any, NavigationBarState> {
                 mode="horizontal"
                 theme="light"
               >
-                <Menu.Item key="index" icon={<MailOutlined />}>
+                <Menu.Item key="index" icon={<HomeOutlined />}>
                   <Link to="/index/global">主页</Link>
                 </Menu.Item>
-                <Menu.Item key="equip_safety" icon={<MailOutlined />}>
+                <Menu.Item key="equip_safety" icon={<SafetyOutlined />}>
                   <Link to="/index/equip_safety">设备安全</Link>
                 </Menu.Item>
-                <Menu.Item key="statistic" icon={<AppstoreOutlined />}>
+                <Menu.Item key="statistic" icon={<LineChartOutlined />}>
                   <Link to="/index/statistic">数据检测</Link>
                 </Menu.Item>
 
-                <SubMenu key="more" title="更多" icon={<SettingOutlined />}>
-                  {moreRoutes.children.map((item: { path: string; title: string }) => {
+                <SubMenu key="more" title="更多" icon={<BarsOutlined />}>
+                  {moreRoutes.children.map((item: any) => {
                     return (
-                      <Menu.Item key={item.path}>
+                      <Menu.Item key={item.path} icon={item.icon && <item.icon />}>
                         <Link to={item.path}>{item.title}</Link>
                       </Menu.Item>
                     );

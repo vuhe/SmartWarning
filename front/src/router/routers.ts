@@ -1,3 +1,9 @@
+import {
+  LineChartOutlined,
+  OrderedListOutlined,
+  ScheduleOutlined,
+  PieChartOutlined,
+} from '@ant-design/icons';
 import Login from '../pages/Login';
 import PageNotFound from '../pages/PageNotFound';
 import Charts from '../pages/index/statistic/charts/Charts';
@@ -19,35 +25,35 @@ export const metersRoutes: SmartWarning.routeType[] = [
     path: '/index/statistic/charts/10',
     exact: true,
     component: Charts,
-    title: '#电表10',
+    title: '#一楼设备信息',
     isShow: true,
   },
   {
     path: '/index/statistic/charts/11',
     exact: true,
     component: Charts,
-    title: '#电表11',
+    title: '#二楼设备信息',
     isShow: true,
   },
   {
     path: '/index/statistic/charts/12',
     exact: true,
     component: Charts,
-    title: '#电表12',
+    title: '#三楼设备信息',
     isShow: true,
   },
   {
     path: '/index/statistic/charts/13',
     exact: true,
     component: Charts,
-    title: '#电表13',
+    title: '#四楼设备信息',
     isShow: true,
   },
   {
     path: '/index/statistic/charts/14',
     exact: true,
     component: Charts,
-    title: '#电表14',
+    title: '#五楼设备信息',
     isShow: true,
   },
 ];
@@ -93,10 +99,34 @@ export const routes: SmartWarning.routeType[] = [
         component: MoreRoute,
         title: '更多',
         children: [
-          { path: '/index/more/risk', exact: true, component: Risk, title: '今日风险图' },
-          { path: '/index/more/schedule', exact: true, component: Schedule, title: '待办事项' },
-          { path: '/index/more/equipment', exact: true, component: Equipment, title: '设备信息' },
-          { path: '/index/more/log', exact: true, component: Log, title: '日志记录' },
+          {
+            path: '/index/more/risk',
+            exact: true,
+            component: Risk,
+            title: '今日风险图',
+            icon: LineChartOutlined,
+          },
+          {
+            path: '/index/more/schedule',
+            exact: true,
+            component: Schedule,
+            title: '待办事项',
+            icon: ScheduleOutlined,
+          },
+          {
+            path: '/index/more/equipment',
+            exact: true,
+            component: Equipment,
+            title: '设备信息',
+            icon: PieChartOutlined,
+          },
+          {
+            path: '/index/more/log',
+            exact: true,
+            component: Log,
+            title: '日志记录',
+            icon: OrderedListOutlined,
+          },
         ],
       },
       {
