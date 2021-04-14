@@ -1,13 +1,12 @@
 package top.vuhe.portal.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import top.vuhe.common.ApiResponse;
-import top.vuhe.entity.User;
+import top.vuhe.entity.auth.User;
 import top.vuhe.portal.service.intf.UserService;
+
+import java.util.List;
 
 /**
  * @author zhuhe
@@ -19,13 +18,34 @@ public class UserController {
     private UserService userService;
 
     /**
-     * 通过 id 获取用户信息
-     *
-     * @param id id
-     * @return user
+     * 获取用户信息列表
      */
-    @GetMapping("/get")
-    public ApiResponse<User> getUserInfoById(@RequestParam("id") Integer id) {
-        return ApiResponse.ofSuccessWithDate(userService.getUserInfoById(id));
+    @GetMapping("/getList")
+    public ApiResponse<List<User>> getUserList() {
+        return ApiResponse.ofSuccessWithDate(userService.getUserList());
+    }
+
+    /**
+     * 添加用户
+     */
+    @PostMapping("/add")
+    public ApiResponse<?> addUser(@RequestBody User user) {
+        return userService.saveUser(user, false);
+    }
+
+    /**
+     * 修改用户
+     */
+    @PutMapping("/modify")
+    public ApiResponse<?> modifyUserById(@RequestBody User user) {
+        return userService.saveUser(user, true);
+    }
+
+    /**
+     * 删除用户
+     */
+    @DeleteMapping("/delete")
+    public ApiResponse<?> deleteUser(@RequestBody User user) {
+        return userService.deleteUser(user);
     }
 }

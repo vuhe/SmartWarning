@@ -2,6 +2,7 @@ import React, { CSSProperties } from 'react';
 import { withRouter } from 'react-router-dom';
 import { Form, Input, Button, Checkbox, Row, Col, Card, message } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
+import bgImg from '../../public/login_background.jpg'; // 需要 file-loader
 import { setToken } from '../utils/authorize';
 import { loginApi } from '../services/authorize';
 import { changeUserInfoActionCreator } from '../redux/actionCreator';

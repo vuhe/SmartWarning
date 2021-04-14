@@ -1,0 +1,8 @@
+{
+  "properties": [
+    {
+      "name": "netty.port",
+      "type": "java.lang.Integer",
+      "description": "定义和物联网设备连接的端口."
+  }
+] }
