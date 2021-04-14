@@ -28,7 +28,6 @@ class MeterChart extends React.Component<any, any> {
 
   render() {
     const { title } = this.props;
-    console.log(title);
 
     // 未引入实际数据，暂时使用模拟数据 config
     const config = title === '总电表数据' || title === '数据页面' ? allMeterConfig : riskDataConfig;

@@ -4,17 +4,27 @@ import { CheckOutlined, CloseOutlined } from '@ant-design/icons';
 
 const { Title } = Typography;
 
-const listData: any[] = [];
+// 待办事项模拟信息
+const scheduleListData = [
+  {
+    title: '待办事项一',
+    description: '请检查14号宿舍楼烟感设备',
+    content: '123',
+  },
+  {
+    title: '待办事项二',
+    description: '请检查14号宿舍二层电表是否联网',
+    content: '123',
+  },
+  {
+    title: '待办事项三',
+    description: '请检查15号宿舍楼电表连接是否正常',
+    content: '123',
+  },
+];
 
 class Schedule extends React.Component<any, any> {
   render() {
-    for (let i = 1; i < 23; i++) {
-      listData.push({
-        title: `待办事项标题 ${i}`,
-        description: `待办事项具体描述 ${i}`,
-        content: '123',
-      });
-    }
     return (
       <>
         <List
@@ -27,7 +37,7 @@ class Schedule extends React.Component<any, any> {
             },
             pageSize: 5,
           }}
-          dataSource={listData}
+          dataSource={scheduleListData}
           header={<Title level={3}>待办事项</Title>}
           renderItem={(item) => (
             <List.Item
@@ -42,7 +52,7 @@ class Schedule extends React.Component<any, any> {
                 </Space>
               }
             >
-              <List.Item.Meta title={<a href="/#">{item.title}</a>} description="待办事项" />
+              <List.Item.Meta title={<a>{item.title}</a>} description={item.description} />
             </List.Item>
           )}
         />

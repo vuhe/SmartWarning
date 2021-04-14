@@ -1,3 +1,6 @@
+// 导入自定义 ts 类型文件
+import * as SmartWarning from './global';
+
 declare module '*.svg' {
   import * as React from 'react';
 

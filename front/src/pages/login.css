@@ -1,0 +1,9 @@
+/* 背景样式 */
+.bgImgStyle {
+  position: 'absolute';
+  width: '100%';
+  height: '100%';
+  background-image: url('https://vuhe.oss-cn-hangzhou.aliyuncs.com/sw/login_background.jpg');
+  background-repeat: 'no-repeat';
+  background-size: '100% 100%';
+}

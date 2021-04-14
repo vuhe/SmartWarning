@@ -57,6 +57,7 @@ const config: PieConfig = {
     content: '{value}',
     style: {
       textAlign: 'center',
+      fontColor: 'black',
       fontSize: 14,
     },
     autoRotate: false,
