@@ -11,7 +11,7 @@ const MapScene = React.memo(function Map() {
   return (
     <AMapScene
       map={{
-        center: [113.800288, 34.787612],
+        center: [113.794845, 34.780584],
         pitch: 20,
         style: 'light',
         zoom: 16,

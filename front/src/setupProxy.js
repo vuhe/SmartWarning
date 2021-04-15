@@ -13,5 +13,3 @@ module.exports = function (app) {
     }),
   );
 };
-
-console.log('setupProxy...');

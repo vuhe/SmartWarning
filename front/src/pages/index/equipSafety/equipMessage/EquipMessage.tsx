@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, Tooltip, Descriptions, Badge } from 'antd';
+import { Card, Tooltip, Descriptions } from 'antd';
 import { WifiOutlined } from '@ant-design/icons';
 
 export default React.memo(function EquipMessage(props: any) {
@@ -26,12 +26,7 @@ export default React.memo(function EquipMessage(props: any) {
         <Descriptions.Item label="安全员(维护人员)" span={2}>
           {safeOfficer}
         </Descriptions.Item>
-        <Descriptions.Item label="状态">
-          <Badge
-            status={status ? 'processing' : 'default'}
-            text={status ? 'Running' : 'Not Running'}
-          />
-        </Descriptions.Item>
+        <Descriptions.Item label="状态">{status ? '设备已联网' : '设备未联网'}</Descriptions.Item>
         <Descriptions.Item label="位置" span={2}>
           {location}
         </Descriptions.Item>

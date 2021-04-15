@@ -1,4 +1,11 @@
-import { get, post, BASE_URL_1 } from '../utils/request';
+import { get, post, put, deleteRequest, BASE_URL_1 } from '../utils/request';
+
+// 用户类型
+type User = {
+  username: string;
+  password: string;
+  role: string;
+};
 
 /**
  * 获得所有用户列表
@@ -10,11 +17,29 @@ export function getAllUserList(): Promise<any> {
 
 /**
  * 添加一名用户
- * @param user {{ username: string; password: string }}
+ * @param user {User}
  * @returns {Promise<any>}
  */
-export function addUser(user: { username: string; password: string; role: string }): Promise<any> {
+export function addUser(user: User): Promise<any> {
   return post(`${BASE_URL_1}/api/user/add`, user);
+}
+
+/**
+ * 修改一名用户
+ * @param user
+ * @returns {Promise<any>}
+ */
+export function modifyUser(user: User): Promise<any> {
+  return put(`${BASE_URL_1}/api/user/modify`, user);
+}
+
+/**
+ * 删除一个用户
+ * @param user 要删除的用户信息
+ * @returns {Promise<any>}
+ */
+export function deleteUser(user: User): Promise<any> {
+  return deleteRequest(`${BASE_URL_1}/api/user/delete`, user);
 }
 
 /**
