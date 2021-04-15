@@ -63,7 +63,6 @@ class ServerHandler(private val bufferChannel: BufferChannel) :
         if (data != null) {
             bufferChannel.offer(data)
         }
-
     }
 
     override fun channelReadComplete(ctx: ChannelHandlerContext) {
