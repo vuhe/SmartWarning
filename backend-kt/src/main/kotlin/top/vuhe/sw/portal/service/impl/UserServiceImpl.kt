@@ -1,6 +1,7 @@
 package top.vuhe.sw.portal.service.impl
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.security.core.userdetails.UserDetails
@@ -28,17 +29,30 @@ class UserServiceImpl :
 
     override fun saveUser(user: User, isModify: Boolean): ApiResponse<*> {
         val u = user.copy(
-            id = if (isModify) user.id else null,
+            id = null,
             password = encoder.encode(user.password.trim())
         )
 
-        return if (saveOrUpdate(u)) ApiResponse.ofSuccess()
-        else ApiResponse.ofErrorEnum(ExceptionEnum.DATA_ERROR)
+        if (isModify) {
+            val updateWrapper = UpdateWrapper<User>()
+            updateWrapper.eq("username", user.username)
+            if (update(u, updateWrapper).not()) {
+                return ApiResponse.ofErrorEnum(ExceptionEnum.USERNAME_ERROR)
+            }
+        } else {
+            if (save(u).not()) {
+                return ApiResponse.ofErrorEnum(ExceptionEnum.DATA_ERROR)
+            }
+        }
+
+        return ApiResponse.ofSuccess()
     }
 
     override fun deleteUser(user: User): ApiResponse<*> {
-        return if (removeById(user.id)) ApiResponse.ofSuccess()
-        else ApiResponse.ofErrorEnum(ExceptionEnum.DATA_ERROR)
+        val queryWrapper = QueryWrapper<User>()
+        queryWrapper.eq("username", user.username)
+        return if (remove(queryWrapper)) ApiResponse.ofSuccess()
+        else ApiResponse.ofErrorEnum(ExceptionEnum.USERNAME_ERROR)
     }
 
     override fun loadUserByUsername(username: String?): UserDetails {
