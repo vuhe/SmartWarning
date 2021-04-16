@@ -3,6 +3,7 @@ package top.vuhe.sw.common.channel
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
+import top.vuhe.sw.common.util.sendToMq
 import top.vuhe.sw.common.util.sendToRedisStream
 import top.vuhe.sw.entity.equipment.ElectricInfo
 import top.vuhe.sw.portal.service.ChannelService
@@ -39,6 +40,7 @@ class BufferChannel {
         if (realTimeInfo != null) {
             val realTime = channelService.getRealTimeInfo(realTimeInfo)
             sendToRedisStream(realTime)
+            sendToMq(realTime)
         }
 
         // 处理阈值信息
