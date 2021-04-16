@@ -10,7 +10,7 @@ import {
   ExclamationCircleOutlined,
 } from '@ant-design/icons';
 import { routes } from '../router/routers';
-import { setToken } from '../utils/authorize';
+import { isAdmin, setToken, setUserInfo } from '../utils/authorize';
 import getRoute from '../utils/routeUtils';
 import store from '../redux/store';
 import { changeMenuitemActionCreator } from '@/redux/actionCreator';
@@ -78,8 +78,15 @@ class NavigationBar extends React.Component<any, NavigationBarState> {
       okText: '确定',
       cancelText: '取消',
       onOk() {
+        /**
+         * 确定退出登录后:
+         * ## 跳转到 /login
+         * ## 设置本地 token 值为空 ''
+         * ## 设置本地用户信息 userInfo 值为 null
+         */
         history.push('/login');
         setToken('');
+        setUserInfo(null);
         message.success('退出登录成功');
       },
     });
@@ -154,10 +161,11 @@ class NavigationBar extends React.Component<any, NavigationBarState> {
             <Col span={2}>
               <Dropdown.Button
                 type="primary"
+                onClick={this.toUser}
                 overlay={
                   <Menu>
                     <Menu.Item onClick={this.toUser}>用户管理</Menu.Item>
-                    <Menu.Item onClick={this.toUserLog}>操作日志</Menu.Item>
+                    {isAdmin() ? <Menu.Item onClick={this.toUserLog}>操作日志</Menu.Item> : null}
                     <Menu.Item onClick={() => this.exit()}>退出登录</Menu.Item>
                   </Menu>
                 }

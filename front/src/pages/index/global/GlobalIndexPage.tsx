@@ -21,7 +21,13 @@ import Warning from '@/pages/index/global/Warning';
 import ChinaMap from './maps/ChinaMap';
 
 const { Panel } = Collapse;
-const data = ['发出了警告.', '发出警告.', '发出警告.', '发出警告.', '发出警告.'];
+const data = [
+  '发出危险预警(气温异常升高)',
+  '发出危险预警(收到烟雾报警)',
+  '发出危险预警(气温异常升高)',
+  '发出警告(电压过低)',
+  '发出警告(电压过低)',
+];
 // 警告模拟信息
 const warningMessage = [
   {
@@ -30,6 +36,10 @@ const warningMessage = [
   },
   {
     type: '警告',
+    message: '15号宿舍楼二层设备电压偏低',
+  },
+  {
+    type: '危险',
     message: '15号宿舍楼四层设备电流值偏差较大',
   },
   {
@@ -39,6 +49,10 @@ const warningMessage = [
   {
     type: '警告',
     message: '14号宿舍楼二层电压设备未联网',
+  },
+  {
+    type: '警告',
+    message: '14号宿舍楼六层设备电压偏低',
   },
 ];
 

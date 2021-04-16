@@ -1,5 +1,12 @@
 import { SWITCH_MENU_ITEM, CHANGE_USERINFO } from './actions';
 
+// 加载本地的 state 进行 defaultState 的初始化
+// const loadUserInfo = () => {
+//   const local = getUserInfo();
+//   console.log(local);
+//   return local;
+// };
+
 // 默认 state
 const defaultState = {
   userInfo: {},
@@ -12,7 +19,7 @@ const defaultState = {
  * @param action {Object} action
  * @returns
  */
-const reducer = (state: any = defaultState, action: any): any => {
+const reducer = (state: any = defaultState, action: any): (() => {}) => {
   switch (action.type) {
     case SWITCH_MENU_ITEM: {
       // 深度拷贝state

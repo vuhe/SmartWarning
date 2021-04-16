@@ -2,8 +2,7 @@ import React, { CSSProperties } from 'react';
 import { withRouter } from 'react-router-dom';
 import { Form, Input, Button, Checkbox, Row, Col, Card, message } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
-import bgImg from '../../public/login_background.jpg'; // 需要 file-loader
-import { setToken } from '../utils/authorize';
+import { setToken, setUserInfo } from '../utils/authorize';
 import { loginApi } from '../services/authorize';
 import { changeUserInfoActionCreator } from '../redux/actionCreator';
 import store from '@/redux/store';
@@ -24,29 +23,39 @@ const bgImgStyle: CSSProperties = {
 class Login extends React.Component<any, any> {
   onFinish = (values: { username: string; password: string; remember: boolean }) => {
     const { history } = this.props;
-    // 测试使用
-    // if (values.username === '123' && values.password === '123') {
-    //   setToken(values.username);
-    //   history.push('/index');
-    //   message.success('登录成功');
-    // } else {
-    //   message.error('登录失败');
-    // }
-
     // 登录
     loginApi({
       username: values.username,
       password: values.password,
     })
-      .then((res) => {
-        // console.log(res.data);
-        if (res.data.message === 'success') {
-          message.success('登录成功');
+      .then((res) => res.data)
+      .then((result) => {
+        // console.log(result);
+        switch (result.code) {
+          case 200:
+            message.success('登录成功');
+            const user = {
+              username: values.username,
+              status: '正常登入使用中',
+              type: values.username === 'admin' ? '超级管理员' : '用户',
+              authority: values.username === 'admin' ? ['ALL'] : ['NONE'],
+            };
+            // 本地存储用户信息
+            setUserInfo(user);
+            // redux 中存储用户信息
+            store.dispatch(changeUserInfoActionCreator(user));
+            return result.data;
+          case 405:
+            message.error('登录失败，请检查账号或密码！');
+            break;
+          default:
+            break;
+        }
+      })
+      .then((token) => {
+        if (typeof token !== 'undefined') {
+          setToken(token);
           history.push('/index/global');
-          setToken(res.data.data);
-          store.dispatch(changeUserInfoActionCreator({ username: values.username }));
-        } else {
-          message.info(res);
         }
       })
       .catch((err) => {

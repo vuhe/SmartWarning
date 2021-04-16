@@ -37,6 +37,7 @@ instance.interceptors.response.use(
     // Any status code that lie within the range of 2xx cause this function to trigger
     // Do something with response data
     // return response;
+    console.log(response);
     return response.data;
   },
   function (error) {
@@ -68,6 +69,37 @@ export function get(url: string, params?: any): Promise<any> {
  */
 export function post(url: string, data: any): Promise<any> {
   return axios.post(url, data, {
+    headers: {
+      'Content-Type': 'application/json;charset=utf-8',
+      Authorization: getToken(),
+    },
+  });
+}
+
+/**
+ * put请求
+ * @param url
+ * @param data
+ * @returns {Promise<any>}
+ */
+export function put(url: string, data: any): Promise<any> {
+  return axios.put(url, data, {
+    headers: {
+      'Content-Type': 'application/json;charset=utf-8',
+      Authorization: getToken(),
+    },
+  });
+}
+
+/**
+ * delete请求
+ * @param url
+ * @param data
+ * @returns {Promise<any>}
+ */
+export function deleteRequest(url: string, data: any): Promise<any> {
+  return axios.delete(url, {
+    data,
     headers: {
       'Content-Type': 'application/json;charset=utf-8',
       Authorization: getToken(),

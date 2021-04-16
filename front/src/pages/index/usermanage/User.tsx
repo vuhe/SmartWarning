@@ -13,74 +13,27 @@ import {
   message,
 } from 'antd';
 import { FormOutlined, CloseCircleOutlined, UserOutlined, LockOutlined } from '@ant-design/icons';
-import { getAllUserList, addUser } from '@/services/user';
+import { getAllUserList, addUser, deleteUser } from '@/services/user';
 import SWFooter from '@/components/SWFooter';
 import store from '@/redux/store';
+import { isAdmin } from '@/utils/authorize';
 
 const { Content } = Layout;
 
 class User extends React.Component<any, any> {
   state = {
+    // 添加用户信息模态框是否可见
     visible: false,
+    // 用户信息
     userInfo: {
       username: '',
       type: 'admin',
       id: '2018001',
-      authority: ['all'],
+      authority: ['NONE'],
       status: '正常登入使用中',
     },
+    // 管理用户列表
     userList: [],
-    columns: [
-      {
-        title: '用户名',
-        dataIndex: 'username',
-        key: 'username',
-      },
-      {
-        title: 'ID',
-        dataIndex: 'id',
-        key: 'id',
-      },
-      {
-        title: '用户类型',
-        dataIndex: 'role',
-        key: 'role',
-      },
-      {
-        title: '权限',
-        key: 'authority',
-        dataIndex: 'authority',
-        render: (tags: string[]): any => (
-          <>
-            {tags.map((tag: string) => {
-              let color = tag.length > 5 ? 'geekblue' : 'green';
-              if (tag === 'loser') {
-                color = 'volcano';
-              }
-              return (
-                <Tag color={color} key={tag}>
-                  {tag.toUpperCase()}
-                </Tag>
-              );
-            })}
-          </>
-        ),
-      },
-      {
-        title: '操作',
-        key: 'action',
-        render: (): any => (
-          <Space size="middle">
-            <Button type="primary" icon={<FormOutlined />}>
-              修改
-            </Button>
-            <Button type="primary" danger icon={<CloseCircleOutlined />}>
-              删除
-            </Button>
-          </Space>
-        ),
-      },
-    ],
   };
 
   constructor(props: any) {
@@ -91,11 +44,14 @@ class User extends React.Component<any, any> {
 
   // 状态改变
   storeChange = () => {
-    this.setState(store.getState());
+    this.setState(store.getState(), () => {
+      console.log(store.getState());
+    });
   };
 
   componentDidMount = (): void => {
-    this.getList();
+    if (isAdmin()) this.getList();
+    this.setState(store.getState());
   };
 
   // 获取所有用户信息
@@ -104,19 +60,20 @@ class User extends React.Component<any, any> {
     getAllUserList()
       .then((res) => res.data)
       .then((result) => {
-        if (result.message === 'success') {
+        // console.log(result);
+        if (result.code == 200) {
           this.setState({
             userList: result.data.map((item: any, index: number) => {
               if (item.role === 'User') item.role = '管理员';
               else item.role = '?';
               item.authority = ['null'];
               item.id = index;
+              item.key = item.username;
               return item;
             }),
           });
         } else {
-          // console.log(result);
-          message.error(result);
+          message.error(result.message);
         }
       })
       .catch((error) => {
@@ -131,6 +88,7 @@ class User extends React.Component<any, any> {
     });
   };
 
+  // 添加用户信息表单完成事件
   onFinish = (values: any): void => {
     console.log(values);
     addUser({ username: values.username, password: values.password, role: 'User' })
@@ -150,6 +108,17 @@ class User extends React.Component<any, any> {
       .catch((error) => console.log(error));
   };
 
+  // 删除处理方法
+  delete = (_username: string): any => {
+    console.log(_username);
+    deleteUser({ username: _username, password: ' ', role: 'User' });
+  };
+
+  // 修改处理方法
+  modify = (data: any) => {
+    console.log(data);
+  };
+
   render(): any {
     return (
       <>
@@ -157,44 +126,106 @@ class User extends React.Component<any, any> {
           <Content style={{ margin: '0 4px 0px 4px' }}>
             <div style={{ padding: 16, background: '#fff', minHeight: 370 }}>
               <Descriptions title={<h2>{this.state.userInfo.username}</h2>} bordered>
-                <Descriptions.Item label="用户名">{this.state.userInfo.username}</Descriptions.Item>
-                <Descriptions.Item label="id">{this.state.userInfo.id}</Descriptions.Item>
-                <Descriptions.Item label="用户类型">{this.state.userInfo.type}</Descriptions.Item>
-                <Descriptions.Item label="权限" span={2}>
-                  {this.state.userInfo.authority}
+                <Descriptions.Item key="用户名" label="用户名">
+                  {this.state.userInfo.username}
                 </Descriptions.Item>
-                <Descriptions.Item label="用户状态" span={1}>
+                <Descriptions.Item key="id" label="id">
+                  {/* {this.state.userInfo.id} */}**
+                </Descriptions.Item>
+                <Descriptions.Item key="用户类型" label="用户类型">
+                  {this.state.userInfo.type}
+                </Descriptions.Item>
+                <Descriptions.Item key="权限" label="权限" span={2}>
+                  {this.state.userInfo.authority[0] === 'ALL' ? (
+                    <Tag color="green">ALL</Tag>
+                  ) : (
+                    <Tag color="green">NONE</Tag>
+                  )}
+                </Descriptions.Item>
+                <Descriptions.Item key="用户状态" label="用户状态" span={1}>
                   {this.state.userInfo.status}
                 </Descriptions.Item>
-                <Descriptions.Item label="备注">
+                <Descriptions.Item key="备注" label="备注">
                   ********************
                   <br />
                   ********************
                 </Descriptions.Item>
               </Descriptions>
               <br />
-              <Card
-                title="用户管理"
-                extra={
-                  <Button type="primary" onClick={this.showModal}>
-                    添加用户
-                  </Button>
-                }
-                bordered={false}
-                bodyStyle={{
-                  margin: 0,
-                  padding: 0,
-                }}
-              >
-                <Table
-                  columns={this.state.columns}
-                  dataSource={this.state.userList}
-                  pagination={false}
-                  style={{
-                    marginTop: '20px',
+              {isAdmin() ? (
+                <Card
+                  title="用户管理"
+                  extra={
+                    <Button type="primary" onClick={this.showModal}>
+                      添加用户
+                    </Button>
+                  }
+                  bordered={false}
+                  bodyStyle={{
+                    margin: 0,
+                    padding: 0,
                   }}
-                />
-              </Card>
+                >
+                  <Table
+                    dataSource={this.state.userList}
+                    pagination={false}
+                    style={{
+                      marginTop: '20px',
+                    }}
+                  >
+                    <Table.Column title="用户名" dataIndex="username" key="username" />
+                    <Table.Column title="ID" dataIndex="id" key="id" />
+                    <Table.Column title="用户类型" dataIndex="role" key="role" />
+                    <Table.Column
+                      title="权限"
+                      key="authority"
+                      dataIndex="authority"
+                      render={(tags: string[]): any => (
+                        <>
+                          {tags.map((tag: string) => {
+                            let color = tag.length > 5 ? 'geekblue' : 'green';
+                            if (tag === 'loser') {
+                              color = 'volcano';
+                            }
+                            return (
+                              <Tag color={color} key={tag}>
+                                {tag.toUpperCase()}
+                              </Tag>
+                            );
+                          })}
+                        </>
+                      )}
+                    />
+                    <Table.Column
+                      title="操作"
+                      dataIndex="authorities"
+                      key="action"
+                      render={(text: any, record: any): any => {
+                        // console.log(record);
+                        return (
+                          <Space size="middle">
+                            <Button
+                              type="primary"
+                              icon={<FormOutlined />}
+                              onClick={() => this.modify(record)}
+                            >
+                              修改
+                            </Button>
+                            <Button
+                              type="primary"
+                              danger
+                              icon={<CloseCircleOutlined />}
+                              onClick={() => this.delete(record.username)}
+                            >
+                              删除
+                            </Button>
+                          </Space>
+                        );
+                      }}
+                    />
+                  </Table>
+                </Card>
+              ) : null}
             </div>
           </Content>
           <SWFooter />

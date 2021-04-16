@@ -6,7 +6,7 @@ export function getToken(): string {
 }
 
 // 设置Token
-export function setToken(token: any): void {
+export function setToken(token: string): void {
   localStorage.setItem('token', token);
 }
 
@@ -14,8 +14,20 @@ export function setToken(token: any): void {
  * 获取本地token判断是否登录
  */
 export function isLogined(): boolean {
-  if (localStorage.getItem('token') !== '') {
-    return true;
-  }
-  return false;
+  return localStorage.getItem('token') !== '';
+}
+
+// 从本地获取用户信息 userInfo
+export function getUserInfo(): any {
+  return JSON.parse(localStorage.getItem('userInfo') || '');
+}
+
+// 设置用户信息 userInfo
+export function setUserInfo(user: any): void {
+  localStorage.setItem('userInfo', JSON.stringify(user));
+}
+
+// 获取本地token判断是否登录
+export function isAdmin(): boolean {
+  return getUserInfo().username === 'admin';
 }
