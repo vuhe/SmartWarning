@@ -1,12 +1,14 @@
 import React, { CSSProperties } from 'react';
 import { withRouter } from 'react-router-dom';
-import { Form, Input, Button, Checkbox, Row, Col, Card, message } from 'antd';
+import { Form, Input, Button, Checkbox, Row, Col, Card, message, Layout } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import { setToken, setUserInfo } from '../utils/authorize';
 import { loginApi } from '../services/authorize';
 import { changeUserInfoActionCreator } from '../redux/actionCreator';
 import store from '@/redux/store';
+// import SWFooter from '@/components/SWFooter';
 
+const { Content } = Layout;
 const bg = 'https://vuhe.oss-cn-hangzhou.aliyuncs.com/sw/login_background.jpg';
 
 // 背景样式
@@ -28,7 +30,6 @@ class Login extends React.Component<any, any> {
       username: values.username,
       password: values.password,
     })
-      .then((res) => res.data)
       .then((result) => {
         // console.log(result);
         switch (result.code) {
@@ -67,75 +68,79 @@ class Login extends React.Component<any, any> {
   render() {
     return (
       <div style={bgImgStyle}>
-        <Row gutter={[32, 32]} style={{ margin: '12px', paddingTop: '96px' }}>
-          <Col span={9}></Col>
-          <Col span={6}>
-            <Card
-              title="电气火灾智慧预警平台"
-              size="small"
-              bordered
-              extra={<a>登录</a>}
-              style={{
-                width: 380,
-                borderRadius: '8px',
-                background: '#fafafa',
-                boxShadow: '7px 7px 22px #c4c4c4, -7px -7px 22px #ffffff',
-              }}
-            >
-              <Form
-                layout="vertical"
-                name="normal_login"
-                className="login-form"
-                initialValues={{ remember: true }}
-                onFinish={this.onFinish}
-                style={{ margin: 20 }}
+        <Content>
+          <Row gutter={[32, 32]} style={{ margin: '12px', paddingTop: '96px' }}>
+            <Col span={9}></Col>
+            <Col span={6}>
+              <Card
+                title="电气火灾智慧预警平台"
+                size="small"
+                bordered
+                extra={<a>登录</a>}
+                style={{
+                  width: 380,
+                  borderRadius: '8px',
+                  background: '#fafafa',
+                  boxShadow: '7px 7px 22px #c4c4c4, -7px -7px 22px #ffffff',
+                }}
               >
-                <Form.Item
-                  name="username"
-                  rules={[
-                    {
-                      required: true,
-                      message: '请输入用户名!',
-                    },
-                  ]}
+                <Form
+                  layout="vertical"
+                  name="normal_login"
+                  className="login-form"
+                  initialValues={{ remember: true }}
+                  onFinish={this.onFinish}
+                  style={{ margin: 20 }}
                 >
-                  <Input
-                    prefix={<UserOutlined className="site-form-item-icon" />}
-                    placeholder="用户名"
-                    allowClear
-                  />
-                </Form.Item>
-                <Form.Item
-                  name="password"
-                  rules={[
-                    {
-                      required: true,
-                      message: '请输入密码!',
-                    },
-                  ]}
-                >
-                  <Input
-                    prefix={<LockOutlined className="site-form-item-icon" />}
-                    type="password"
-                    placeholder="密码"
-                    allowClear
-                  />
-                </Form.Item>
-                <Form.Item>
-                  <Form.Item name="remember" valuePropName="checked" noStyle>
-                    <Checkbox>记住我</Checkbox>
+                  <Form.Item
+                    name="username"
+                    rules={[
+                      {
+                        required: true,
+                        message: '请输入用户名!',
+                      },
+                    ]}
+                  >
+                    <Input
+                      prefix={<UserOutlined className="site-form-item-icon" />}
+                      placeholder="用户名"
+                      allowClear
+                    />
                   </Form.Item>
-                </Form.Item>
-                <Form.Item>
-                  <Button type="primary" htmlType="submit" className="login-form-button">
-                    登录
-                  </Button>
-                </Form.Item>
-              </Form>
-            </Card>
-          </Col>
-          <Col span={9}></Col>
-        </Row>
+                  <Form.Item
+                    name="password"
+                    rules={[
+                      {
+                        required: true,
+                        message: '请输入密码!',
+                      },
+                    ]}
+                  >
+                    <Input
+                      prefix={<LockOutlined className="site-form-item-icon" />}
+                      type="password"
+                      placeholder="密码"
+                      allowClear
+                    />
+                  </Form.Item>
+                  <Form.Item>
+                    <Form.Item name="remember" valuePropName="checked" noStyle>
+                      <Checkbox>记住我</Checkbox>
+                    </Form.Item>
+                  </Form.Item>
+                  <Form.Item>
+                    <Button type="primary" htmlType="submit" className="login-form-button">
+                      登录
+                    </Button>
+                  </Form.Item>
+                </Form>
+              </Card>
+            </Col>
+            <Col span={9}></Col>
+          </Row>
+        </Content>
+        {/* <SWFooter />
+        test text */}
       </div>
     );
   }

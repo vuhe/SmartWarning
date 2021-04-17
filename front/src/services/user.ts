@@ -38,8 +38,12 @@ export function modifyUser(user: User): Promise<any> {
  * @param user 要删除的用户信息
  * @returns {Promise<any>}
  */
-export function deleteUser(user: User): Promise<any> {
-  return deleteRequest(`${BASE_URL_1}/api/user/delete`, user);
+export function deleteUser(_username: string): Promise<any> {
+  return deleteRequest(`${BASE_URL_1}/api/user/delete`, {
+    username: _username,
+    password: ' ',
+    role: 'User',
+  });
 }
 
 /**
