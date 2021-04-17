@@ -1,6 +1,6 @@
 package top.vuhe.sw.entity.equipment.dto
 
-typealias StatusDTO = List<StatusPair>
+typealias StatusDTO = Map<Int, Int>
 
 /**
  * 状态传送包

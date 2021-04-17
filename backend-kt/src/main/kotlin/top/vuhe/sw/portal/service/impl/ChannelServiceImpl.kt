@@ -18,9 +18,9 @@ class ChannelServiceImpl :
         for (s in status) {
             channels.add(
                 ChannelDAO(
-                    id = s.channel,
+                    id = s.key,
                     perUnit = null,
-                    currentState = s.status,
+                    currentState = s.value,
                     channelName = null
                 )
             )

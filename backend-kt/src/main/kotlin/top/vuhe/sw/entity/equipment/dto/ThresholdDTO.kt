@@ -1,6 +1,6 @@
 package top.vuhe.sw.entity.equipment.dto
 
-typealias ThresholdDTO = List<ThresholdPair>
+typealias ThresholdDTO = Map<Int, Int>
 
 /**
  * 阈值传送包

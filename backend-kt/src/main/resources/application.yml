@@ -19,6 +19,14 @@ spring:
   profiles:
     # 环境 开发dev，测试test，生产prod
     active: dev
+  rabbitmq:
+    host: 101.132.158.106
+    port: 5672
+    username: sw
+    password: ASDasd12
+    virtualHost: /
+    publisher-returns: true
+    publisher-confirm-type: correlated
   jackson:
     serialization:
       # jackson返回时间戳

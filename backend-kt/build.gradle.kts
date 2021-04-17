@@ -56,6 +56,9 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-data-redis")
     implementation("org.apache.commons:commons-pool2:2.9.0")
 
+    // rabbitMQ 中间件
+    implementation("org.springframework.boot:spring-boot-starter-amqp")
+
     // 权限管理
     implementation("org.springframework.boot:spring-boot-starter-security")
     implementation("io.jsonwebtoken:jjwt-api:0.11.2")
