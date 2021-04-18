@@ -10,6 +10,7 @@ enum class ExceptionEnum(val code: Int, val message: String) {
     // 系统错误
     UNKNOWN(500, "系统内部错误，请联系管理员"),
     DATA_ERROR(501, "数据异常"),
+    USERNAME_ERROR(502, "用户名错误"),
 
     // 鉴权错误
     INVALID_TOKEN(401, "请重新登录"),

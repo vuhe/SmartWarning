@@ -59,7 +59,9 @@ class User extends React.Component<any, any> {
 
   // 状态改变
   storeChange = () => {
-    this.setState(store.getState());
+    this.setState(store.getState(), () => {
+      console.log(store.getState());
+    });
   };
 
   componentDidMount = (): void => {
