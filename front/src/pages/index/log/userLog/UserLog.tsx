@@ -32,9 +32,8 @@ class UserLog extends React.Component<any, any> {
 
   componentDidMount = (): void => {
     getUserLogs()
-      .then((res) => res.data)
       .then((result) => {
-        if (result.message === 'success') {
+        if (result.code === 200) {
           this.setState({
             userLogs: result.data,
           });

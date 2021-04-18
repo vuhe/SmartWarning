@@ -1,11 +1,15 @@
-import axios, { AxiosInstance } from 'axios';
+import axios, { AxiosInstance, AxiosResponse, AxiosRequestConfig } from 'axios';
 import { getToken } from './authorize';
 
 export const BASE_URL_1 = 'https://sw.zhuhe.site';
 
 const instance: AxiosInstance = axios.create({
-  baseURL: 'https://sw.zhuhe.site/api',
+  baseURL: 'https://sw.zhuhe.site',
   timeout: 5000,
+  responseType: 'json',
+  headers: {
+    'Content-Type': 'application/json;charset=utf-8',
+  },
 });
 
 /**
@@ -14,10 +18,8 @@ const instance: AxiosInstance = axios.create({
  */
 instance.interceptors.request.use(
   // config: 请求发送前的配置对象
-  function (config) {
+  function (config: AxiosRequestConfig) {
     // Do something before request is sent
-    // config.headers['authorization'] = 'Bearer '.concat(getToken());
-    console.log(config);
     config.headers.Authorization = getToken();
     return config;
   },
@@ -33,11 +35,9 @@ instance.interceptors.request.use(
  * 全局响应拦截
  */
 instance.interceptors.response.use(
-  function (response) {
+  function (response: AxiosResponse<any>) {
     // Any status code that lie within the range of 2xx cause this function to trigger
     // Do something with response data
-    // return response;
-    console.log(response);
     return response.data;
   },
   function (error) {
@@ -53,12 +53,8 @@ instance.interceptors.response.use(
  * @param {Object} params 参数
  */
 export function get(url: string, params?: any): Promise<any> {
-  return axios.get(url, {
+  return instance.get(url, {
     params,
-    headers: {
-      'Content-Type': 'application/json;charset=utf-8',
-      Authorization: getToken(),
-    },
   });
 }
 
@@ -68,12 +64,27 @@ export function get(url: string, params?: any): Promise<any> {
  * @param {Object} data 数据
  */
 export function post(url: string, data: any): Promise<any> {
-  return axios.post(url, data, {
-    headers: {
-      'Content-Type': 'application/json;charset=utf-8',
-      Authorization: getToken(),
-    },
-  });
+  return instance.post(url, data);
+}
+
+/**
+ * put请求
+ * @param url
+ * @param data
+ * @returns {Promise<any>}
+ */
+export function put(url: string, data: any): Promise<any> {
+  return instance.put(url, data);
+}
+
+/**
+ * delete请求
+ * @param url
+ * @param data
+ * @returns {Promise<any>}
+ */
+export function deleteRequest(url: string, data: any): Promise<any> {
+  return instance.delete(url, { data });
 }
 
 /**
