@@ -64,6 +64,7 @@ dependencies {
 
     // 文档
     dokkaHtmlPlugin("org.jetbrains.dokka:kotlin-as-java-plugin:1.4.30")
+    implementation("io.springfox:springfox-boot-starter:3.0.0")
 }
 
 val fatJar = task("fatJar", type = Jar::class) {

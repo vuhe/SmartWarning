@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
+import org.springframework.security.config.annotation.web.builders.WebSecurity
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter
 import org.springframework.security.config.http.SessionCreationPolicy
 import org.springframework.security.core.userdetails.UserDetailsService
@@ -34,7 +35,11 @@ class SecurityConfig : WebSecurityConfigurerAdapter() {
          * 需要放行的URL
          */
         val authWhitelist = arrayOf(
-            "/websocket"
+            "/websocket",
+            "/swagger-ui/**",
+            "/webjars/**",
+            "/swagger-resources/**",
+            "/v3/**"
         )
     }
 
@@ -54,6 +59,11 @@ class SecurityConfig : WebSecurityConfigurerAdapter() {
     @Bean
     fun bCryptPasswordEncoder(): BCryptPasswordEncoder? {
         return BCryptPasswordEncoder()
+    }
+
+    @Throws(Exception::class)
+    override fun configure(web: WebSecurity) {
+        web.ignoring().antMatchers(*authWhitelist)
     }
 
     @Throws(Exception::class)

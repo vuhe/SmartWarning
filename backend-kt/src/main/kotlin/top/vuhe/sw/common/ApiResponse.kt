@@ -1,6 +1,8 @@
 package top.vuhe.sw.common
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize
+import io.swagger.annotations.ApiModel
+import io.swagger.annotations.ApiModelProperty
 import top.vuhe.sw.common.exception.ExceptionEnum
 import top.vuhe.sw.common.exception.SystemProcessingException
 
@@ -9,10 +11,14 @@ import top.vuhe.sw.common.exception.SystemProcessingException
  *
  * @author zhuhe
  */
+@ApiModel(value = "通用返回数据")
 @JsonSerialize(using = ApiResponseSerializer::class)
 class ApiResponse<T> private constructor(
+    @field:ApiModelProperty(value = "状态代码", readOnly = true)
     val code: Int,
+    @field:ApiModelProperty(value = "状态信息", readOnly = true)
     val message: String,
+    @field:ApiModelProperty(value = "数据", readOnly = true, allowEmptyValue = true)
     val data: T?
 ) {
     companion object {
