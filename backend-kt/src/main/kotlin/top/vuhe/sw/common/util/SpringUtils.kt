@@ -8,6 +8,7 @@ import org.springframework.context.ApplicationContext
 import org.springframework.context.ApplicationContextAware
 import org.springframework.data.redis.core.StreamOperations
 import org.springframework.stereotype.Component
+import top.vuhe.sw.portal.service.ChannelService
 
 @Component
 class SpringUtils : ApplicationContextAware {
@@ -27,7 +28,8 @@ class SpringUtils : ApplicationContextAware {
 @Component("SwBeanUtil")
 class BeanUtil @Autowired constructor(
     val streamOperations: StreamOperations<String, String, String>,
-    val rabbitTemplate: RabbitTemplate
+    val rabbitTemplate: RabbitTemplate,
+    val channelService: ChannelService
 )
 
 val beanUtil = SpringUtils.getUtilBean()

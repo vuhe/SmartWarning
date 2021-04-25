@@ -5,7 +5,6 @@ import io.jsonwebtoken.io.Decoders
 import io.jsonwebtoken.security.Keys
 import top.vuhe.sw.entity.auth.User
 import top.vuhe.sw.entity.auth.UserRole
-import java.util.*
 import javax.crypto.SecretKey
 
 /**

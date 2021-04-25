@@ -4,7 +4,7 @@ import io.netty.channel.ChannelHandlerContext
 import io.netty.channel.ChannelInboundHandlerAdapter
 import io.netty.util.AttributeKey
 import org.slf4j.LoggerFactory
-import top.vuhe.sw.common.channel.BufferChannel
+import top.vuhe.sw.common.util.handleElectricInfo
 import top.vuhe.sw.drive.CommandEnum.Companion.getInfoByCode
 import top.vuhe.sw.drive.CommandEnum.Companion.getResponseCode
 
@@ -12,11 +12,8 @@ import top.vuhe.sw.drive.CommandEnum.Companion.getResponseCode
  * ## 电气设备服务处理器
  *
  * 用于处理电气设备的信息并进行转发等操作
- *
- * @property bufferChannel 缓冲通道
  */
-class ServerHandler(private val bufferChannel: BufferChannel) :
-    ChannelInboundHandlerAdapter() {
+class ServerHandler : ChannelInboundHandlerAdapter() {
     companion object {
         private val log = LoggerFactory.getLogger(ServerHandler::class.java)
     }
@@ -61,7 +58,7 @@ class ServerHandler(private val bufferChannel: BufferChannel) :
         // 信息存入缓存队列
         val data = getInfoByCode(obj.command, obj.dataInfo)
         if (data != null) {
-            bufferChannel.offer(data)
+            handleElectricInfo(data)
         }
     }
 

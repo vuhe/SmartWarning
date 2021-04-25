@@ -3,12 +3,15 @@ package top.vuhe.sw.common.util
 import org.springframework.web.context.request.RequestContextHolder
 import org.springframework.web.context.request.ServletRequestAttributes
 import top.vuhe.sw.common.ApiResponse
-import java.util.*
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 
 fun getHttpServletRequest(): HttpServletRequest {
-    return (Objects.requireNonNull(RequestContextHolder.getRequestAttributes()) as ServletRequestAttributes).request
+    val requestAttributes = RequestContextHolder.getRequestAttributes()
+    requireNotNull(requestAttributes) {
+        "RequestAttributes is null!"
+    }
+    return (requestAttributes as ServletRequestAttributes).request
 }
 
 fun getDomain(): String {

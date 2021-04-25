@@ -4,7 +4,6 @@ import top.vuhe.sw.entity.equipment.ElectricInfo
 import top.vuhe.sw.entity.equipment.bo.RealTimeBO
 import top.vuhe.sw.entity.equipment.bo.StateBO
 import top.vuhe.sw.entity.equipment.bo.ThresholdBO
-import java.lang.IllegalArgumentException
 
 /**
  * ## 电气设备应答命令

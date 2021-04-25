@@ -2,7 +2,6 @@ package top.vuhe.sw.common.util
 
 import org.springframework.amqp.rabbit.connection.CorrelationData
 import org.springframework.amqp.rabbit.core.RabbitTemplate
-import java.util.*
 
 const val mqExchange = "sw_exchange"
 const val realtimeQue = "realtime_queue"

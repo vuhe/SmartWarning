@@ -4,7 +4,6 @@ import top.vuhe.sw.entity.equipment.ElectricInfo
 import top.vuhe.sw.entity.equipment.dto.RealTimeDTO
 import top.vuhe.sw.entity.equipment.dto.StatusDTO
 import top.vuhe.sw.entity.equipment.dto.ThresholdDTO
-import java.util.*
 
 class RealTimeBO(bytes: List<Byte>) : ElectricInfo {
     companion object {

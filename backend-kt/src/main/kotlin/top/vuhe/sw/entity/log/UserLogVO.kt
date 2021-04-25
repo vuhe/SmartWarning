@@ -3,7 +3,7 @@ package top.vuhe.sw.entity.log
 import com.baomidou.mybatisplus.annotation.TableName
 import io.swagger.annotations.ApiModel
 import io.swagger.annotations.ApiModelProperty
-import java.util.*
+import top.vuhe.sw.common.util.Date
 
 /**
  * 用户日志信息

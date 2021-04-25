@@ -3,7 +3,6 @@ package top.vuhe.sw.common.util
 import com.fasterxml.jackson.databind.DeserializationFeature
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
-import java.io.IOException
 import javax.servlet.http.HttpServletRequest
 
 internal val objMapper = jacksonObjectMapper()

@@ -6,13 +6,11 @@ import io.netty.channel.nio.NioEventLoopGroup
 import io.netty.channel.socket.SocketChannel
 import io.netty.channel.socket.nio.NioServerSocketChannel
 import org.slf4j.LoggerFactory
-import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.boot.CommandLineRunner
 import org.springframework.core.annotation.Order
 import org.springframework.scheduling.annotation.Async
 import org.springframework.stereotype.Component
-import top.vuhe.sw.common.channel.BufferChannel
 import javax.annotation.PreDestroy
 
 /**
@@ -33,9 +31,6 @@ class NettyServer(@Value("\${netty.port}") private val port: Int) :
     private val bossGroup: EventLoopGroup = NioEventLoopGroup()
     private val workerGroup: EventLoopGroup = NioEventLoopGroup()
     private var channel: Channel? = null
-
-    @Autowired
-    private lateinit var bufferChannel: BufferChannel
 
     @Async
     @Throws(Exception::class)
@@ -64,7 +59,7 @@ class NettyServer(@Value("\${netty.port}") private val port: Int) :
                     line.addLast("encoder", Encoder())
 
                     // 换成自己的处理器
-                    line.addLast("handler", ServerHandler(bufferChannel))
+                    line.addLast("handler", ServerHandler())
                 }
             })
         log.info("Netty started on port(s): $port (tcp)")

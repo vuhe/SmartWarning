@@ -8,7 +8,6 @@ import org.springframework.security.web.authentication.www.BasicAuthenticationFi
 import top.vuhe.sw.common.ApiResponse
 import top.vuhe.sw.common.exception.ExceptionEnum
 import top.vuhe.sw.common.util.*
-import java.io.IOException
 import javax.servlet.FilterChain
 import javax.servlet.ServletException
 import javax.servlet.http.HttpServletRequest

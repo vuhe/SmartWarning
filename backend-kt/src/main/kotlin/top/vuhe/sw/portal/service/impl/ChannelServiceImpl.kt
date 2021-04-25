@@ -2,13 +2,13 @@ package top.vuhe.sw.portal.service.impl
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl
 import org.springframework.stereotype.Service
+import top.vuhe.sw.common.util.LinkedList
 import top.vuhe.sw.entity.equipment.dao.ChannelDAO
 import top.vuhe.sw.entity.equipment.dto.RealTimeDTO
 import top.vuhe.sw.entity.equipment.dto.StatusDTO
 import top.vuhe.sw.entity.equipment.vo.RealTimeVO
 import top.vuhe.sw.mapper.ChannelMapper
 import top.vuhe.sw.portal.service.ChannelService
-import java.util.*
 
 @Service("ChannelService")
 class ChannelServiceImpl :

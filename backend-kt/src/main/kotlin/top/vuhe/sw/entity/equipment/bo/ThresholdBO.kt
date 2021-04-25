@@ -2,7 +2,6 @@ package top.vuhe.sw.entity.equipment.bo
 
 import top.vuhe.sw.entity.equipment.ElectricInfo
 import top.vuhe.sw.entity.equipment.dto.*
-import java.util.*
 
 class ThresholdBO(bytes: List<Byte>) : ElectricInfo {
     companion object {

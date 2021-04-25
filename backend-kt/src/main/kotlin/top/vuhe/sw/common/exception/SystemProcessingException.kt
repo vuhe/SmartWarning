@@ -1,7 +1,5 @@
 package top.vuhe.sw.common.exception
 
-import java.lang.RuntimeException
-
 /**
  * 系统运行异常
  *
