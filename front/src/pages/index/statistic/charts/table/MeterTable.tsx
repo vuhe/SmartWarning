@@ -1,6 +1,6 @@
 import React from 'react';
 import { Table } from 'antd';
-import { meterDataSource } from '@/utils/simulatedData';
+import { meterDataSource } from '@/utils/simulate/meter/meterConfig';
 
 // 电表表头
 const columns = [

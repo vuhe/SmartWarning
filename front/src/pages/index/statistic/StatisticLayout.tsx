@@ -18,7 +18,7 @@ class StatisticLayout extends React.Component<any, any> {
     return (
       <Layout>
         <Sider width={144} theme="light" style={{ minHeight: '92vh' }}>
-          <Anchor>
+          <Anchor offsetTop={42}>
             <Menu theme="light" mode="inline" defaultSelectedKeys={['tables']}>
               <Menu.Item key="tables">
                 <Link to="/index/statistic/all">
@@ -35,9 +35,9 @@ class StatisticLayout extends React.Component<any, any> {
                   </span>
                 }
               >
-                {routes.map((route: any) => {
+                {routes.map((route: SmartWarning.routeType) => {
                   return (
-                    <Menu.Item key={route.path}>
+                    <Menu.Item disabled={route.isDisable} key={route.path}>
                       <Link to={route.path}>
                         {route.icon ? <route.icon /> : null}
                         <span>{route.title}</span>
@@ -49,6 +49,7 @@ class StatisticLayout extends React.Component<any, any> {
 
               <Menu.SubMenu
                 key="#14"
+                disabled
                 title={
                   <span>
                     <BarChartOutlined />
@@ -56,7 +57,7 @@ class StatisticLayout extends React.Component<any, any> {
                   </span>
                 }
               >
-                {metersRoutes.map((route: any) => {
+                {metersRoutes.map((route: SmartWarning.routeType) => {
                   return (
                     <Menu.Item key={route.path}>
                       <Link to={route.path}>

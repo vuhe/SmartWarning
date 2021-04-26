@@ -27,6 +27,7 @@ export const metersRoutes: SmartWarning.routeType[] = [
     component: Charts,
     title: '#一楼设备信息',
     isShow: true,
+    isDisable: false,
   },
   {
     path: '/index/statistic/charts/11',
@@ -34,6 +35,7 @@ export const metersRoutes: SmartWarning.routeType[] = [
     component: Charts,
     title: '#二楼设备信息',
     isShow: true,
+    isDisable: true,
   },
   {
     path: '/index/statistic/charts/12',
@@ -41,6 +43,7 @@ export const metersRoutes: SmartWarning.routeType[] = [
     component: Charts,
     title: '#三楼设备信息',
     isShow: true,
+    isDisable: true,
   },
   {
     path: '/index/statistic/charts/13',
@@ -48,6 +51,7 @@ export const metersRoutes: SmartWarning.routeType[] = [
     component: Charts,
     title: '#四楼设备信息',
     isShow: true,
+    isDisable: true,
   },
   {
     path: '/index/statistic/charts/14',
@@ -55,6 +59,7 @@ export const metersRoutes: SmartWarning.routeType[] = [
     component: Charts,
     title: '#五楼设备信息',
     isShow: true,
+    isDisable: true,
   },
 ];
 
@@ -155,6 +160,7 @@ export const routes: SmartWarning.routeType[] = [
             component: Charts,
             title: '#电表一',
             isShow: true,
+            isDisable: true,
           },
           {
             path: '/index/statistic/charts/15/2',
@@ -162,6 +168,7 @@ export const routes: SmartWarning.routeType[] = [
             component: Charts,
             title: '#电表二',
             isShow: true,
+            isDisable: true,
           },
           ...metersRoutes,
         ],

@@ -41,16 +41,21 @@ class Charts extends React.Component<ChartsProps, ChartsState> {
     return (
       <>
         <Space align="center" size="large">
-          <Radio.Group
-            defaultValue={this.state.radioValue}
-            size="middle"
-            onChange={this.radioChangedHandler}
-          >
-            <Radio.Button value="chart">折线图</Radio.Button>
-            <Radio.Button value="table">原始数据</Radio.Button>
-          </Radio.Group>
-
-          <Search placeholder="input search text" onSearch={() => {}} enterButton />
+          {title === '总电表数据' ? null : (
+            <Radio.Group
+              defaultValue={this.state.radioValue}
+              size="middle"
+              onChange={this.radioChangedHandler}
+            >
+              <Radio.Button value="chart">折线图</Radio.Button>
+              <Radio.Button value="table">原始数据</Radio.Button>
+            </Radio.Group>
+          )}
+          <Search
+            placeholder="input search text"
+            enterButton
+            // onSearch={() => { }}
+          />
         </Space>
         <Divider orientation="left">{title}</Divider>
         {this.state.radioValue === 'table' ? (

@@ -13,7 +13,7 @@ import {
 } from 'antd';
 import { WifiOutlined } from '@ant-design/icons';
 import { Pie } from '@ant-design/charts';
-import { pieConfig } from '@/utils/simulatedData';
+import { equipmentPieConfig } from '@/utils/simulate/EquipmentPieConfig';
 import SWFooter from '@/components/SWFooter';
 import EquipMessage from './equipMessage/EquipMessage';
 
@@ -180,7 +180,7 @@ class EquipSafety extends React.Component<any, any> {
               <Row>
                 <Col span={6}>
                   <Card title="设备信息图" hoverable style={{ width: 350, height: 650 }}>
-                    <Pie {...pieConfig} />
+                    <Pie {...equipmentPieConfig} />
                   </Card>
                 </Col>
                 <Col span={18}>
