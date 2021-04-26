@@ -2,6 +2,9 @@
   "compile-hero.disable-compile-files-on-did-save-code": true,
   "cSpell.words": [
     "Logined",
+    "Sider",
+    "Wifi",
+    "antd",
     "hoverable",
     "userinfo",
     "usertype"

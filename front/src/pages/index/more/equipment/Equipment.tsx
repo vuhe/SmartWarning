@@ -2,72 +2,7 @@ import React from 'react';
 import { Card, Space, Statistic, Alert, notification, Modal } from 'antd';
 import { CloseCircleOutlined, WarningOutlined } from '@ant-design/icons';
 import { Pie } from '@ant-design/charts';
-import { PieConfig } from '@ant-design/charts/es/pie';
-
-const testData = [
-  {
-    type: '正常',
-    value: 950,
-  },
-  {
-    type: '警告',
-    value: 52,
-  },
-  {
-    type: '故障',
-    value: 18,
-  },
-];
-
-const config: PieConfig = {
-  appendPadding: 10,
-  data: testData,
-  angleField: 'value',
-  colorField: 'type',
-  color: ({ type }): string => {
-    let returnColor;
-    switch (type) {
-      case '正常':
-        returnColor = '#87d068';
-        break;
-      case '警告':
-        returnColor = 'yellow';
-        break;
-      case '故障':
-        returnColor = '#f50';
-        break;
-      default:
-        returnColor = 'grey';
-        break;
-    }
-    return returnColor;
-  },
-  radius: 1,
-  innerRadius: 0.64,
-  meta: {
-    value: {
-      formatter: function formatter(num: string) {
-        return ''.concat(num, ' 台');
-      },
-    },
-  },
-  label: {
-    type: 'inner',
-    offset: '-50%',
-    content: '{value}',
-    style: {
-      textAlign: 'center',
-      fontColor: 'black',
-      fontSize: 14,
-    },
-    autoRotate: false,
-  },
-  interactions: [
-    { type: 'element-selected' },
-    { type: 'element-active' },
-    { type: 'pie-statistic-active' },
-  ],
-};
+import { equipmentPieConfig } from '@/utils/simulate/EquipmentPieConfig';
 
 // 通知消息配置信息
 export interface notificationConfig {
@@ -128,6 +63,7 @@ class Equipment extends React.Component<any, any> {
       },
     });
   };
+
   /** 弹出通知提示框 */
   openNotification = (option: notificationConfig) => {
     notification.warning({
@@ -151,7 +87,7 @@ class Equipment extends React.Component<any, any> {
       <>
         <Space align="start">
           <Card title="设备信息图" hoverable style={{ width: 450 }}>
-            <Pie {...config} />
+            <Pie {...equipmentPieConfig} />
           </Card>
           <Card title hoverable bordered style={{ width: 720 }}>
             <Statistic title="总设备数" value={1020} />

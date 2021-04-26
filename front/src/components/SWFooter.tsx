@@ -3,6 +3,7 @@ import { Layout, Typography } from 'antd';
 
 const { Footer } = Layout;
 
+// SmartWarning Footer 组件
 const SWFooter = () => {
   return (
     <Footer style={{ textAlign: 'center' }}>

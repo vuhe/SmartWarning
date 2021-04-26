@@ -30,7 +30,7 @@ class NavigationBar extends React.Component<any, NavigationBarState> {
 
   constructor(props: any) {
     super(props);
-    // 订阅Redux的状态
+    // 订阅 Redux 的状态
     store.subscribe(this.storeChange);
   }
 

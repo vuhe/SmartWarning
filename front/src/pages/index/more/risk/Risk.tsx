@@ -2,53 +2,39 @@ import React from 'react';
 import { Card, Statistic, Typography } from 'antd';
 import { ArrowUpOutlined } from '@ant-design/icons';
 import { Line } from '@ant-design/charts';
-import { get } from '@/utils/request';
-import { riskData } from '@/utils/simulatedData';
+// import { get } from '@/utils/request';
+import { riskDataConfig } from '@/utils/simulate/riskConfig';
 
 /** 今日风险图 */
 class Risk extends React.Component<any, any> {
   state = { data: [] };
 
-  /**
-   * 请求表格数据
-   */
-  getChartData = (callback?: any): void => {
-    get('https://gw.alipayobjects.com/os/bmw-prod/1d565782-dde4-4bb6-8946-ea6a38ccf184.json')
-      .then((response: any) => {
-        this.setState({
-          data: response.data,
-        });
-        callback && callback();
-        return null;
-      })
-      .catch((error) => {
-        console.log('get data failed', error);
-      });
-  };
+  // /**
+  //  * 请求表格数据
+  //  */
+  // getChartData = (callback?: any): void => {
+  //   get('https://gw.alipayobjects.com/os/bmw-prod/1d565782-dde4-4bb6-8946-ea6a38ccf184.json')
+  //     .then((response: any) => {
+  //       this.setState({
+  //         data: response.data,
+  //       });
+  //       callback && callback();
+  //       return null;
+  //     })
+  //     .catch((error) => {
+  //       console.log('get data failed', error);
+  //     });
+  // };
 
   /**
    * 生命周期函数
    * 组件加载完成后执行
    */
-  componentDidMount = () => {
-    // this.getChartData(() => console.log(this.state));
-    this.setState({
-      data: riskData,
-    });
-  };
+  // componentDidMount = () => {
+  //   // this.getChartData(() => console.log(this.state));
+  // };
 
   render() {
-    const config: any = {
-      data: this.state.data,
-      padding: 'auto',
-      xField: 'data',
-      yField: 'risk',
-      xAxis: { tickCount: 5 },
-      slider: {
-        start: 0,
-        end: 0.8,
-      },
-    };
     return (
       <>
         <Card
@@ -68,7 +54,7 @@ class Risk extends React.Component<any, any> {
             </Card>
           }
         >
-          <Line {...config} />
+          <Line {...riskDataConfig} />
         </Card>
       </>
     );
