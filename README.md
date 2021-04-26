@@ -19,21 +19,20 @@
 
 后端服务采用：
 - `spring boot` 服务框架
-- `Shiro` 鉴权层
+- `spring secuity` 鉴权层
 - `Redis` 缓存层
+- `RabbitMQ` 消息中间件
 - `Mybaits-Plus` 好用的mybatis框架
-- `lombox getter setter` 插件
 - `druid` 数据库连接池
-- `七牛云` 对象存储（待定）
 
 ### 项目环境说明
 
 本项目采用的具体环境如下：
 - JDK 11
+- Kotlin 1.4.x
 - Mysql
 - Redis
 - IDEA 集成开发环境
-- Lombox插件
 - Node.js 8.0+
 - WebStorm 集成开发环境
 - yarn 或 npm 包管理器

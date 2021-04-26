@@ -16,15 +16,8 @@ repositories {
     // maven 本地缓存仓库
     // 默认优先从此仓库查找
     mavenLocal()
-    // 此部分为阿里的 maven 镜像，用于提升国内访问速度
-    // 如果此依赖库在使用中出现问题，请注释使用「原库」
-    maven(url = "https://maven.aliyun.com/repository/public/")
-    maven(url = "https://maven.aliyun.com/repository/google/")
-    maven(url = "https://maven.aliyun.com/repository/gradle-plugin/")
-    maven(url = "https://maven.aliyun.com/repository/spring/")
-    maven(url = "https://maven.aliyun.com/repository/spring-plugin/")
-    maven(url = "https://maven.aliyun.com/repository/grails-core/")
-    maven(url = "https://maven.aliyun.com/repository/apache-snapshots/")
+    // 此部分为华为的 maven 镜像，用于提升国内访问速度
+    maven(url = "https://repo.huaweicloud.com/repository/maven/")
     // maven 中央库
     mavenCentral()
     jcenter()
