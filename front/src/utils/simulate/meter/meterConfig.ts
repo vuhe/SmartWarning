@@ -24,7 +24,7 @@ export const dualAxesConfig = {
   geometryOptions: [
     {
       geometry: 'line',
-      seriesField: 'dataName',
+      seriesField: 'channelName',
       smooth: true,
       // point: {},
       animation: {
@@ -37,7 +37,7 @@ export const dualAxesConfig = {
     {
       geometry: 'line',
       // color: '#5AD8A6',
-      seriesField: 'dataName',
+      seriesField: 'channelName',
       smooth: true,
       animation: {
         appear: {

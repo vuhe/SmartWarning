@@ -42,11 +42,11 @@ class MeterChart extends React.Component<any, any> {
           style={{ width: '100%' }}
           title={isAll ? '各电表风险系数' : '15#550'}
           extra={
-            isAll ? (
+            isAll ? null : (
               <Tooltip title="设备已联网">
                 <WifiOutlined style={{ color: 'blue' }} />
               </Tooltip>
-            ) : null
+            )
           }
         >
           {isAll ? <Line {...allMeterConfig} /> : <DualAxes {...dualAxesConfig} />}

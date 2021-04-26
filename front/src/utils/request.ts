@@ -86,34 +86,3 @@ export function put(url: string, data: any): Promise<any> {
 export function deleteRequest(url: string, data: any): Promise<any> {
   return instance.delete(url, { data });
 }
-
-/**
- * put请求
- * @param url
- * @param data
- * @returns {Promise<any>}
- */
-export function put(url: string, data: any): Promise<any> {
-  return axios.put(url, data, {
-    headers: {
-      'Content-Type': 'application/json;charset=utf-8',
-      Authorization: getToken(),
-    },
-  });
-}
-
-/**
- * delete请求
- * @param url
- * @param data
- * @returns {Promise<any>}
- */
-export function deleteRequest(url: string, data: any): Promise<any> {
-  return axios.delete(url, {
-    data,
-    headers: {
-      'Content-Type': 'application/json;charset=utf-8',
-      Authorization: getToken(),
-    },
-  });
-}
