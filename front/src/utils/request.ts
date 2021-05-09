@@ -1,5 +1,5 @@
 import axios, { AxiosInstance, AxiosResponse, AxiosRequestConfig } from 'axios';
-import { getToken } from './authorize';
+import { getToken } from './localStorage';
 
 export const BASE_URL_1 = 'https://sw.zhuhe.site';
 

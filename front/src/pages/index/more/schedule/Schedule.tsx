@@ -1,6 +1,7 @@
 import React from 'react';
 import { List, Button, Typography, Space, Tooltip } from 'antd';
 import { CheckOutlined, CloseOutlined } from '@ant-design/icons';
+import uuid from '@/utils/uuid';
 
 const { Title } = Typography;
 
@@ -41,6 +42,7 @@ class Schedule extends React.Component<any, any> {
           header={<Title level={3}>待办事项</Title>}
           renderItem={(item) => (
             <List.Item
+              key={uuid()}
               extra={
                 <Space>
                   <Tooltip title="编辑已完成">

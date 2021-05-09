@@ -50,11 +50,14 @@
     "antd": "^4.12.2",
     "axios": "^0.21.1",
     "http-proxy-middleware": "^1.1.0",
+    "net": "^1.0.2",
     "react": "^16.13.0",
     "react-dom": "^16.13.0",
     "react-hot-loader": "^4.13.0",
+    "react-redux": "^7.2.4",
     "react-router-dom": "^5.1.2",
-    "redux": "^4.0.5"
+    "redux": "^4.0.5",
+    "stompjs": "^2.3.3"
   },
   "devDependencies": {
     "@babel/core": "^7.11.6",
@@ -81,6 +84,8 @@
     "@types/react": "^16.9.49",
     "@types/react-dom": "^16.9.6",
     "@types/react-router-dom": "^5.1.4",
+    "@types/sockjs-client": "^1.5.0",
+    "@types/stompjs": "^2.3.4",
     "@types/terser-webpack-plugin": "^4.2.0",
     "@types/webpack": "^4.41.22",
     "@types/webpack-bundle-analyzer": "^3.8.0",

@@ -1,5 +1,6 @@
 import React from 'react';
 import { List, Typography, PageHeader } from 'antd';
+import uuid from '@/utils/uuid';
 
 const logList: any[] = [];
 
@@ -7,6 +8,7 @@ class Log extends React.Component<any, any> {
   render() {
     for (let i = 0; i < 20; i++) {
       logList.push({
+        key: uuid(),
         title: `日志 ${i}`,
         description: `日志描述 ${i}`,
         content: `日志详细信息 ${i}`,
@@ -30,7 +32,7 @@ class Log extends React.Component<any, any> {
             pageSize: 10,
           }}
           renderItem={(item) => (
-            <List.Item>
+            <List.Item key={item.key}>
               <Typography.Text mark>[设备#**]</Typography.Text> {item.content}
             </List.Item>
           )}

@@ -1,11 +1,4 @@
-import { SWITCH_MENU_ITEM, CHANGE_USERINFO } from './actions';
-
-// 加载本地的 state 进行 defaultState 的初始化
-// const loadUserInfo = () => {
-//   const local = getUserInfo();
-//   console.log(local);
-//   return local;
-// };
+import { SWITCH_MENU_ITEM, CHANGE_USERINFO, CHANGE_STORE_STATE } from '../actions';
 
 // 默认 state
 const defaultState = {
@@ -31,22 +24,17 @@ export function updateState(oldState: any, newState: any) {
  * @param action {Object} action
  * @returns
  */
-const reducer = (state: any = defaultState, action: any): (() => {}) => {
+const reducer = (state: any = defaultState, action: any): any => {
   switch (action.type) {
     case SWITCH_MENU_ITEM: {
-      // 深度拷贝state
-      // const newState = JSON.parse(JSON.stringify(state));
-      return Object.assign({}, state, { navigatorCurrent: action.key });
+      return updateState(state, { navigatorCurrent: action.key });
     }
-
     case CHANGE_USERINFO: {
-      // const newState = JSON.parse(JSON.stringify(state));
-      // newState.userInfo = action.user;
-      // return newState;
-      // return Object.assign({}, state, { userInfo: action.user });
       return updateState(state, { userInfo: action.user });
     }
-
+    case CHANGE_STORE_STATE: {
+      return action.state || {};
+    }
     default:
       return state;
   }

@@ -2,9 +2,9 @@ import React, { CSSProperties } from 'react';
 import { withRouter } from 'react-router-dom';
 import { Form, Input, Button, Checkbox, Row, Col, Card, message, Layout } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
-import { setToken, setUserInfo } from '../utils/authorize';
-import { loginApi } from '../services/authorize';
-import { changeUserInfoActionCreator } from '../redux/actionCreator';
+import { setToken, setUserInfo } from '../utils/localStorage';
+import { login } from '../services/login';
+import { changeUserInfoActionCreator } from '../redux/actions/actionCreator';
 import store from '@/redux/store';
 // import SWFooter from '@/components/SWFooter';
 
@@ -26,14 +26,14 @@ class Login extends React.Component<any, any> {
   onFinish = (values: { username: string; password: string; remember: boolean }) => {
     const { history } = this.props;
     // 登录
-    loginApi({
+    login({
       username: values.username,
       password: values.password,
     })
       .then((result) => {
         // console.log(result);
         switch (result.code) {
-          case 200:
+          case 200: {
             message.success('登录成功');
             const user = {
               username: values.username,
@@ -46,9 +46,11 @@ class Login extends React.Component<any, any> {
             // redux 中存储用户信息
             store.dispatch(changeUserInfoActionCreator(user));
             return result.data;
-          case 405:
+          }
+          case 405: {
             message.error('登录失败，请检查账号或密码！');
             break;
+          }
           default:
             break;
         }
@@ -58,10 +60,11 @@ class Login extends React.Component<any, any> {
           setToken(token);
           history.push('/index/global');
         }
+        return null;
       })
-      .catch((err) => {
+      .catch((error) => {
         message.error('登录失败');
-        console.log(err);
+        console.log(error);
       });
   };
 

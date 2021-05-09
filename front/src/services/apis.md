@@ -1,7 +1,7 @@
 https://zw.zhuhe.site/api
 
 登录
-POST /login
+POST: /login
 
 用户接口
 POST: /user/add

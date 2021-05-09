@@ -9,6 +9,7 @@ export default function RouteWithSubRoutes(route: SmartWarning.routeType) {
   return (
     <Route
       path={route.path}
+      exact={route.exact}
       render={(routeProps: any) => (
         // pass the sub-routes down to keep nesting
         <route.component {...routeProps} routes={route.children} />
