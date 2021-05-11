@@ -1,4 +1,4 @@
-import { SWITCH_MENU_ITEM, CHANGE_USERINFO, CHANGE_STORE_STATE } from '../actions';
+import { SWITCH_MENU_ITEM, CHANGE_USERINFO, CHANGE_STORE_STATE } from './actions';
 
 /**
  * 返回改变顶部 navigator 菜单栏选项 action

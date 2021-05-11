@@ -1,4 +1,4 @@
-import { SWITCH_MENU_ITEM, CHANGE_USERINFO, CHANGE_STORE_STATE } from '../actions';
+import { SWITCH_MENU_ITEM, CHANGE_USERINFO, CHANGE_STORE_STATE } from '../actions/actions';
 
 // 默认 state
 const defaultState = {
