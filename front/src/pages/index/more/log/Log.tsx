@@ -1,42 +1,52 @@
 import React from 'react';
-import { List, Typography, PageHeader } from 'antd';
-import uuid from '@/utils/uuid';
+import { Menu, Row, Col, Affix } from 'antd';
+import { ProfileOutlined } from '@ant-design/icons';
+import EquipmentsLog from './equipmentsLog/EquipmentsLog';
 
-const logList: any[] = [];
+const simulate = [
+  {
+    title: '15#550',
+    icon: ProfileOutlined,
+    disabled: false,
+  },
+  { title: '14#549', icon: ProfileOutlined, disabled: true },
+  { title: '14#548', icon: ProfileOutlined, disabled: true },
+  { title: '15#551', icon: ProfileOutlined, disabled: true },
+];
 
+// 设备日志记录
 class Log extends React.Component<any, any> {
   render() {
-    for (let i = 0; i < 20; i++) {
-      logList.push({
-        key: uuid(),
-        title: `日志 ${i}`,
-        description: `日志描述 ${i}`,
-        content: `日志详细信息 ${i}`,
-      });
-    }
-
     return (
       <>
-        <PageHeader
-          className="site-page-header"
-          title="详细日志信息"
-          subTitle="This is a subtitle"
-        />
-        <List
-          bordered
-          dataSource={logList}
-          pagination={{
-            onChange: (page) => {
-              console.log(page);
-            },
-            pageSize: 10,
-          }}
-          renderItem={(item) => (
-            <List.Item key={item.key}>
-              <Typography.Text mark>[设备#**]</Typography.Text> {item.content}
-            </List.Item>
-          )}
-        />
+        <Row>
+          <Col span={2}>
+            <Affix style={{ position: 'absolute', top: 180, left: 10 }}>
+              <div style={{ width: 72 }}>
+                <Menu
+                  defaultSelectedKeys={['15#550']}
+                  mode="inline"
+                  theme="light"
+                  inlineCollapsed
+                  inlineIndent={20}
+                >
+                  {simulate.map((item) => {
+                    return (
+                      <Menu.Item key={item.title} icon={<item.icon />} disabled={item.disabled}>
+                        {item.title}
+                      </Menu.Item>
+                    );
+                  })}
+                </Menu>
+              </div>
+            </Affix>
+          </Col>
+          <Col span={22}>
+            <div style={{ width: '100%', marginLeft: '10px' }}>
+              <EquipmentsLog equipmentID="15#550" />
+            </div>
+          </Col>
+        </Row>
       </>
     );
   }

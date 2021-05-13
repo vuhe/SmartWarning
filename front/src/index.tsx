@@ -21,7 +21,8 @@ ReactDOM.render(
 
 // 添加事件在即将离开当前页面(刷新或关闭)时执行
 window.addEventListener('beforeunload', () => {
-  console.log('index: window.onbeforeunload');
+  // console.log('index: window.onbeforeunload');
+  // 在页面刷新之前，将 state 保存到本地缓存 localStorage 中
   const state = store.getState();
   saveState(state);
 });

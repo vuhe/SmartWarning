@@ -13,7 +13,6 @@ import {
 } from 'antd';
 import { WifiOutlined } from '@ant-design/icons';
 import { Pie } from '@ant-design/charts';
-import uuid from '@/utils/uuid';
 import { equipmentPieConfig } from '@/utils/simulate/EquipmentPieConfig';
 import SWFooter from '@/components/SWFooter';
 import EquipMessage from './equipMessage/EquipMessage';
@@ -197,7 +196,7 @@ class EquipSafety extends React.Component<any, any> {
                           {messages.map((item: any) => {
                             return (
                               <Panel
-                                key={uuid()}
+                                key={item.meterName}
                                 header={item.meterName}
                                 extra={
                                   <Tooltip title={item.status ? '设备已联网' : '设备未联网'}>
@@ -225,7 +224,7 @@ class EquipSafety extends React.Component<any, any> {
               </Row>
             </div>
           </Content>
-          <SWFooter></SWFooter>
+          <SWFooter />
         </Layout>
       </>
     );
