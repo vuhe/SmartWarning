@@ -32,7 +32,7 @@ fun requestToMap(src: HttpServletRequest): Map<String?, String?> {
     return try {
         objMapper.readValue(src.inputStream)
     } catch (e: IOException) {
-        HashMap(5)
+        emptyMap()
     }
 }
 

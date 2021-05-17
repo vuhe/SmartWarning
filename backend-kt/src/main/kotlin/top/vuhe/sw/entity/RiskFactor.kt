@@ -10,3 +10,13 @@ data class RiskFactorValue(
         return data[i]
     }
 }
+
+data class RiskFactorVO(
+    val time: Date,
+    val list: List<RiskFactorNode>
+)
+
+data class RiskFactorNode(
+    val driveName: String,
+    val value: Double
+)
