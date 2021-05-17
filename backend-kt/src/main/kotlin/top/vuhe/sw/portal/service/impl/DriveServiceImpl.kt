@@ -47,4 +47,8 @@ class DriveServiceImpl : ServiceImpl<DriveMapper, DriveDAO>(), DriveService {
         }
         return listVO
     }
+
+    override fun getDriveNameById(id: Int): String {
+        return driveMap[id]?.driveName ?: ""
+    }
 }

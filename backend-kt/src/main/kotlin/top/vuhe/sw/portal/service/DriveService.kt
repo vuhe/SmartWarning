@@ -19,4 +19,12 @@ interface DriveService: IService<DriveDAO> {
      * @return 设备风险系数
      */
     fun getRiskFactor(): List<RiskFactorVO>
+
+    /**
+     * 通过设备id获取名称
+     *
+     * @param id 设备id
+     * @return 名称
+     */
+    fun getDriveNameById(id: Int): String
 }
