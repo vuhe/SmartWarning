@@ -4,8 +4,8 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper
 import org.apache.ibatis.annotations.Mapper
 import org.apache.ibatis.annotations.Select
 import org.springframework.stereotype.Repository
-import top.vuhe.sw.entity.log.UserLogDAO
-import top.vuhe.sw.entity.log.UserLogVO
+import top.vuhe.sw.entity.UserLogDAO
+import top.vuhe.sw.entity.UserLogVO
 
 @Mapper
 @Repository

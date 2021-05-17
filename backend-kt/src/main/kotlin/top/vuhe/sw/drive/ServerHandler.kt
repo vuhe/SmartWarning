@@ -4,8 +4,6 @@ import io.netty.channel.ChannelHandlerContext
 import io.netty.channel.ChannelInboundHandlerAdapter
 import io.netty.util.AttributeKey
 import org.slf4j.LoggerFactory
-import top.vuhe.sw.common.util.handleElectricInfo
-import top.vuhe.sw.drive.CommandEnum.Companion.getInfoByCode
 import top.vuhe.sw.drive.CommandEnum.Companion.getResponseCode
 
 /**
@@ -53,12 +51,6 @@ class ServerHandler : ChannelInboundHandlerAdapter() {
         // 如果有需要回应的信息
         if (code != null) {
             ctx.writeAndFlush(code)
-        }
-        log.info(obj.toString())
-        // 信息存入缓存队列
-        val data = getInfoByCode(obj.command, obj.dataInfo)
-        if (data != null) {
-            handleElectricInfo(data)
         }
     }
 

@@ -2,7 +2,7 @@ package top.vuhe.sw.portal.service
 
 import com.baomidou.mybatisplus.extension.service.IService
 import top.vuhe.sw.common.ApiResponse
-import top.vuhe.sw.entity.auth.User
+import top.vuhe.sw.entity.User
 
 interface UserService : IService<User> {
     /**

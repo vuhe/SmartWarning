@@ -6,7 +6,7 @@ import org.springframework.amqp.rabbit.core.RabbitTemplate
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.ApplicationContext
 import org.springframework.context.ApplicationContextAware
-import org.springframework.data.redis.core.StreamOperations
+import org.springframework.data.redis.core.ListOperations
 import org.springframework.stereotype.Component
 import top.vuhe.sw.portal.service.ChannelService
 
@@ -27,7 +27,7 @@ class SpringUtils : ApplicationContextAware {
 
 @Component("SwBeanUtil")
 class BeanUtil @Autowired constructor(
-    val streamOperations: StreamOperations<String, String, String>,
+    val listOperations: ListOperations<String, RedisValue>,
     val rabbitTemplate: RabbitTemplate,
     val channelService: ChannelService
 )

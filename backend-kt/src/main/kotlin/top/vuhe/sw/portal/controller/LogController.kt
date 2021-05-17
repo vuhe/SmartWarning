@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 import top.vuhe.sw.common.ApiResponse
-import top.vuhe.sw.entity.log.UserLogVO
+import top.vuhe.sw.entity.UserLogVO
 import top.vuhe.sw.portal.service.UserLogService
 
 @Api(tags = ["日志相关接口"])

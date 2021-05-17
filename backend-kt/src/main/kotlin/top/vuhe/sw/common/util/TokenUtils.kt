@@ -3,8 +3,8 @@ package top.vuhe.sw.common.util
 import io.jsonwebtoken.Jwts
 import io.jsonwebtoken.io.Decoders
 import io.jsonwebtoken.security.Keys
-import top.vuhe.sw.entity.auth.User
-import top.vuhe.sw.entity.auth.UserRole
+import top.vuhe.sw.entity.User
+import top.vuhe.sw.entity.UserRole
 import javax.crypto.SecretKey
 
 /**

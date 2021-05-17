@@ -35,6 +35,7 @@ dependencies {
     // kotlin 默认配置
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core")
 
     // 数据库配置
     implementation("com.baomidou:mybatis-plus-boot-starter:3.4.2")

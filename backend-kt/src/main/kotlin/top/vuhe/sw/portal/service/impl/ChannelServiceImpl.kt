@@ -4,9 +4,9 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl
 import org.springframework.stereotype.Service
 import top.vuhe.sw.common.util.LinkedList
 import top.vuhe.sw.entity.equipment.dao.ChannelDAO
-import top.vuhe.sw.entity.equipment.dto.RealTimeDTO
 import top.vuhe.sw.entity.equipment.dto.StatusDTO
-import top.vuhe.sw.entity.equipment.vo.RealTimeVO
+import top.vuhe.sw.entity.RealtimeVO
+import top.vuhe.sw.entity.RealtimeValue
 import top.vuhe.sw.mapper.ChannelMapper
 import top.vuhe.sw.portal.service.ChannelService
 
@@ -28,8 +28,8 @@ class ChannelServiceImpl :
         updateBatchById(channels)
     }
 
-    override fun getRealTimeInfo(realTimeDTO: RealTimeDTO):List<RealTimeVO> {
-        val results = LinkedList<RealTimeVO>()
+    override fun getRealTimeInfo(realTimeDTO: RealtimeValue):List<RealtimeVO> {
+        val results = LinkedList<RealtimeVO>()
         // 获取所有数据项
         val realTimeDtoList = baseMapper.selectAllRealTime()
         for (r in realTimeDtoList) {

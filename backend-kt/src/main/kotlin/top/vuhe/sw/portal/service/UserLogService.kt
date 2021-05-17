@@ -1,8 +1,8 @@
 package top.vuhe.sw.portal.service
 
 import com.baomidou.mybatisplus.extension.service.IService
-import top.vuhe.sw.entity.log.UserLogDAO
-import top.vuhe.sw.entity.log.UserLogVO
+import top.vuhe.sw.entity.UserLogDAO
+import top.vuhe.sw.entity.UserLogVO
 
 interface UserLogService: IService<UserLogDAO> {
     /**

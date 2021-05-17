@@ -13,6 +13,7 @@ import org.springframework.data.redis.core.*
 import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer
 import org.springframework.data.redis.serializer.RedisSerializationContext
 import org.springframework.data.redis.serializer.StringRedisSerializer
+import top.vuhe.sw.common.util.RedisValue
 import java.time.Duration
 
 @EnableCaching
@@ -36,44 +37,14 @@ class RedisConfig @Autowired constructor(
     }
 
     @Bean
-    fun redisTemplate(): RedisTemplate<String, Any>? {
-        val redisTemplate = RedisTemplate<String, Any>()
+    fun listOperations(): ListOperations<String, RedisValue> {
+        val redisTemplate = RedisTemplate<String, RedisValue>()
         // 设置redis主键的序列化形式
         redisTemplate.keySerializer = StringRedisSerializer()
         redisTemplate.valueSerializer = StringRedisSerializer()
         redisTemplate.hashKeySerializer = StringRedisSerializer()
         redisTemplate.hashValueSerializer = StringRedisSerializer()
         redisTemplate.setConnectionFactory(redisConnectionFactory)
-        return redisTemplate
-    }
-
-    @Bean
-    fun hashOperations(redisTemplate: RedisTemplate<String?, Any?>): HashOperations<String?, String?, Any?> {
-        return redisTemplate.opsForHash()
-    }
-
-    @Bean
-    fun valueOperations(redisTemplate: RedisTemplate<String?, String?>): ValueOperations<String?, String?> {
-        return redisTemplate.opsForValue()
-    }
-
-    @Bean
-    fun listOperations(redisTemplate: RedisTemplate<String?, Any?>): ListOperations<String?, Any?> {
         return redisTemplate.opsForList()
-    }
-
-    @Bean
-    fun setOperations(redisTemplate: RedisTemplate<String?, Any?>): SetOperations<String?, Any?> {
-        return redisTemplate.opsForSet()
-    }
-
-    @Bean
-    fun zSetOperations(redisTemplate: RedisTemplate<String?, Any?>): ZSetOperations<String?, Any?> {
-        return redisTemplate.opsForZSet()
-    }
-
-    @Bean
-    fun streamOperations(redisTemplate: RedisTemplate<String?, Any?>): StreamOperations<String?, String, String> {
-        return redisTemplate.opsForStream()
     }
 }

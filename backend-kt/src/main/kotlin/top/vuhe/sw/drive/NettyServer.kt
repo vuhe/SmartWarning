@@ -5,6 +5,7 @@ import io.netty.channel.*
 import io.netty.channel.nio.NioEventLoopGroup
 import io.netty.channel.socket.SocketChannel
 import io.netty.channel.socket.nio.NioServerSocketChannel
+import kotlinx.coroutines.*
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.boot.CommandLineRunner
@@ -12,6 +13,7 @@ import org.springframework.core.annotation.Order
 import org.springframework.scheduling.annotation.Async
 import org.springframework.stereotype.Component
 import javax.annotation.PreDestroy
+import kotlin.coroutines.CoroutineContext
 
 /**
  * ## 电气设备服务
@@ -23,11 +25,15 @@ import javax.annotation.PreDestroy
 @Component
 @Order(value = 1)
 class NettyServer(@Value("\${netty.port}") private val port: Int) :
-    CommandLineRunner {
+    CommandLineRunner, CoroutineScope {
     companion object {
         private val log = LoggerFactory.getLogger(NettyServer::class.java)
     }
 
+    private lateinit var job: Job
+    override val coroutineContext: CoroutineContext
+        get() = Dispatchers.Unconfined + job
+    private val buildingFactoryMode = true
     private val bossGroup: EventLoopGroup = NioEventLoopGroup()
     private val workerGroup: EventLoopGroup = NioEventLoopGroup()
     private var channel: Channel? = null
@@ -35,7 +41,13 @@ class NettyServer(@Value("\${netty.port}") private val port: Int) :
     @Async
     @Throws(Exception::class)
     override fun run(vararg args: String?) {
-        init()
+        job = Job()
+
+        if (buildingFactoryMode) {
+            launch { buildAll() }
+        } else {
+            init()
+        }
     }
 
     @Throws(Exception::class)
@@ -75,5 +87,7 @@ class NettyServer(@Value("\${netty.port}") private val port: Int) :
             workerGroup.shutdownGracefully()
             log.info("NettyServer shutdown!")
         }
+        job.cancel()
+        log.info("BuildFactory shutdown!")
     }
 }

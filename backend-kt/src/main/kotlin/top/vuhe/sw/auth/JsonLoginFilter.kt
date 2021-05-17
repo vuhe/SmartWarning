@@ -13,7 +13,7 @@ import top.vuhe.sw.common.exception.ExceptionEnum
 import top.vuhe.sw.common.util.generateToken
 import top.vuhe.sw.common.util.requestToMap
 import top.vuhe.sw.common.util.send
-import top.vuhe.sw.entity.auth.User
+import top.vuhe.sw.entity.User
 import top.vuhe.sw.portal.service.UserLogService
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse

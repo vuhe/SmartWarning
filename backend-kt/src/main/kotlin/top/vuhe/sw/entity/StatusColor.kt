@@ -1,4 +1,4 @@
-package top.vuhe.sw.entity.equipment
+package top.vuhe.sw.entity
 
 /**
  * 状态颜色信息

@@ -1,9 +1,10 @@
-package top.vuhe.sw.entity.equipment.vo
+package top.vuhe.sw.entity
 
 import com.baomidou.mybatisplus.annotation.TableField
 import com.baomidou.mybatisplus.annotation.TableName
 import com.fasterxml.jackson.annotation.JsonIgnore
-import top.vuhe.sw.entity.equipment.StatusColor
+
+typealias RealtimeValue = Map<Int, Double>
 
 /**
  * 实时值数据
@@ -17,7 +18,7 @@ import top.vuhe.sw.entity.equipment.StatusColor
  * @property value       值
  */
 @TableName(value = "realtime_view")
-data class RealTimeVO(
+data class RealtimeVO(
     @field:JsonIgnore
     val id: Int?,
     val perUnit: String?,

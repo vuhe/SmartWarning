@@ -1,4 +1,4 @@
-package top.vuhe.sw.entity.auth
+package top.vuhe.sw.entity
 
 import com.baomidou.mybatisplus.annotation.IdType
 import com.baomidou.mybatisplus.annotation.TableId
@@ -80,4 +80,19 @@ data class User(
         return true
     }
 
+}
+
+/**
+ * 用户权限角色
+ */
+enum class UserRole : GrantedAuthority {
+    // 管理员
+    Admin,
+
+    // 普通用户
+    User;
+
+    override fun getAuthority(): String? {
+        return "ROLE_" + toString()
+    }
 }

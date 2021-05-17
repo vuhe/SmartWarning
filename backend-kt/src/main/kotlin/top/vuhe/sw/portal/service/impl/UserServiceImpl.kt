@@ -11,7 +11,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.stereotype.Service
 import top.vuhe.sw.common.ApiResponse
 import top.vuhe.sw.common.exception.ExceptionEnum
-import top.vuhe.sw.entity.auth.User
+import top.vuhe.sw.entity.User
 import top.vuhe.sw.mapper.UserMapper
 import top.vuhe.sw.portal.service.UserService
 

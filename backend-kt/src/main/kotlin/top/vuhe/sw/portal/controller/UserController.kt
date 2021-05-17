@@ -4,7 +4,7 @@ import io.swagger.annotations.*
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.*
 import top.vuhe.sw.common.ApiResponse
-import top.vuhe.sw.entity.auth.User
+import top.vuhe.sw.entity.User
 import top.vuhe.sw.portal.service.UserService
 
 @Api(tags = ["用户相关接口"])
