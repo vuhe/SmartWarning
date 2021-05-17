@@ -13,30 +13,38 @@ const val DEFAULT_EXPIRE = (60 * 60 * 24).toLong()
  */
 const val NOT_EXPIRE: Long = -1
 
-/**
- * Stream key
- */
-const val STREAM_KEY = "realtime_stream"
 val listOps = beanUtil.listOperations
+
+fun handleRealtime(drive: Int, data: RealtimeValue) = putRealtimeValue(drive, data)
+
+fun handleRiskFactor(data: RiskFactorValue) = putRiskFactorValue(data)
 
 fun getAllRealtimeValue(driveId: Int): List<RealtimeValue> {
     val driveKey = "drive_$driveId"
-    return listOps.range(driveKey, 0, -1) ?: emptyList()
+    val list = ArrayList<RealtimeValue>()
+    listOps.range(driveKey, 0, -1)?.forEach {
+        list.add(toObj(it))
+    }
+    return list
 }
 
 fun putRealtimeValue(driveId: Int, data: RealtimeValue) {
     val driveKey = "drive_$driveId"
-    listOps.leftPush(driveKey, data)
+    listOps.leftPush(driveKey, toJson(data))
     listOps.trim(driveKey, 0, 49)
 }
 
 fun getAllRiskFactorValue(): List<RiskFactorValue> {
     val key = "risk_factor"
-    return listOps.range(key, 0, -1) ?: emptyList()
+    val list = ArrayList<RiskFactorValue>()
+    listOps.range(key, 0, -1)?.forEach {
+        list.add(toObj(it))
+    }
+    return list
 }
 
 fun putRiskFactorValue(data: RiskFactorValue) {
     val key = "risk_factor"
-    listOps.leftPush(key, data)
+    listOps.leftPush(key, toJson(data))
     listOps.trim(key, 0, 49)
 }

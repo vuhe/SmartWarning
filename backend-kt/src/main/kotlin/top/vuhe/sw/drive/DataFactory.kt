@@ -3,8 +3,11 @@ package top.vuhe.sw.drive
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import top.vuhe.sw.common.util.Date
 import top.vuhe.sw.common.util.handleRealtime
+import top.vuhe.sw.common.util.handleRiskFactor
 import top.vuhe.sw.entity.RealtimeValue
+import top.vuhe.sw.entity.RiskFactorValue
 import java.time.Duration
 
 val timeInterval = Duration.ofMinutes(10).toMillis()
@@ -38,15 +41,22 @@ suspend fun buildRealTimeData(driveId: Int) {
         for (i in 12..14) {
             realTimeData[i] = frequency.toDouble()
         }
-        handleRealtime(driveId, realTimeData)
+        handleRealtime(driveId, RealtimeValue(Date(), realTimeData))
         delay(timeInterval)
     }
 }
 
 suspend fun buildRiskFactor() {
-    print("ui")
     while (true) {
-        print("90")
+        val riskFactorData = HashMap<Int, Double>()
+        var sum = 0.0
+        for (i in 1..5) {
+            val n = riskFactor.random().toDouble()
+            sum += n
+            riskFactorData[i] = n
+        }
+        riskFactorData[0] = sum / 5
+        handleRiskFactor(RiskFactorValue(Date(), riskFactorData))
         delay(timeInterval)
     }
 }

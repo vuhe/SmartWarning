@@ -13,7 +13,6 @@ import org.springframework.data.redis.core.*
 import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer
 import org.springframework.data.redis.serializer.RedisSerializationContext
 import org.springframework.data.redis.serializer.StringRedisSerializer
-import top.vuhe.sw.common.util.RedisValue
 import java.time.Duration
 
 @EnableCaching
@@ -37,14 +36,15 @@ class RedisConfig @Autowired constructor(
     }
 
     @Bean
-    fun listOperations(): ListOperations<String, RedisValue> {
-        val redisTemplate = RedisTemplate<String, RedisValue>()
+    fun listOperations(): ListOperations<String, String> {
+        val redisTemplate = RedisTemplate<String, String>()
         // 设置redis主键的序列化形式
         redisTemplate.keySerializer = StringRedisSerializer()
         redisTemplate.valueSerializer = StringRedisSerializer()
         redisTemplate.hashKeySerializer = StringRedisSerializer()
         redisTemplate.hashValueSerializer = StringRedisSerializer()
         redisTemplate.setConnectionFactory(redisConnectionFactory)
+        redisTemplate.afterPropertiesSet()
         return redisTemplate.opsForList()
     }
 }

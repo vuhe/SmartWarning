@@ -27,7 +27,7 @@ class SpringUtils : ApplicationContextAware {
 
 @Component("SwBeanUtil")
 class BeanUtil @Autowired constructor(
-    val listOperations: ListOperations<String, RedisValue>,
+    val listOperations: ListOperations<String, String>,
     val rabbitTemplate: RabbitTemplate,
     val channelService: ChannelService
 )
