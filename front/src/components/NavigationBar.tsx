@@ -10,10 +10,13 @@ import {
   ExclamationCircleOutlined,
 } from '@ant-design/icons';
 import { routes } from '../router/routers';
-import { isAdmin, setToken, setUserInfo } from '../utils/authorize';
+import { isAdmin, setToken, setUserInfo, setLocalStoreState } from '../utils/localStorage';
 import getRoute from '../utils/routeUtils';
 import store from '../redux/store';
-import { changeMenuitemActionCreator } from '@/redux/actionCreator';
+import {
+  changeMenuitemActionCreator,
+  changeStoreStateActionCreator,
+} from '@/redux/actions/actionCreator';
 
 const { Search } = Input;
 const { SubMenu } = Menu;
@@ -30,13 +33,15 @@ class NavigationBar extends React.Component<any, NavigationBarState> {
 
   constructor(props: any) {
     super(props);
+    // 从 store 中初始化 navigatorCurrent
+    this.state.navigatorCurrent = (store.getState() as any).navigatorCurrent || '';
     // 订阅 Redux 的状态
     store.subscribe(this.storeChange);
   }
 
   // 状态改变
   storeChange = () => {
-    this.setState(store.getState());
+    this.setState(store.getState);
   };
 
   /**
@@ -79,14 +84,20 @@ class NavigationBar extends React.Component<any, NavigationBarState> {
       cancelText: '取消',
       onOk() {
         /**
-         * 确定退出登录后:
+         * 当确定退出登录后:
          * ## 跳转到 /login
          * ## 设置本地 token 值为空 ''
          * ## 设置本地用户信息 userInfo 值为 null
+         * ## 将 store 和存储到本地的 state 均设置为 null
+         * ## 弹出提示信息
          */
         history.push('/login');
         setToken('');
         setUserInfo(null);
+        // store.dispatch(changeUserInfoActionCreator(null));
+        // store.dispatch(changeMenuitemActionCreator(''));
+        store.dispatch(changeStoreStateActionCreator());
+        setLocalStoreState(null);
         message.success('退出登录成功');
       },
     });

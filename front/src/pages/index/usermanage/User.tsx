@@ -23,7 +23,7 @@ import {
 } from '@ant-design/icons';
 import SWFooter from '@/components/SWFooter';
 import store from '@/redux/store';
-import { isAdmin } from '@/utils/authorize';
+import { isAdmin } from '@/utils/localStorage';
 import { getAllUserList, addUser, deleteUser, modifyUser } from '@/services/user';
 
 const { Content } = Layout;
@@ -75,7 +75,7 @@ class User extends React.Component<any, any> {
     getAllUserList()
       .then((result) => {
         // console.log(result);
-        if (result.code == 200) {
+        if (result.code === 200) {
           this.setState({
             userList: result.data.map((item: any, index: number) => {
               if (item.role === 'User') item.role = '管理员';
@@ -135,7 +135,6 @@ class User extends React.Component<any, any> {
   // 删除处理方法
   delete = (username: string): any => {
     const _this = this;
-    // console.log(username);
     Modal.confirm({
       title: '确定删除此用户吗?',
       icon: <ExclamationCircleOutlined />,
@@ -147,7 +146,6 @@ class User extends React.Component<any, any> {
         deleteUser(username)
           .then((result) => {
             if (result.code === 200) {
-              console.log(result);
               message.success('删除成功');
               // 删除用户后重新请求所有用户列表，更新页面 state
               _this.getList();
@@ -160,7 +158,6 @@ class User extends React.Component<any, any> {
 
   // Input 输入框改变事件
   inputOnchange = (e: any): any => {
-    // console.log(e.target.value);
     this.setState({
       inputValue: e.target.value,
     });

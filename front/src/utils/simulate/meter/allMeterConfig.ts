@@ -83,7 +83,7 @@ export const allMeterConfig: any = {
   padding: 'auto',
   xField: 'time',
   yField: 'value',
-  seriesField: 'dataName',
+  seriesField: 'channelName',
   smooth: true,
   slider: {
     start: 0,

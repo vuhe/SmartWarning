@@ -113,6 +113,7 @@ const columns = [
     title: '时间',
     dataIndex: 'time',
     key: 'time',
+    // eslint-disable-next-line react/display-name
     render: (time: any, record: any): JSX.Element => {
       return <Typography.Text mark={record.status === 0}>[{time}]</Typography.Text>;
     },
@@ -121,7 +122,8 @@ const columns = [
     title: '地点',
     dataIndex: 'address',
     key: 'address',
-    render: (address: any, record: any): any => {
+    // eslint-disable-next-line react/display-name
+    render: (address: any, record: any): JSX.Element => {
       return <Typography.Text mark={record.status === 0}>[{address}]</Typography.Text>;
     },
   },
@@ -129,7 +131,8 @@ const columns = [
     title: '设备',
     dataIndex: 'equipment',
     key: 'equipment',
-    render: (equipment: any, record: any): any => {
+    // eslint-disable-next-line react/display-name
+    render: (equipment: any, record: any): JSX.Element => {
       return <Typography.Text mark={record.status === 0}>[{equipment}]</Typography.Text>;
     },
   },
@@ -137,7 +140,8 @@ const columns = [
     title: '警报等级',
     dataIndex: 'alertLevel',
     key: 'alertLevel',
-    render: (alertLevel: any, record: any): any => {
+    // eslint-disable-next-line react/display-name
+    render: (alertLevel: any, record: any): JSX.Element => {
       return <Typography.Text mark={record.status === 0}>[{alertLevel}级]</Typography.Text>;
     },
   },
@@ -145,7 +149,8 @@ const columns = [
     title: '处理状态',
     dataIndex: 'status',
     key: 'status',
-    render: (status: number): any => {
+    // eslint-disable-next-line react/display-name
+    render: (status: number): JSX.Element => {
       return status === 0 ? (
         <>
           <Typography.Text mark>[未处理]</Typography.Text>
@@ -219,7 +224,7 @@ class EquipSafety extends React.Component<any, any> {
               </Row>
             </div>
           </Content>
-          <SWFooter></SWFooter>
+          <SWFooter />
         </Layout>
       </>
     );

@@ -1,12 +1,20 @@
 {
   "compile-hero.disable-compile-files-on-did-save-code": true,
   "cSpell.words": [
+    "Dasd",
     "Logined",
     "Sider",
+    "Unmount",
     "Wifi",
     "antd",
+    "chenyh",
     "hoverable",
+    "passcode",
+    "rabbitmq",
+    "sockjs",
+    "stompjs",
     "userinfo",
-    "usertype"
+    "usertype",
+    "vuhe"
   ]
 }

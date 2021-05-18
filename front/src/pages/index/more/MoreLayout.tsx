@@ -16,7 +16,7 @@ const MoreLayout = function (props: any) {
     <>
       <Layout>
         <Content style={{ margin: '0 4px 0px 4px' }}>
-          <div style={{ padding: 16, background: '#fff', minHeight: 370 }}>{children}</div>
+          <div style={{ padding: 12, background: '#fff', minHeight: 370 }}>{children}</div>
         </Content>
         <SWFooter />
       </Layout>

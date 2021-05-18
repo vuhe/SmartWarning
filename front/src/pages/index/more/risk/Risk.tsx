@@ -1,9 +1,10 @@
 import React from 'react';
 import { Card, Statistic, Typography } from 'antd';
 import { ArrowUpOutlined } from '@ant-design/icons';
-import { Line } from '@ant-design/charts';
+import { Area } from '@ant-design/charts';
 // import { get } from '@/utils/request';
-import { riskDataConfig } from '@/utils/simulate/riskConfig';
+import { riskAreaConfig } from '@/utils/simulate/riskConfig';
+// import { testLineConfig } from '@/utils/simulate/meter/test/testLineConfig';
 
 /** 今日风险图 */
 class Risk extends React.Component<any, any> {
@@ -54,7 +55,8 @@ class Risk extends React.Component<any, any> {
             </Card>
           }
         >
-          <Line {...riskDataConfig} />
+          {/* <Line {...riskDataConfig} /> */}
+          <Area {...riskAreaConfig} />
         </Card>
       </>
     );

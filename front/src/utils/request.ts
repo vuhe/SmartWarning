@@ -1,10 +1,11 @@
 import axios, { AxiosInstance, AxiosResponse, AxiosRequestConfig } from 'axios';
-import { getToken } from './authorize';
+import { getToken } from './localStorage';
 
-export const BASE_URL_1 = 'https://sw.zhuhe.site';
+// 所有 api 接口请求的 url 前缀
+export const BASE_URL_1 = 'https://sw.zhuhe.site/api';
 
 const instance: AxiosInstance = axios.create({
-  baseURL: 'https://sw.zhuhe.site',
+  baseURL: BASE_URL_1,
   timeout: 5000,
   responseType: 'json',
   headers: {
@@ -52,8 +53,8 @@ instance.interceptors.response.use(
  * @param {string} url 请求地址
  * @param {Object} params 参数
  */
-export function get(url: string, params?: any): Promise<any> {
-  return instance.get(url, {
+export function get(shortURL: string, params?: any): Promise<any> {
+  return instance.get(BASE_URL_1 + shortURL, {
     params,
   });
 }
@@ -63,8 +64,8 @@ export function get(url: string, params?: any): Promise<any> {
  * @param {string} url 请求地址
  * @param {Object} data 数据
  */
-export function post(url: string, data: any): Promise<any> {
-  return instance.post(url, data);
+export function post(shortURL: string, data: any): Promise<any> {
+  return instance.post(BASE_URL_1 + shortURL, data);
 }
 
 /**
@@ -73,8 +74,8 @@ export function post(url: string, data: any): Promise<any> {
  * @param data
  * @returns {Promise<any>}
  */
-export function put(url: string, data: any): Promise<any> {
-  return instance.put(url, data);
+export function put(shortURL: string, data: any): Promise<any> {
+  return instance.put(BASE_URL_1 + shortURL, data);
 }
 
 /**
@@ -83,37 +84,6 @@ export function put(url: string, data: any): Promise<any> {
  * @param data
  * @returns {Promise<any>}
  */
-export function deleteRequest(url: string, data: any): Promise<any> {
-  return instance.delete(url, { data });
-}
-
-/**
- * put请求
- * @param url
- * @param data
- * @returns {Promise<any>}
- */
-export function put(url: string, data: any): Promise<any> {
-  return axios.put(url, data, {
-    headers: {
-      'Content-Type': 'application/json;charset=utf-8',
-      Authorization: getToken(),
-    },
-  });
-}
-
-/**
- * delete请求
- * @param url
- * @param data
- * @returns {Promise<any>}
- */
-export function deleteRequest(url: string, data: any): Promise<any> {
-  return axios.delete(url, {
-    data,
-    headers: {
-      'Content-Type': 'application/json;charset=utf-8',
-      Authorization: getToken(),
-    },
-  });
+export function deleteRequest(shortURL: string, data: any): Promise<any> {
+  return instance.delete(BASE_URL_1 + shortURL, { data });
 }

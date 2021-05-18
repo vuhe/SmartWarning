@@ -88,6 +88,8 @@ module.exports = {
     'unicorn/prefer-query-selector': ERROR,
     // Prefer `error` over `err` in Promise-catch-code-block
     'unicorn/catch-error-name': WARNING,
+    // There is no difference in JavaScript between, for example, 1, 1.0 and 1., so prefer the former(1) for consistency.
+    'unicorn/no-zero-fractions': WARNING,
 
     '@typescript-eslint/explicit-function-return-type': OFF,
     '@typescript-eslint/no-explicit-any': OFF,
@@ -135,7 +137,13 @@ module.exports = {
     // 在 else 前是否有 return, allowElseIf: true (默认) 允许在 return 之后有 else if 块
     'no-else-return': [WARNING, { allowElseIf: true }],
     'no-restricted-syntax': WARNING,
+    // 不允许位操作
+    'no-bitwise': WARNING,
+    // disallow variable declarations from shadowing variables declared in the outer scope
+    'no-shadow': WARNING,
 
+    // 使用以对象字面量作为第一个参数的 Object.assign，优先使用对象扩展， Use an object spread instead of `Object.assign` eg: `{ ...foo }`
+    'prefer-object-spread': WARNING,
     'space-before-function-paren': OFF,
     'dot-notation': [2, { allowKeywords: true, allowPattern: '' }],
     'consistent-return': OFF,

@@ -19,6 +19,7 @@ import {
 import { CloseCircleOutlined, ExclamationCircleOutlined } from '@ant-design/icons';
 import Warning from '@/pages/index/global/Warning';
 import ChinaMap from './maps/ChinaMap';
+import uuid from '@/utils/uuid';
 
 const { Panel } = Collapse;
 const data = [
@@ -153,7 +154,7 @@ class GlobalIndexPages extends React.Component<any, GlobalIndexPageState> {
                   {warningMessage.map((item: { type: string; message: string }) => {
                     return (
                       <>
-                        <Typography.Text key={item.type + item.message} mark>
+                        <Typography.Text key={uuid()} mark>
                           [{item.type}]
                         </Typography.Text>
                         ：{item.message}
@@ -196,7 +197,7 @@ class GlobalIndexPages extends React.Component<any, GlobalIndexPageState> {
                   <List
                     dataSource={data}
                     renderItem={(item) => (
-                      <List.Item>
+                      <List.Item key={uuid()}>
                         <Typography.Text mark>[设备#**]</Typography.Text> {item}
                       </List.Item>
                     )}
@@ -211,7 +212,7 @@ class GlobalIndexPages extends React.Component<any, GlobalIndexPageState> {
               {schedule.map((item: any) => {
                 return (
                   <Panel
-                    key={item.title + item.message}
+                    key={uuid()}
                     header={item.title}
                     extra={
                       <Tag icon={<item.tagIcon />} color={item.tagColor}>
@@ -250,8 +251,9 @@ class GlobalIndexPages extends React.Component<any, GlobalIndexPageState> {
             bordered
             dataSource={data}
             renderItem={(item) => (
-              <List.Item>
-                <Typography.Text mark>[设备#**]</Typography.Text>详细日志信息: {item}
+              <List.Item key={uuid()}>
+                <Typography.Text mark>[设备#**]</Typography.Text>
+                详细日志信息: {item}
               </List.Item>
             )}
           />
@@ -271,7 +273,7 @@ class GlobalIndexPages extends React.Component<any, GlobalIndexPageState> {
             bordered
             dataSource={data}
             renderItem={(item) => (
-              <List.Item>
+              <List.Item key={uuid()}>
                 <Typography.Text mark>[设备#**]</Typography.Text>
                 详细设备信息: {item}
               </List.Item>

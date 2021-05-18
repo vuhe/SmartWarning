@@ -2,7 +2,8 @@ import React from 'react';
 import { List, Typography, Divider, Descriptions } from 'antd';
 import { WarningOutlined } from '@ant-design/icons';
 
-export default React.memo(function Waring(props: any) {
+//
+export default React.memo(function Warning(props: any) {
   const { warningMessage } = props;
   return (
     <>

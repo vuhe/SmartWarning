@@ -34,7 +34,7 @@ export const riskData: { data: string; risk: number }[] = [
   },
   {
     data: '4:00',
-    risk: 16,
+    risk: 14.5,
   },
   {
     data: '4:30',
@@ -54,7 +54,7 @@ export const riskData: { data: string; risk: number }[] = [
   },
   {
     data: '6:30',
-    risk: 4,
+    risk: 5.3,
   },
   {
     data: '7:00',
@@ -102,19 +102,19 @@ export const riskData: { data: string; risk: number }[] = [
   },
   {
     data: '16:00',
-    risk: 15,
+    risk: 12.5,
   },
   {
     data: '17:00',
-    risk: 16,
+    risk: 13.5,
   },
   {
     data: '18:00',
-    risk: 16,
+    risk: 12,
   },
   {
     data: '19:00',
-    risk: 17,
+    risk: 13,
   },
   {
     data: '20:00',
@@ -122,19 +122,19 @@ export const riskData: { data: string; risk: number }[] = [
   },
   {
     data: '21:00',
-    risk: 5,
+    risk: 10,
   },
   {
     data: '22:00',
-    risk: 4,
+    risk: 14,
   },
   {
     data: '23:00',
-    risk: 6,
+    risk: 16,
   },
   {
     data: '24:00',
-    risk: 9,
+    risk: 19,
   },
 ];
 
@@ -150,4 +150,25 @@ export const riskDataConfig: any = {
     end: 0.8,
   },
   smooth: true,
+};
+
+// 风险图页面数据 config
+export const riskAreaConfig: any = {
+  data: riskData,
+  xField: 'data',
+  yField: 'risk',
+  xAxis: { tickCount: 5 },
+  // smooth: true,
+  // point: {},
+  color: '#FF8000',
+  areaStyle: function areaStyle() {
+    return {
+      fill: 'l(270) 0:#FFFFFF 0.5:#F5D0A9 1:#FF8000',
+      // color: "#1890ff"
+    };
+  },
+  slider: {
+    start: 0,
+    end: 0.8,
+  },
 };

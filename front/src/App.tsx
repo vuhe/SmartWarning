@@ -4,7 +4,7 @@ import { Switch, Redirect } from 'react-router-dom';
 import { Layout } from 'antd';
 import './App.scss';
 import NavigationBar from './components/NavigationBar';
-import { isLogined } from './utils/authorize';
+import { isLogined } from './utils/localStorage';
 import RouteWithSubRoutes from './router/RouteWithSubRoutes';
 
 const { Content } = Layout;
@@ -18,7 +18,7 @@ class App extends React.Component<any, any> {
     return (
       <>
         {
-          /** 判断登录后则渲染组件否则将重定向到/login */
+          /** 判断登录后则渲染组件否则将重定向到 /login */
           isLogined() ? (
             <Layout style={{ minHeight: '100vh' }}>
               <NavigationBar routes={routes} />
