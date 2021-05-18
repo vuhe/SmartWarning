@@ -1,21 +1,19 @@
 package top.vuhe.sw.common.exception
 
-import org.slf4j.LoggerFactory
 import org.springframework.web.bind.annotation.ExceptionHandler
 import org.springframework.web.bind.annotation.RestControllerAdvice
 import top.vuhe.sw.common.ApiResponse
+import top.vuhe.sw.common.util.Slf4j
+import top.vuhe.sw.common.util.Slf4j.Companion.log
 
 /**
  * 统一异常处理器
  *
  * @author vuhe
  */
+@Slf4j
 @RestControllerAdvice
 class SystemProcessingExceptionHandler {
-    companion object {
-        private val log = LoggerFactory.getLogger(SystemProcessingExceptionHandler::class.java)
-    }
-
     /**
      * 处理自己抛出的异常
      */

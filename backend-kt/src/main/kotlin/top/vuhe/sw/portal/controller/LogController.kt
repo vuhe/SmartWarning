@@ -12,13 +12,10 @@ import top.vuhe.sw.portal.service.UserLogService
 @Api(tags = ["日志相关接口"])
 @RestController
 @RequestMapping("/log")
-class LogController {
-    @Autowired
-    private lateinit var userLogService: UserLogService
-
-    @Autowired
-    private lateinit var driveLogService: DriveLogService
-
+class LogController(
+    @Autowired private val userLogService: UserLogService,
+    @Autowired private val driveLogService: DriveLogService
+) {
     /**
      * 获取用户登录日志
      */
@@ -48,7 +45,7 @@ class LogController {
     }
 
     @PutMapping("/handleDriveLog")
-    fun searchHandleDriveLog(@RequestParam("id")id: Int): ApiResponse<*> {
+    fun searchHandleDriveLog(@RequestParam("id") id: Int): ApiResponse<*> {
         driveLogService.handleError(id)
         return ApiResponse.ofSuccess()
     }

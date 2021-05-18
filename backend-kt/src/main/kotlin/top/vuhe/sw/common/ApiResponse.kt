@@ -70,8 +70,8 @@ class ApiResponseSerializer : StdSerializer<ApiResponse<*>> {
         gen.writeStartObject()
         gen.writeNumberField("code", value.code)
         gen.writeStringField("message", value.message)
-        if (value.data != null) {
-            gen.writeObjectField("data", value.data)
+        value.data?.let {
+            gen.writeObjectField("data", it)
         }
         gen.writeEndObject()
     }

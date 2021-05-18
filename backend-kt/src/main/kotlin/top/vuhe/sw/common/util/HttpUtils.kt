@@ -30,8 +30,8 @@ fun send(response: HttpServletResponse, data: ApiResponse<*>) {
     response.contentType = "application/json; charset=utf-8"
     response.setHeader("Access-Control-Allow-Credentials", "true")
     response.setHeader("Access-Control-Allow-Origin", getOrigin())
-    response.writer.use { out ->
-        out.append(toJson(data))
-        out.flush()
+    response.writer.use { output ->
+        output.append(toJson(data))
+        output.flush()
     }
 }

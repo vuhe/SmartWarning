@@ -11,10 +11,9 @@ import top.vuhe.sw.portal.service.DriveService
 
 @RestController
 @RequestMapping("/drive")
-class DriveController {
-    @Autowired
-    private lateinit var driveService: DriveService
-
+class DriveController(
+    @Autowired private val driveService: DriveService
+) {
     @GetMapping("/getInfo")
     fun getAllDrive(): ApiResponse<List<DriveVO>> {
         return ApiResponse.ofSuccessWithDate(

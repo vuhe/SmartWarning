@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.extension.service.IService
 import top.vuhe.sw.entity.DriveLogDAO
 import top.vuhe.sw.entity.DriveLogVO
 
-interface DriveLogService: IService<DriveLogDAO> {
+interface DriveLogService : IService<DriveLogDAO> {
     /**
      * 获取设备日志
      *

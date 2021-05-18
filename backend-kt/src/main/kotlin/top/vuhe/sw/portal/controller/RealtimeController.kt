@@ -11,10 +11,9 @@ import top.vuhe.sw.portal.service.ChannelService
 
 @RestController
 @RequestMapping("/realtime")
-class RealtimeController {
-    @Autowired
-    private lateinit var channelService: ChannelService
-
+class RealtimeController(
+    @Autowired private val channelService: ChannelService
+) {
     @GetMapping("/getAll")
     fun getAllRealtime(@RequestParam("driveId") driveId: Int):
             ApiResponse<List<RealtimeVO>> {

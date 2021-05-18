@@ -25,6 +25,7 @@ import javax.servlet.http.HttpServletResponse
  * @author vuhe
  */
 class JsonLoginFilter : UsernamePasswordAuthenticationFilter() {
+
     private val post = "POST"
 
     fun init(authenticationManager: AuthenticationManager?, userLogService: UserLogService) {

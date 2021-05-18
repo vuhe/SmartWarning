@@ -5,6 +5,27 @@ import io.netty.channel.ChannelHandlerContext
 import io.netty.handler.codec.ByteToMessageDecoder
 import io.netty.handler.codec.MessageToByteEncoder
 
+fun getCommandByCode(b: Int): CommandEnum {
+    for (command in CommandEnum.values()) {
+        if (command.code.toInt() == b) {
+            return command
+        }
+    }
+    throw IllegalArgumentException("命令错误")
+}
+
+fun getResponseCode(b: CommandEnum): CommandEnum? {
+    return when (b) {
+        CommandEnum.LOGIN_UP -> CommandEnum.LOGIN_RE
+        CommandEnum.HEARTBEAT_UP -> CommandEnum.HEARTBEAT_RE
+        CommandEnum.NOW_VALUE_UP -> CommandEnum.NOW_VALUE_RE
+        CommandEnum.THRESHOLD_UP -> CommandEnum.THRESHOLD_RE
+        CommandEnum.STATUS_UP -> CommandEnum.STATUS_RE
+        CommandEnum.SYS_INFO_UP -> CommandEnum.SYS_INFO_RE
+        else -> null
+    }
+}
+
 /**
  * ## 电气设备应答命令
  * 用于整合设备与平台之间的通信
@@ -67,29 +88,6 @@ enum class CommandEnum(val code: Byte) {
      * 数据设置、远程控制、远程升级
      * 不开放使用
      */
-
-    companion object {
-        fun getCommandByCode(b: Int): CommandEnum {
-            for (command in values()) {
-                if (command.code.toInt() == b) {
-                    return command
-                }
-            }
-            throw IllegalArgumentException("命令错误")
-        }
-
-        fun getResponseCode(b: CommandEnum): CommandEnum? {
-            return when (b) {
-                LOGIN_UP -> LOGIN_RE
-                HEARTBEAT_UP -> HEARTBEAT_RE
-                NOW_VALUE_UP -> NOW_VALUE_RE
-                THRESHOLD_UP -> THRESHOLD_RE
-                STATUS_UP -> STATUS_RE
-                SYS_INFO_UP -> SYS_INFO_RE
-                else -> null
-            }
-        }
-    }
 }
 
 /**
@@ -109,49 +107,45 @@ data class DataFrame(
     val dataInfo: List<Byte>
 )
 
+private const val DE_BASE_LENGTH = 7
+private const val DE_FRAME_HEADER_LEN = 1
+private const val DE_FRAME_LENGTH = 2
+private const val DE_MSG_ID = 2
+private const val DE_COMMAND_TYPE_LEN = 1
+private const val DE_CHECK_CODE_LEN = 1
+private const val EN_HEADER_LEN = 5
+
 /**
  * ## 电气设备解码器
  */
 class Decoder : ByteToMessageDecoder() {
-    companion object {
-        /**
-         * 数据包最小长度（无 data info)
-         */
-        private const val BASE_LENGTH = 7
-        private const val FRAME_HEADER_LEN = 1
-        private const val FRAME_LENGTH = 2
-        private const val MSG_ID = 2
-        private const val COMMAND_TYPE_LEN = 1
-        private const val CHECK_CODE_LEN = 1
-    }
-
     private var checkCode = 0
     private var beginIdx = 0
 
     override fun decode(ctx: ChannelHandlerContext?, inBuf: ByteBuf, list: MutableList<Any>) {
         // 基础长度不足，我们设定基础长度为7
-        if (inBuf.readableBytes() < BASE_LENGTH) {
+        if (inBuf.readableBytes() < DE_BASE_LENGTH) {
             return
         }
         // 如果找到开始位置
         if (findStart(inBuf)) {
             // 剩余长度不足可读取数量[没有内容长度位]
-            if (inBuf.readableBytes() < BASE_LENGTH - 1) {
+            if (inBuf.readableBytes() < DE_BASE_LENGTH - 1) {
                 inBuf.readerIndex(beginIdx)
                 return
             }
             checkCode = 0x7E
             // 读取帧长(2 byte) 并计算 dataInfo 长度
-            val dataInfoLen: Int = getValue(inBuf, 2) - BASE_LENGTH
+            val dataInfoLen: Int = getValue(inBuf, 2) - DE_BASE_LENGTH
             // 剩余长度不足可读取数量[没有内容长度位]
             if (inBuf.readableBytes() < dataInfoLen +
-                MSG_ID + COMMAND_TYPE_LEN + CHECK_CODE_LEN
+                DE_MSG_ID + DE_COMMAND_TYPE_LEN + DE_CHECK_CODE_LEN
             ) {
                 inBuf.readerIndex(beginIdx)
                 return
             }
             // 读取 msgId(2 byte)
-            val msgId: Int = getValue(inBuf, 2)
+            getValue(inBuf, 2)
             // 读取命令类型(1 byte)
             val commandType: Int = getValue(inBuf, 1)
             // 读取 dataInfo(N byte)
@@ -163,7 +157,7 @@ class Decoder : ByteToMessageDecoder() {
                 // 对信息进行解码
                 list.add(
                     DataFrame(
-                        CommandEnum.getCommandByCode(commandType),
+                        getCommandByCode(commandType),
                         dataInfo
                     )
                 )
@@ -188,7 +182,7 @@ class Decoder : ByteToMessageDecoder() {
             // 当略过，一个字节之后，
             // 数据包的长度，又变得不满足
             // 此时，应该结束。等待后面的数据到达
-            if (inBuf.readableBytes() < BASE_LENGTH) {
+            if (inBuf.readableBytes() < DE_BASE_LENGTH) {
                 return false
             }
         }
@@ -226,14 +220,10 @@ class Decoder : ByteToMessageDecoder() {
  * ## 电气设备编码器
  */
 class Encoder : MessageToByteEncoder<CommandEnum>() {
-    companion object {
-        private const val HEADER_LEN = 5
-    }
-
     override fun encode(ctx: ChannelHandlerContext?, code: CommandEnum, outBuf: ByteBuf) {
         // 使用 EncodeHelper 得到 命令类型 和 dataInfo 的字节码
         val info: ByteArray = encodeMsg(code)
-        val send = ByteArray(HEADER_LEN + info.size + 1)
+        val send = ByteArray(EN_HEADER_LEN + info.size + 1)
 
         // 添加帧头
         send[0] = 0x7E

@@ -15,36 +15,33 @@ const val NOT_EXPIRE: Long = -1
 
 val listOps = beanUtil.listOperations
 
-fun handleRealtime(drive: Int, data: RealtimeValue) = putRealtimeValue(drive, data)
+fun handleRealtime(drive: Int, data: RealtimeValue) =
+    putRealtimeValue(drive, data)
 
-fun handleRiskFactor(data: RiskFactorValue) = putRiskFactorValue(data)
+fun handleRiskFactor(data: RiskFactorValue) =
+    putRiskFactorValue(data)
 
-fun getAllRealtimeValue(driveId: Int): List<RealtimeValue> {
-    val driveKey = "drive_$driveId"
-    val list = ArrayList<RealtimeValue>()
-    listOps.range(driveKey, 0, -1)?.forEach {
-        list.add(toObj(it))
-    }
-    return list
+fun getAllRealtimeValue(driveId: Int) =
+    getRedisList<RealtimeValue>("drive_$driveId")
+
+fun putRealtimeValue(driveId: Int, data: RealtimeValue) =
+    putRedisValue("drive_$driveId", data)
+
+fun getAllRiskFactorValue() =
+    getRedisList<RiskFactorValue>("risk_factor")
+
+fun putRiskFactorValue(data: RiskFactorValue) =
+    putRedisValue("risk_factor", data)
+
+private fun putRedisValue(key: String, data: Any) {
+    listOps.leftPush(key, toJson(data))
+    listOps.trim(key, 0, 49)
 }
 
-fun putRealtimeValue(driveId: Int, data: RealtimeValue) {
-    val driveKey = "drive_$driveId"
-    listOps.leftPush(driveKey, toJson(data))
-    listOps.trim(driveKey, 0, 49)
-}
-
-fun getAllRiskFactorValue(): List<RiskFactorValue> {
-    val key = "risk_factor"
-    val list = ArrayList<RiskFactorValue>()
+private inline fun <reified T> getRedisList(key: String): List<T> {
+    val list = ArrayList<T>()
     listOps.range(key, 0, -1)?.forEach {
         list.add(toObj(it))
     }
     return list
-}
-
-fun putRiskFactorValue(data: RiskFactorValue) {
-    val key = "risk_factor"
-    listOps.leftPush(key, toJson(data))
-    listOps.trim(key, 0, 49)
 }

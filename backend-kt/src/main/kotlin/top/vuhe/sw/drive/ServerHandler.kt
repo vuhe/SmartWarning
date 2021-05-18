@@ -3,18 +3,16 @@ package top.vuhe.sw.drive
 import io.netty.channel.ChannelHandlerContext
 import io.netty.channel.ChannelInboundHandlerAdapter
 import io.netty.util.AttributeKey
-import org.slf4j.LoggerFactory
-import top.vuhe.sw.drive.CommandEnum.Companion.getResponseCode
+import top.vuhe.sw.common.util.Slf4j
+import top.vuhe.sw.common.util.Slf4j.Companion.log
 
 /**
  * ## 电气设备服务处理器
  *
  * 用于处理电气设备的信息并进行转发等操作
  */
+@Slf4j
 class ServerHandler : ChannelInboundHandlerAdapter() {
-    companion object {
-        private val log = LoggerFactory.getLogger(ServerHandler::class.java)
-    }
 
     private val key = AttributeKey.valueOf<Byte>("Id")
 

@@ -10,10 +10,9 @@ import top.vuhe.sw.portal.service.UserService
 @Api(tags = ["用户相关接口"])
 @RestController
 @RequestMapping("/user")
-class UserController {
-    @Autowired
-    private lateinit var userService: UserService
-
+class UserController(
+    @Autowired private val userService: UserService
+) {
     /**
      * 获取用户信息列表
      */
@@ -33,7 +32,13 @@ class UserController {
      */
     @ApiOperation("添加用户")
     @ApiImplicitParams(
-        ApiImplicitParam(paramType = "body", name = "user", dataTypeClass = User::class, required = true, value = "用户信息"),
+        ApiImplicitParam(
+            paramType = "body",
+            name = "user",
+            dataTypeClass = User::class,
+            required = true,
+            value = "用户信息"
+        ),
     )
     @ApiResponses(
         io.swagger.annotations.ApiResponse(code = 401, message = "token 失效"),
@@ -50,7 +55,13 @@ class UserController {
      */
     @ApiOperation("修改用户")
     @ApiImplicitParams(
-        ApiImplicitParam(paramType = "body", name = "user", dataTypeClass = User::class, required = true, value = "用户信息"),
+        ApiImplicitParam(
+            paramType = "body",
+            name = "user",
+            dataTypeClass = User::class,
+            required = true,
+            value = "用户信息"
+        ),
     )
     @ApiResponses(
         io.swagger.annotations.ApiResponse(code = 401, message = "token 失效"),
@@ -67,7 +78,13 @@ class UserController {
      */
     @ApiOperation("删除用户")
     @ApiImplicitParams(
-        ApiImplicitParam(paramType = "body", name = "user", dataTypeClass = User::class, required = true, value = "用户信息"),
+        ApiImplicitParam(
+            paramType = "body",
+            name = "user",
+            dataTypeClass = User::class,
+            required = true,
+            value = "用户信息"
+        ),
     )
     @ApiResponses(
         io.swagger.annotations.ApiResponse(code = 401, message = "token 失效"),

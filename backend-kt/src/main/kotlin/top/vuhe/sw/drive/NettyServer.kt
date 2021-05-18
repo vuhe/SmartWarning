@@ -24,8 +24,9 @@ import kotlin.coroutines.CoroutineContext
  */
 @Component
 @Order(value = 1)
-class NettyServer(@Value("\${netty.port}") private val port: Int) :
-    CommandLineRunner, CoroutineScope {
+class NettyServer(
+    @Value("\${netty.port}") private val port: Int
+) : CommandLineRunner, CoroutineScope {
     companion object {
         private val log = LoggerFactory.getLogger(NettyServer::class.java)
     }
@@ -81,8 +82,8 @@ class NettyServer(@Value("\${netty.port}") private val port: Int) :
 
     @PreDestroy
     fun destroy() {
-        if (channel != null) {
-            channel!!.close()
+        channel?.let {
+            it.close()
             bossGroup.shutdownGracefully()
             workerGroup.shutdownGracefully()
             log.info("NettyServer shutdown!")

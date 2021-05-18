@@ -11,9 +11,10 @@ import top.vuhe.sw.portal.service.DriveLogService
 import top.vuhe.sw.portal.service.DriveService
 
 @Service("DriveLogService")
-class DriveLogServiceImpl: ServiceImpl<DriveLogMapper, DriveLogDAO>(), DriveLogService {
-    @Autowired
-    private lateinit var driveService: DriveService
+class DriveLogServiceImpl(
+    @Autowired val driveService: DriveService
+) :
+    ServiceImpl<DriveLogMapper, DriveLogDAO>(), DriveLogService {
 
     override fun searchAllLog(): List<DriveLogVO> {
         return list().map { i ->

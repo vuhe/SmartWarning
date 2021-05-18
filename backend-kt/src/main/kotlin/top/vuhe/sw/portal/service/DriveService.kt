@@ -5,7 +5,7 @@ import top.vuhe.sw.entity.DriveDAO
 import top.vuhe.sw.entity.DriveVO
 import top.vuhe.sw.entity.RiskFactorVO
 
-interface DriveService: IService<DriveDAO> {
+interface DriveService : IService<DriveDAO> {
     /**
      * 获取设备列表
      *
