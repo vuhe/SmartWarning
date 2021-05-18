@@ -90,6 +90,8 @@ module.exports = {
     'unicorn/catch-error-name': WARNING,
     // There is no difference in JavaScript between, for example, 1, 1.0 and 1., so prefer the former(1) for consistency.
     'unicorn/no-zero-fractions': WARNING,
+    // Do not use useless `undefined`
+    'unicorn/no-useless-undefined': WARNING,
 
     '@typescript-eslint/explicit-function-return-type': OFF,
     '@typescript-eslint/no-explicit-any': OFF,

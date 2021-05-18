@@ -2,19 +2,39 @@ import React from 'react';
 import { Layout, Menu, Anchor } from 'antd';
 import { Link, withRouter, RouteComponentProps } from 'react-router-dom';
 import { AreaChartOutlined, BarChartOutlined } from '@ant-design/icons';
-import { metersRoutes } from '@/router/routers';
 import SWFooter from '@/components/SWFooter';
+import store from '@/redux/store';
 
 const { Sider, Content } = Layout;
 
 export interface StatisticLayoutProps extends RouteComponentProps {}
 
+interface StatisticLayoutState {
+  drives?: any[];
+}
+
 /**
  * 数据页面的基础布局
  */
-class StatisticLayout extends React.Component<any, any> {
+class StatisticLayout extends React.Component<any, StatisticLayoutState> {
+  state: StatisticLayoutState = {};
+
+  constructor(props: any) {
+    super(props);
+    // 从 store 中初始化 drives
+    this.state.drives = (store.getState() as any).drives;
+    // 订阅 Redux 的状态
+    store.subscribe(this.storeChange);
+  }
+
+  // 状态改变
+  storeChange = () => {
+    this.setState(store.getState);
+  };
+
   render() {
-    const { children, routes } = this.props;
+    const { children } = this.props;
+
     return (
       <Layout>
         <Sider width={144} theme="light" style={{ minHeight: '92vh' }}>
@@ -26,48 +46,55 @@ class StatisticLayout extends React.Component<any, any> {
                   <span>总数据</span>
                 </Link>
               </Menu.Item>
-              <Menu.SubMenu
-                key="index"
-                title={
-                  <span>
-                    <BarChartOutlined />
-                    <span>#15号宿舍楼</span>
-                  </span>
-                }
-              >
-                {routes.map((route: SmartWarning.routeType) => {
-                  return (
-                    <Menu.Item disabled={route.isDisable} key={route.path}>
-                      <Link to={route.path}>
-                        {route.icon ? <route.icon /> : null}
-                        <span>{route.title}</span>
-                      </Link>
-                    </Menu.Item>
-                  );
-                })}
-              </Menu.SubMenu>
 
-              <Menu.SubMenu
-                key="#14"
-                disabled
-                title={
-                  <span>
-                    <BarChartOutlined />
-                    <span>#14号楼设备数据</span>
-                  </span>
-                }
-              >
-                {metersRoutes.map((route: SmartWarning.routeType) => {
-                  return (
-                    <Menu.Item key={route.path}>
-                      <Link to={route.path}>
-                        {route.icon ? <route.icon /> : null}
-                        <span>{route.title}</span>
-                      </Link>
-                    </Menu.Item>
-                  );
-                })}
-              </Menu.SubMenu>
+              {this.state.drives ? (
+                <>
+                  <Menu.SubMenu
+                    key="教学楼设备"
+                    title={
+                      <span>
+                        <BarChartOutlined />
+                        <span>教学楼设备</span>
+                      </span>
+                    }
+                  >
+                    {this.state.drives
+                      .filter((drive: SmartWarning.Drive) => drive.driveName.startsWith('教学楼'))
+                      .map((drive: SmartWarning.Drive) => {
+                        return (
+                          <Menu.Item key={drive.id + drive.driveName}>
+                            <Link to={`/index/statistic/charts/${drive.driveName}`}>
+                              {/* {drive.icon ? <route.icon /> : null} */}
+                              <span>{drive.driveName}</span>
+                            </Link>
+                          </Menu.Item>
+                        );
+                      })}
+                  </Menu.SubMenu>
+                  <Menu.SubMenu
+                    key="宿舍楼设备"
+                    title={
+                      <span>
+                        <BarChartOutlined />
+                        <span>宿舍楼设备</span>
+                      </span>
+                    }
+                  >
+                    {this.state.drives
+                      .filter((drive: SmartWarning.Drive) => drive.driveName.startsWith('宿舍楼'))
+                      .map((drive: SmartWarning.Drive) => {
+                        return (
+                          <Menu.Item key={drive.id + drive.driveName}>
+                            <Link to={`/index/statistic/charts/${drive.driveName}`}>
+                              {/* {drive.icon ? <route.icon /> : null} */}
+                              <span>{drive.driveName}</span>
+                            </Link>
+                          </Menu.Item>
+                        );
+                      })}
+                  </Menu.SubMenu>
+                </>
+              ) : null}
             </Menu>
           </Anchor>
         </Sider>

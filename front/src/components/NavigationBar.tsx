@@ -5,13 +5,14 @@ import {
   HomeOutlined,
   SafetyOutlined,
   LineChartOutlined,
-  BarsOutlined,
+  // BarsOutlined,
   UserOutlined,
   ExclamationCircleOutlined,
+  OrderedListOutlined,
 } from '@ant-design/icons';
-import { routes } from '../router/routers';
+// import { routes } from '../router/routers';
 import { isAdmin, setToken, setUserInfo, setLocalStoreState } from '../utils/localStorage';
-import getRoute from '../utils/routeUtils';
+// import getRoute from '../utils/routeUtils';
 import store from '../redux/store';
 import {
   changeMenuitemActionCreator,
@@ -19,7 +20,7 @@ import {
 } from '@/redux/actions/actionCreator';
 
 const { Search } = Input;
-const { SubMenu } = Menu;
+// const { SubMenu } = Menu;
 const { confirm } = Modal;
 
 export interface NavigationBarState {
@@ -105,7 +106,8 @@ class NavigationBar extends React.Component<any, NavigationBarState> {
 
   render() {
     // 获取更多路由
-    const moreRoutes = getRoute(routes, '/index/more');
+    // const moreRoutes = (getRoute(routes, '/index/more')
+    //   ?.children as SmartWarning.routeType[]).filter((route) => route.isShow);
 
     return (
       <>
@@ -127,16 +129,19 @@ class NavigationBar extends React.Component<any, NavigationBarState> {
                 <Menu.Item key="statistic" icon={<LineChartOutlined />}>
                   <Link to="/index/statistic">数据检测</Link>
                 </Menu.Item>
+                <Menu.Item key="driveLog" icon={<OrderedListOutlined />}>
+                  <Link to="/index/driveLog">设备日志</Link>
+                </Menu.Item>
 
-                <SubMenu key="more" title="更多" icon={<BarsOutlined />}>
-                  {moreRoutes.children.map((item: any) => {
+                {/* <SubMenu key="more" title="更多" icon={<BarsOutlined />}>
+                  {moreRoutes.map((item: any) => {
                     return (
                       <Menu.Item key={item.path} icon={item.icon && <item.icon />}>
                         <Link to={item.path}>{item.title}</Link>
                       </Menu.Item>
                     );
                   })}
-                </SubMenu>
+                </SubMenu> */}
               </Menu>
             </Col>
             <Col span={1}></Col>

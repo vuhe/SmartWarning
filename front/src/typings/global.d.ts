@@ -1,4 +1,9 @@
 declare namespace SmartWarning {
+  export interface Drive {
+    id: number;
+    driveName: string;
+  }
+
   /**
    * 路由类型
    * path {string} 路由
@@ -14,9 +19,9 @@ declare namespace SmartWarning {
     path: string;
     component: any;
     exact: boolean;
+    isShow: boolean;
     icon?: any;
     title?: string;
-    isShow?: boolean;
     isDisable?: boolean;
     children?: routeType[];
   }

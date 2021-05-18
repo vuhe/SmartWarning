@@ -1,4 +1,9 @@
-import { SWITCH_MENU_ITEM, CHANGE_USERINFO, CHANGE_STORE_STATE } from './actions';
+import {
+  SWITCH_MENU_ITEM,
+  CHANGE_USERINFO,
+  CHANGE_STORE_STATE,
+  CHANGE_DRIVE_INFO,
+} from './actions';
 
 /**
  * 返回改变顶部 navigator 菜单栏选项 action
@@ -28,4 +33,14 @@ export const changeUserInfoActionCreator = (user: any) => ({
 export const changeStoreStateActionCreator = (state?: any) => ({
   type: CHANGE_STORE_STATE,
   state,
+});
+
+/**
+ * 返回设备信息数组的 action
+ * @param drives 设备信息数组
+ * @returns {action} action
+ */
+export const changeDriveInfoActionCreator = (drives: any[]) => ({
+  type: CHANGE_DRIVE_INFO,
+  drives,
 });

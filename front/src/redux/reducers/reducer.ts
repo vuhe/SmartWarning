@@ -1,4 +1,9 @@
-import { SWITCH_MENU_ITEM, CHANGE_USERINFO, CHANGE_STORE_STATE } from '../actions/actions';
+import {
+  SWITCH_MENU_ITEM,
+  CHANGE_USERINFO,
+  CHANGE_STORE_STATE,
+  CHANGE_DRIVE_INFO,
+} from '../actions/actions';
 
 // 默认 state
 const defaultState = {
@@ -34,6 +39,9 @@ const reducer = (state: any = defaultState, action: any): any => {
     }
     case CHANGE_STORE_STATE: {
       return action.state || {};
+    }
+    case CHANGE_DRIVE_INFO: {
+      return updateState(state, { drives: action.drives });
     }
     default:
       return state;

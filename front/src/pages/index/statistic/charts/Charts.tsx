@@ -19,7 +19,7 @@ export interface ChartsProps {
 /**
  * charts页面
  */
-class Charts extends React.Component<ChartsProps, ChartsState> {
+class Chart extends React.Component<ChartsProps, ChartsState> {
   state: ChartsState = { radioValue: 'chart' };
 
   constructor(props: ChartsProps) {
@@ -68,4 +68,4 @@ class Charts extends React.Component<ChartsProps, ChartsState> {
   }
 }
 
-export default Charts;
+export default Chart;

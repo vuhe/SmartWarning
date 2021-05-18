@@ -6,3 +6,6 @@ export const CHANGE_USERINFO = 'change_user_info';
 
 // 修改整个 store 的 action 类型
 export const CHANGE_STORE_STATE = 'change_store_state';
+
+// 修改当前存在的所有设备信息
+export const CHANGE_DRIVE_INFO = 'change_drive_info';
