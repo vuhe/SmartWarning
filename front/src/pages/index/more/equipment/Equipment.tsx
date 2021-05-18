@@ -71,7 +71,7 @@ class Equipment extends React.Component<any, any> {
       description: '设备详细警告信息',
       placement: 'topRight',
       top: 55,
-      duration: 4,
+      duration: 3.5,
       onClick: () => {
         console.log('Notification Clicked!');
       },

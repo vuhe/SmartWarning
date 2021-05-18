@@ -1,4 +1,4 @@
-import { get, post, put, deleteRequest, BASE_URL_1 } from '../utils/request';
+import { get, post, put, deleteRequest } from '../utils/request';
 
 // 用户类型
 type User = {
@@ -8,38 +8,38 @@ type User = {
 };
 
 /**
- * 获得所有用户列表
+ * [GET] 获得所有用户列表
  * @returns {Promise<any>}
  */
 export function getAllUserList(): Promise<any> {
-  return get(`${BASE_URL_1}/api/user/getList`);
+  return get(`/user/getList`);
 }
 
 /**
- * 添加一名用户
+ * [POST] 添加一名用户
  * @param user {User}
  * @returns {Promise<any>}
  */
 export function addUser(user: User): Promise<any> {
-  return post(`${BASE_URL_1}/api/user/add`, user);
+  return post(`/user/add`, user);
 }
 
 /**
- * 修改一名用户
+ * [PUT] 修改一名用户
  * @param user
  * @returns {Promise<any>}
  */
 export function modifyUser(user: User): Promise<any> {
-  return put(`${BASE_URL_1}/api/user/modify`, user);
+  return put(`/user/modify`, user);
 }
 
 /**
- * 删除一个用户
+ * [DELETE] 删除一个用户
  * @param user 要删除的用户信息
  * @returns {Promise<any>}
  */
 export function deleteUser(_username: string): Promise<any> {
-  return deleteRequest(`${BASE_URL_1}/api/user/delete`, {
+  return deleteRequest(`/user/delete`, {
     username: _username,
     password: ' ',
     role: 'User',
@@ -47,9 +47,9 @@ export function deleteUser(_username: string): Promise<any> {
 }
 
 /**
- * 获得所有用户操作日志
+ * [GET] 获得所有用户操作日志
  * @returns {Promise<any>}
  */
 export function getUserLogs(): Promise<any> {
-  return get(`${BASE_URL_1}/api/log/userLog`);
+  return get(`/log/userLog`);
 }
