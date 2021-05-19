@@ -8,10 +8,10 @@ import { Line, DualAxes } from '@ant-design/charts';
 const handleDrivesRiskFactor = (_drivesRiskFactor: any[]) => {
   const temp = [];
   for (const item of _drivesRiskFactor) {
-    let date = new Date(item.time);
+    const date = new Date(item.time);
     for (let i = 0; i < item.list.length; i++) {
       temp.unshift({
-        time: `${date.getMonth()}月${date.getDay()}日 ${date.getHours()}:${date.getMinutes()}`,
+        time: `${date.getMonth() + 1}月${date.getDate()}日 ${date.getHours()}:${date.getMinutes()}`,
         channelName: item.list[i].driveName,
         value: item.list[i].value,
       });
@@ -26,12 +26,14 @@ const handleDriveRealtime = (_driveRealtime: any[]) => {
   const left = [];
   const right = [];
   for (const item of _driveRealtime) {
-    let date = new Date(item.date);
+    const date = new Date(item.date);
     for (let i = 0; i < item.list.length; i++) {
       switch (item.list[i].channelName) {
         case '漏电': {
           right.push({
-            time: `${date.getMonth()}月${date.getDay()}日 ${date.getHours()}:${date.getMinutes()}`,
+            time: `${
+              date.getMonth() + 1
+            }月${date.getDate()}日 ${date.getHours()}:${date.getMinutes()}`,
             channelName: item.list[i].channelName,
             value: item.list[i].value,
           });
@@ -39,7 +41,9 @@ const handleDriveRealtime = (_driveRealtime: any[]) => {
         }
         case 'A相电压': {
           right.push({
-            time: `${date.getMonth()}月${date.getDay()}日 ${date.getHours()}:${date.getMinutes()}`,
+            time: `${
+              date.getMonth() + 1
+            }月${date.getDate()}日 ${date.getHours()}:${date.getMinutes()}`,
             // channelName: item.list[i].channelName,
             channelName: '电压',
             value: item.list[i].value,
@@ -48,7 +52,9 @@ const handleDriveRealtime = (_driveRealtime: any[]) => {
         }
         case 'N相温度': {
           left.push({
-            time: `${date.getMonth()}月${date.getDay()}日 ${date.getHours()}:${date.getMinutes()}`,
+            time: `${
+              date.getMonth() + 1
+            }月${date.getDate()}日 ${date.getHours()}:${date.getMinutes()}`,
             // channelName: item.list[i].channelName,
             channelName: '温度',
             value: item.list[i].value,
@@ -57,7 +63,9 @@ const handleDriveRealtime = (_driveRealtime: any[]) => {
         }
         case 'A相电流': {
           left.push({
-            time: `${date.getMonth()}月${date.getDay()}日 ${date.getHours()}:${date.getMinutes()}`,
+            time: `${
+              date.getMonth() + 1
+            }月${date.getDate()}日 ${date.getHours()}:${date.getMinutes()}`,
             // channelName: item.list[i].channelName,
             channelName: '电流',
             value: item.list[i].value,
@@ -154,7 +162,7 @@ class MeterChart extends React.Component<any, any> {
         <Card
           bordered
           style={{ width: '100%' }}
-          title={isAll ? null : '设备ID: #' + id}
+          title={isAll ? null : `设备ID: #${id}`}
           extra={
             isAll ? null : (
               <Tooltip title="设备已联网">

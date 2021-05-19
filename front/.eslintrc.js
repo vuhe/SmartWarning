@@ -92,6 +92,8 @@ module.exports = {
     'unicorn/no-zero-fractions': WARNING,
     // Do not use useless `undefined`
     'unicorn/no-useless-undefined': WARNING,
+    // 是否禁止使用嵌套的三元表达式。
+    'unicorn/no-nested-ternary': WARNING,
 
     '@typescript-eslint/explicit-function-return-type': OFF,
     '@typescript-eslint/no-explicit-any': OFF,

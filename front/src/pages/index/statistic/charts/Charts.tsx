@@ -92,7 +92,9 @@ class Chart extends React.Component<ChartsProps, ChartsState> {
         </Space>
         <Divider orientation="left">{title}</Divider>
         {this.state.radioValue === 'table' ? (
-          <MeterTable {...this.props} />
+          this.state.driveRealtime ? (
+            <MeterTable {...this.props} driveRealtime={this.state.driveRealtime} />
+          ) : null
         ) : this.state.driveRealtime ? (
           <MeterChart {...this.props} driveRealtime={this.state.driveRealtime} />
         ) : null}
