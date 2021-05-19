@@ -36,16 +36,6 @@ const columns: any[] = [
     ],
   },
   {
-    // 单位 °,
-    title: '电流相位角(°)',
-    key: '电流相位角',
-    children: [
-      { title: 'A相', dataIndex: 'A相电流相位角', key: 'A相电流相位角' },
-      { title: 'B相', dataIndex: 'B相电流相位角', key: 'B相电流相位角' },
-      { title: 'C相', dataIndex: 'C相电流相位角', key: 'C相电流相位角' },
-    ],
-  },
-  {
     // 单位 V, 阈值 过压 264 欠压 187
     title: '电压(V)',
     key: 'voltage',
@@ -64,17 +54,6 @@ const columns: any[] = [
       { title: 'A相', dataIndex: 'A相频率', key: 'A相频率' },
       { title: 'B相', dataIndex: 'B相频率', key: 'B相频率' },
       { title: 'C相', dataIndex: 'C相频率', key: 'C相频率' },
-    ],
-  },
-  {
-    // 单位 %,
-    title: '功率因素(%)',
-    key: '功率因素',
-    children: [
-      { title: 'A相', dataIndex: 'A相功率因素', key: 'A相功率因素' },
-      { title: 'B相', dataIndex: 'B相功率因素', key: 'B相功率因素' },
-      { title: 'C相', dataIndex: 'C相功率因素', key: 'C相功率因素' },
-      { title: '合相', dataIndex: '合相功率因素', key: '合相功率因素' },
     ],
   },
   {
