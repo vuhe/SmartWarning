@@ -14,6 +14,7 @@ declare namespace SmartWarning {
    * isShow? {boolean} 是否注册此路由
    * isDisable? {boolean} 是否展示该路由为不可选
    * children? {routeType[]} 子路由
+   * [x: string]: any; 可选
    */
   export interface routeType {
     path: string;
@@ -24,6 +25,7 @@ declare namespace SmartWarning {
     title?: string;
     isDisable?: boolean;
     children?: routeType[];
+    [x: string]: any;
   }
 
   /**

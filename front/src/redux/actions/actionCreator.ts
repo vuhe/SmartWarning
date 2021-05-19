@@ -3,6 +3,8 @@ import {
   CHANGE_USERINFO,
   CHANGE_STORE_STATE,
   CHANGE_DRIVE_INFO,
+  CHANGE_RISK_FACTOR,
+  ADD_DRIVE_REALTIME,
 } from './actions';
 
 /**
@@ -36,11 +38,31 @@ export const changeStoreStateActionCreator = (state?: any) => ({
 });
 
 /**
- * 返回设备信息数组的 action
- * @param drives 设备信息数组
+ * 返回设备基本信息数组的 action
+ * @param drives 设备基本信息数组
  * @returns {action} action
  */
 export const changeDriveInfoActionCreator = (drives: any[]) => ({
   type: CHANGE_DRIVE_INFO,
   drives,
+});
+
+/**
+ * 返回设备风险信息数组的 action
+ * @param drivesRiskFactor 设备风险信息数组
+ * @returns {action} action
+ */
+export const changeDrivesRiskFactorActionCreator = (drivesRiskFactor: any[]) => ({
+  type: CHANGE_RISK_FACTOR,
+  drivesRiskFactor,
+});
+
+/**
+ *
+ * @param driveRealtime
+ * @returns {action} action
+ */
+export const addDriveRealtimeActionCreator = (drive: any) => ({
+  type: ADD_DRIVE_REALTIME,
+  drive,
 });

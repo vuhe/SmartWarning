@@ -3,6 +3,7 @@ import {
   CHANGE_USERINFO,
   CHANGE_STORE_STATE,
   CHANGE_DRIVE_INFO,
+  CHANGE_RISK_FACTOR,
 } from '../actions/actions';
 
 // 默认 state
@@ -11,6 +12,7 @@ const defaultState = {
     isAdmin: false,
   },
   navigatorCurrent: 'index',
+  drivesRealtimeList: new Map<number, any>(),
 };
 
 /**
@@ -43,6 +45,10 @@ const reducer = (state: any = defaultState, action: any): any => {
     case CHANGE_DRIVE_INFO: {
       return updateState(state, { drives: action.drives });
     }
+    case CHANGE_RISK_FACTOR: {
+      return updateState(state, { drivesRiskFactor: action.drivesRiskFactor });
+    }
+
     default:
       return state;
   }

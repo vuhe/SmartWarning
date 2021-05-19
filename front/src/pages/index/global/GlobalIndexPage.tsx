@@ -12,16 +12,16 @@ import {
   Button,
   Drawer,
   Space,
-  Collapse,
-  Tag,
+  // Collapse,
+  // Tag,
   Modal,
 } from 'antd';
-import { CloseCircleOutlined, ExclamationCircleOutlined } from '@ant-design/icons';
+// import { CloseCircleOutlined, ExclamationCircleOutlined } from '@ant-design/icons';
 import Warning from '@/pages/index/global/Warning';
 import ChinaMap from './maps/ChinaMap';
 import uuid from '@/utils/uuid';
 
-const { Panel } = Collapse;
+// const { Panel } = Collapse;
 const data = [
   '发出危险预警(气温异常升高)',
   '发出危险预警(收到烟雾报警)',
@@ -58,29 +58,29 @@ const warningMessage = [
 ];
 
 // 待办事项模拟信息
-const schedule = [
-  {
-    title: '待办事项一',
-    message: '请检查14号宿舍楼烟感设备',
-    tagIcon: CloseCircleOutlined,
-    tagColor: 'error',
-    time: '一小时前',
-  },
-  {
-    title: '待办事项二',
-    message: '请检查14号宿舍二层电表是否联网',
-    tagIcon: ExclamationCircleOutlined,
-    tagColor: 'warning',
-    time: '三小时前',
-  },
-  {
-    title: '待办事项三',
-    message: '请检查15号宿舍楼电表连接是否正常',
-    tagIcon: CloseCircleOutlined,
-    tagColor: 'warning',
-    time: '一天前',
-  },
-];
+// const schedule = [
+//   {
+//     title: '待办事项一',
+//     message: '请检查14号宿舍楼烟感设备',
+//     tagIcon: CloseCircleOutlined,
+//     tagColor: 'error',
+//     time: '一小时前',
+//   },
+//   {
+//     title: '待办事项二',
+//     message: '请检查14号宿舍二层电表是否联网',
+//     tagIcon: ExclamationCircleOutlined,
+//     tagColor: 'warning',
+//     time: '三小时前',
+//   },
+//   {
+//     title: '待办事项三',
+//     message: '请检查15号宿舍楼电表连接是否正常',
+//     tagIcon: CloseCircleOutlined,
+//     tagColor: 'warning',
+//     time: '一天前',
+//   },
+// ];
 
 export interface GlobalIndexPageState {
   /** 控制日志 Drawer 是否显示 */
@@ -91,16 +91,10 @@ export interface GlobalIndexPageState {
   percent: number;
 }
 
-/**
- * 首页 /index/global
- */
+// 首页 /index/global
 class GlobalIndexPages extends React.Component<any, GlobalIndexPageState> {
   state: GlobalIndexPageState = { logVisible: false, equipmentVisible: false, percent: 5 };
 
-  /**
-   * 生命周期函数
-   * 组件加载完成后执行
-   */
   componentDidMount() {
     Modal.warning({
       title: '今日风险警告信息',
@@ -148,7 +142,7 @@ class GlobalIndexPages extends React.Component<any, GlobalIndexPageState> {
       <>
         <Row>
           <Col span={12}>
-            <Row>
+            {/* <Row>
               <Col span={16}>
                 <div style={{ height: '100px', overflow: 'auto', background: '#EEEEEE' }}>
                   {warningMessage.map((item: { type: string; message: string }) => {
@@ -164,25 +158,15 @@ class GlobalIndexPages extends React.Component<any, GlobalIndexPageState> {
                   })}
                 </div>
               </Col>
-              <Col span={8}>
-                <Divider orientation="right">
-                  今日风险系数：
-                  <Progress
-                    type="circle"
-                    width={70}
-                    percent={this.state.percent}
-                    strokeColor="#87d068"
-                  />
-                </Divider>
-              </Col>
-            </Row>
+              <Col span={8}></Col>
+            </Row> */}
 
-            <Space align="start" size="large">
+            <Space align="center" size="large">
               <div>
                 <Divider orientation="left">
                   <Button onClick={this.openEquipmentDrawer}>设备信息</Button>
                 </Divider>
-                <Card bordered hoverable style={{ width: 330 }}>
+                <Card bordered hoverable style={{ width: 500 }}>
                   <Statistic title="总设备数" value={1020} />
                   <Alert message="正常：950" type="success" showIcon style={{ marginTop: '4px' }} />
                   <Alert message="警告：52" type="warning" showIcon style={{ marginTop: '4px' }} />
@@ -191,21 +175,30 @@ class GlobalIndexPages extends React.Component<any, GlobalIndexPageState> {
               </div>
               <div style={{ marginRight: '10px' }}>
                 <Divider orientation="right">
-                  <Button onClick={this.openLogDrawer}>日志信息</Button>
-                </Divider>
-                <Card bordered hoverable style={{ width: 330 }}>
-                  <List
-                    dataSource={data}
-                    renderItem={(item) => (
-                      <List.Item key={uuid()}>
-                        <Typography.Text mark>[设备#**]</Typography.Text> {item}
-                      </List.Item>
-                    )}
+                  今日风险系数：
+                  <Progress
+                    type="circle"
+                    width={80}
+                    percent={this.state.percent}
+                    strokeColor="#87d068"
                   />
-                </Card>
+                </Divider>
               </div>
             </Space>
             <Divider orientation="left">
+              <Button onClick={this.openLogDrawer}>日志信息</Button>
+            </Divider>
+            <Card bordered hoverable style={{ marginRight: 15 }}>
+              <List
+                dataSource={data}
+                renderItem={(item) => (
+                  <List.Item key={uuid()}>
+                    <Typography.Text mark>[设备#**]</Typography.Text> {item}
+                  </List.Item>
+                )}
+              />
+            </Card>
+            {/* <Divider orientation="left">
               <Button onClick={this.openEquipmentDrawer}>待办事项</Button>
             </Divider>
             <Collapse accordion={false} bordered ghost>
@@ -224,7 +217,7 @@ class GlobalIndexPages extends React.Component<any, GlobalIndexPageState> {
                   </Panel>
                 );
               })}
-            </Collapse>
+            </Collapse> */}
           </Col>
 
           <Col span={12}>

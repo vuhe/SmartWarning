@@ -48,6 +48,8 @@ export function getDriveRoutes(drives: SmartWarning.Drive[]): SmartWarning.route
       title: drive.driveName,
       exact: true,
       component: Charts,
+      isShow: true,
+      id: drive.id,
     };
   }) as SmartWarning.routeType[];
 }

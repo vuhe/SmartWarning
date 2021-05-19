@@ -4,7 +4,7 @@ import { Form, Input, Button, Checkbox, Row, Col, Card, message, Layout } from '
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import { setToken, setUserInfo } from '../utils/localStorage';
 import { login } from '../services/login';
-import { getDriveInfo } from '../services/device';
+import { getDriveInfo, getDriveLog, getDriveLogsInfo } from '../services/device';
 import {
   changeUserInfoActionCreator,
   changeDriveInfoActionCreator,
@@ -40,6 +40,7 @@ class Login extends React.Component<any, any> {
 
   // 登录成功会执行的数据请求事件
   requestHandleApplicationData = () => {
+    // 请求设备基本信息
     getDriveInfo()
       .then((result) => {
         switch (result.code) {
@@ -48,13 +49,51 @@ class Login extends React.Component<any, any> {
             break;
           }
           default: {
-            message.error('设备信息初始化失败');
+            message.error('设备基本信息初始化失败');
             break;
           }
         }
       })
       .catch((error) => {
-        message.error('设备信息初始化失败');
+        message.error('设备基本信息初始化失败');
+        console.log(error);
+      });
+
+    // 请求设备日志
+    getDriveLog()
+      .then((result) => {
+        switch (result.code) {
+          case 200: {
+            console.log(result.data);
+            break;
+          }
+          default: {
+            message.error('设备日志信息初始化失败');
+            break;
+          }
+        }
+      })
+      .catch((error) => {
+        message.error('设备日志信息初始化失败');
+        console.log(error);
+      });
+
+    //
+    getDriveLogsInfo()
+      .then((result) => {
+        switch (result.code) {
+          case 200: {
+            console.log(result.data);
+            break;
+          }
+          default: {
+            message.error('设备日志信息初始化失败');
+            break;
+          }
+        }
+      })
+      .catch((error) => {
+        message.error('设备日志信息初始化失败');
         console.log(error);
       });
   };

@@ -44,7 +44,7 @@ class Statistic extends React.Component<any, any> {
                     path={route.path}
                     exact={route.exact}
                     render={(routeProps: any) => {
-                      return <route.component {...routeProps} title={route.title} />;
+                      return <route.component {...routeProps} id={route.id} title={route.title} />;
                     }}
                   />
                 );

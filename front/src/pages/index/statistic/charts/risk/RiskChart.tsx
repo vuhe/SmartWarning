@@ -6,13 +6,18 @@ import { riskAreaConfig } from '@/utils/simulate/riskConfig';
 
 /** 今日风险图 */
 class RiskChart extends React.Component<any, any> {
+  constructor(props: any) {
+    super(props);
+    // console.log(props);
+  }
+
   render() {
     return (
       <>
         <Card
           bordered
           style={{ width: '100%' }}
-          title={<Typography.Title level={3}>今日风险系数图</Typography.Title>}
+          title={<Typography.Title level={4}>今日风险系数图</Typography.Title>}
           extra={
             <Card hoverable bodyStyle={{ padding: '2px 4px' }}>
               <Statistic

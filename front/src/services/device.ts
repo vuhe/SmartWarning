@@ -5,8 +5,8 @@ import { get, put } from '../utils/request';
  * @param {number} id 设备ID
  * @returns {Promise<any>}
  */
-export function getDriveRealtimeDataById(id: number): Promise<any> {
-  return get(`/realtime/getAll`, id);
+export function getDriveRealtimeDataById(driveId: number): Promise<any> {
+  return get(`/realtime/getAll`, { driveId });
 }
 
 /**

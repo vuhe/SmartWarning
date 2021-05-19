@@ -14,7 +14,9 @@
     "sockjs",
     "stompjs",
     "userinfo",
+    "usermanage",
     "usertype",
+    "uuidv",
     "vuhe"
   ]
 }
