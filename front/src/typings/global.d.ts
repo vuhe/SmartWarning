@@ -45,22 +45,4 @@ declare namespace SmartWarning {
     statusName?: string;
     statusColor?: string;
   }
-
-  /**
-   * 电表数据项类型
-   * time? {string} 时间
-   * channelName? {string} 数据项名称
-   * value? {number} 数据值
-   * perUnit? {string} 数据单位
-   * statusName? {string} 状态名称
-   * statusColor? {string} 状态颜色
-   */
-  export interface meterEntry {
-    time?: string;
-    channelName: string;
-    value?: number;
-    perUnit?: string;
-    statusName?: string;
-    statusColor?: string;
-  }
 }
