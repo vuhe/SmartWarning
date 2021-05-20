@@ -16,6 +16,7 @@ import { Pie } from '@ant-design/charts';
 import { equipmentPieConfig } from '@/utils/simulate/EquipmentPieConfig';
 import SWFooter from '@/components/SWFooter';
 import EquipMessage from './equipMessage/EquipMessage';
+import store from '@/redux/store';
 
 const { Content } = Layout;
 const { Panel } = Collapse;
@@ -65,48 +66,32 @@ const messages = [
   },
 ];
 
-const dataSource = [
-  {
-    key: '1',
-    address: '#14宿舍楼 14550',
-    equipment: '#14-5-1',
-    time: '2021/4/10',
-    alertLevel: 2,
-    status: 0,
-  },
-  {
-    key: '2',
-    address: '#14宿舍楼 14551',
-    equipment: '#14-5-2',
-    time: '2021/4/10',
-    alertLevel: 3,
-    status: 1,
-  },
-  {
-    key: '3',
-    address: '#14宿舍楼 14552',
-    equipment: '#14-5-3',
-    time: '2021/4/8',
-    alertLevel: 2,
-    status: 0,
-  },
-  {
-    key: '4',
-    address: '#15宿舍楼 15540',
-    equipment: '#15-5-1',
-    time: '2021/4/10',
-    alertLevel: 1,
-    status: 1,
-  },
-  {
-    key: '5',
-    address: '#15宿舍楼 15541',
-    equipment: '#15-5-2',
-    time: '2021/4/9',
-    alertLevel: 3,
-    status: 1,
-  },
-];
+// const dataSource = [
+//   {
+//     key: '1',
+//     address: '#14宿舍楼 14550',
+//     equipment: '#14-5-1',
+//     time: '2021/4/10',
+//     alertLevel: 2,
+//     status: 0,
+//   },
+//   {
+//     key: '2',
+//     address: '#14宿舍楼 14551',
+//     equipment: '#14-5-2',
+//     time: '2021/4/10',
+//     alertLevel: 3,
+//     status: 1,
+//   },
+//   {
+//     key: '3',
+//     address: '#14宿舍楼 14552',
+//     equipment: '#14-5-3',
+//     time: '2021/4/8',
+//     alertLevel: 2,
+//     status: 0,
+//   },
+// ];
 
 const columns = [
   {
@@ -165,7 +150,18 @@ const columns = [
 
 // 设备安全页面
 class EquipSafety extends React.Component<any, any> {
-  state = { meterMessage: messages[0] };
+  state = { meterMessage: messages[0], warningLogs: [] };
+
+  constructor(props: any) {
+    super(props);
+    // 订阅 Redux 的状态
+    store.subscribe(this.storeChange);
+  }
+
+  // 状态改变
+  storeChange = () => {
+    this.setState(store.getState);
+  };
 
   // 折叠面板切换回调
   changeCollapse = (params?: any): any => {
@@ -176,7 +172,7 @@ class EquipSafety extends React.Component<any, any> {
     }
   };
 
-  render(): any {
+  render() {
     return (
       <>
         <Layout>
@@ -219,7 +215,12 @@ class EquipSafety extends React.Component<any, any> {
                     </Col>
                   </Row>
                   <Divider orientation="left">预警处理表</Divider>
-                  <Table bordered dataSource={dataSource} columns={columns} pagination={false} />
+                  <Table
+                    bordered
+                    dataSource={this.state.warningLogs}
+                    columns={columns}
+                    pagination={false}
+                  />
                 </Col>
               </Row>
             </div>

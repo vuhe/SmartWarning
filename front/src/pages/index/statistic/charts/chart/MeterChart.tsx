@@ -2,45 +2,167 @@ import React from 'react';
 import { Card, Tooltip } from 'antd';
 import { WifiOutlined } from '@ant-design/icons';
 import { Line, DualAxes } from '@ant-design/charts';
-// import { get } from '@/utils/request';
-import { allMeterConfig } from '@/utils/simulate/meter/allMeterConfig';
-import { dualAxesConfig } from '@/utils/simulate/meter/meterConfig';
+// import { dualAxesConfig } from '@/utils/simulate/meter/meterConfig';
+
+// 将 drivesRiskFactor 转化为图表配置项的数据 allMeterConfig.data
+const handleDrivesRiskFactor = (_drivesRiskFactor: any[]) => {
+  const temp = [];
+  for (const item of _drivesRiskFactor) {
+    const date = new Date(item.time);
+    for (let i = 0; i < item.list.length; i++) {
+      temp.unshift({
+        time: `${date.getMonth() + 1}月${date.getDate()}日 ${date.getHours()}:${date.getMinutes()}`,
+        channelName: item.list[i].driveName,
+        value: item.list[i].value,
+      });
+    }
+  }
+  return temp;
+};
+
+// 将 driveRealtime 转化为图表配置项的数据 dualAxesConfig.data
+const handleDriveRealtime = (_driveRealtime: any[]) => {
+  const temp = [];
+  const left = [];
+  const right = [];
+  for (const item of _driveRealtime) {
+    const date = new Date(item.date);
+    for (let i = 0; i < item.list.length; i++) {
+      switch (item.list[i].channelName) {
+        case '漏电': {
+          right.push({
+            time: `${
+              date.getMonth() + 1
+            }月${date.getDate()}日 ${date.getHours()}:${date.getMinutes()}`,
+            channelName: item.list[i].channelName,
+            value: item.list[i].value,
+          });
+          break;
+        }
+        case 'A相电压': {
+          right.push({
+            time: `${
+              date.getMonth() + 1
+            }月${date.getDate()}日 ${date.getHours()}:${date.getMinutes()}`,
+            // channelName: item.list[i].channelName,
+            channelName: '电压',
+            value: item.list[i].value,
+          });
+          break;
+        }
+        case 'N相温度': {
+          left.push({
+            time: `${
+              date.getMonth() + 1
+            }月${date.getDate()}日 ${date.getHours()}:${date.getMinutes()}`,
+            // channelName: item.list[i].channelName,
+            channelName: '温度',
+            value: item.list[i].value,
+          });
+          break;
+        }
+        case 'A相电流': {
+          left.push({
+            time: `${
+              date.getMonth() + 1
+            }月${date.getDate()}日 ${date.getHours()}:${date.getMinutes()}`,
+            // channelName: item.list[i].channelName,
+            channelName: '电流',
+            value: item.list[i].value,
+          });
+          break;
+        }
+        default:
+          break;
+      }
+    }
+  }
+  temp.push(left);
+  temp.push(right);
+  return temp;
+};
 
 class MeterChart extends React.Component<any, any> {
-  /**
-   * 请求表格数据
-   */
-  // getChartData = (callback?: any): void => {
-  //   get('https://gw.alipayobjects.com/os/bmw-prod/1d565782-dde4-4bb6-8946-ea6a38ccf184.json')
-  //     .then((response: any) => {
-  //       this.setState({
-  //         data: response.data,
-  //       });
-  //       callback && callback();
-  //       return null;
-  //     })
-  //     .catch((error) => {
-  //       console.log('get data failed', error);
-  //     });
-  // };
-
-  // componentDidMount = () => {
-  //   // this.getChartData(() => console.log(this.state));
-  // };
+  constructor(props: any) {
+    super(props);
+    // console.log(props);
+  }
 
   render() {
-    const { title } = this.props;
-    // 未引入实际数据，暂时使用模拟数据 config
+    const { title, id } = this.props;
 
     // 检查是否为总电表数据页面
     const isAll = title === '总电表数据' || title === '数据页面';
+
+    // 总电表数据页面图表配置项
+    const allMeterConfig: any = {
+      theme: 'default',
+      padding: 'auto',
+      xField: 'time',
+      yField: 'value',
+      seriesField: 'channelName',
+      smooth: true,
+      slider: {
+        start: 0,
+        end: 0.5,
+      },
+    };
+
+    // 单设备图表配置项
+    const dualAxesConfig: any = {
+      // data: [dualAxesLeftData, dualAxesRightData],
+      xField: 'time',
+      yField: ['value', 'value'],
+      slider: {
+        start: 0,
+        end: 0.5,
+      },
+      geometryOptions: [
+        {
+          geometry: 'line',
+          seriesField: 'channelName',
+          smooth: true,
+          // point: {},
+          animation: {
+            appear: {
+              animation: 'path-in',
+              duration: 5000,
+            },
+          },
+        },
+        {
+          geometry: 'line',
+          // color: '#5AD8A6',
+          seriesField: 'channelName',
+          smooth: true,
+          animation: {
+            appear: {
+              animation: 'path-in',
+              duration: 5000,
+            },
+          },
+        },
+      ],
+    };
+
+    if (isAll) {
+      // 总电表数据页面
+      const { drivesRiskFactor } = this.props;
+      allMeterConfig.data = handleDrivesRiskFactor(drivesRiskFactor);
+      // console.log(allMeterConfig.data);
+    } else {
+      // 电表
+      const { driveRealtime } = this.props;
+      dualAxesConfig.data = handleDriveRealtime(driveRealtime);
+      // console.log(dualAxesConfig.data);
+    }
 
     return (
       <>
         <Card
           bordered
           style={{ width: '100%' }}
-          title={isAll ? '各电表风险系数' : '15#550'}
+          title={isAll ? null : `设备ID: #${id}`}
           extra={
             isAll ? null : (
               <Tooltip title="设备已联网">

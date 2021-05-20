@@ -1,10 +1,18 @@
+import Charts from '@/pages/index/statistic/charts/Charts';
+
 /**
  * 在指定的路由对象数组中寻找指定的路由对象
- * @param {any[]} routes 路由对象数组
+ * @param {SmartWarning.routeType[]} routes 路由对象数组
  * @param {string} pathname 要寻找的路由对象的路径
- * @returns {any} 返回寻找的路由对象
+ * @returns {SmartWarning.routeType | undefined} 返回寻找的路由对象,未找到则返回 undefined
  */
-export default function getRoute(routes: any[], pathname: string): any {
+export default function getRoute(
+  routes: SmartWarning.routeType[] | undefined,
+  pathname: string,
+): SmartWarning.routeType | undefined {
+  if (typeof routes === 'undefined') {
+    return;
+  }
   for (const route of routes) {
     if (route.path === pathname) {
       return route;
@@ -25,4 +33,23 @@ export default function getRoute(routes: any[], pathname: string): any {
       return getRoute(route.children, pathname);
     }
   }
+  return undefined;
+}
+
+/**
+ * 传入的每一台设备都对应一个路由返回
+ * @param drives 设备数组
+ * @returns 路由数组
+ */
+export function getDriveRoutes(drives: SmartWarning.Drive[]): SmartWarning.routeType[] {
+  return drives.map((drive) => {
+    return {
+      path: `/index/statistic/charts/${drive.driveName}`,
+      title: drive.driveName,
+      exact: true,
+      component: Charts,
+      isShow: true,
+      id: drive.id,
+    };
+  }) as SmartWarning.routeType[];
 }

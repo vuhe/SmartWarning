@@ -6,65 +6,22 @@ import {
 } from '@ant-design/icons';
 import Login from '../pages/Login';
 import PageNotFound from '../pages/PageNotFound';
-import Charts from '../pages/index/statistic/charts/Charts';
+// import Charts from '../pages/index/statistic/charts/Charts';
 import Statistic from '../pages/index/statistic/Statistic';
 import Global from '../pages/index/global/Global';
 import App from '../App';
 import MoreRoute from '../pages/index/more/MoreRoute';
-import Log from '../pages/index/more/log/Log';
+import DriveLog from '../pages/index/more/log/DriveLog';
 import Schedule from '../pages/index/more/schedule/Schedule';
-import Risk from '../pages/index/more/risk/Risk';
+import Risk from '../pages/index/statistic/charts/risk/RiskChart';
 import Equipment from '../pages/index/more/equipment/Equipment';
 import EquipSafety from '../pages/index/equipSafety/EquipSafety';
 import User from '../pages/index/usermanage/User';
 import UserLog from '../pages/index/log/userLog/UserLog';
-
-// 模拟电表路由
-export const metersRoutes: SmartWarning.routeType[] = [
-  {
-    path: '/index/statistic/charts/10',
-    exact: true,
-    component: Charts,
-    title: '#一楼设备信息',
-    isShow: true,
-    isDisable: false,
-  },
-  {
-    path: '/index/statistic/charts/11',
-    exact: true,
-    component: Charts,
-    title: '#二楼设备信息',
-    isShow: true,
-    isDisable: true,
-  },
-  {
-    path: '/index/statistic/charts/12',
-    exact: true,
-    component: Charts,
-    title: '#三楼设备信息',
-    isShow: true,
-    isDisable: true,
-  },
-  {
-    path: '/index/statistic/charts/13',
-    exact: true,
-    component: Charts,
-    title: '#四楼设备信息',
-    isShow: true,
-    isDisable: true,
-  },
-  {
-    path: '/index/statistic/charts/14',
-    exact: true,
-    component: Charts,
-    title: '#五楼设备信息',
-    isShow: true,
-    isDisable: true,
-  },
-];
+import TotalChartsPage from '@/pages/index/statistic/charts/TotalChartsPage';
 
 /**
- * 所有页面嵌套路由
+ * 所有页面的嵌套路由
  */
 export const routes: SmartWarning.routeType[] = [
   {
@@ -72,36 +29,57 @@ export const routes: SmartWarning.routeType[] = [
     component: Login,
     exact: true,
     title: '登录',
+    isShow: true,
   },
   {
     path: '/login',
     component: Login,
     exact: true,
     title: '登录',
+    isShow: true,
   },
   {
     path: '/index',
     component: App,
     exact: false,
     title: '首页',
+    isShow: true,
     children: [
       {
         path: '/index',
         exact: true,
         component: Global,
         title: '首页',
+        isShow: true,
       },
       {
         path: '/index/global',
         exact: true,
         component: Global,
         title: '首页',
+        isShow: true,
       },
-      { path: '/index/equip_safety', exact: true, component: EquipSafety, title: '首页' },
       {
+        path: '/index/equip_safety',
+        exact: true,
+        component: EquipSafety,
+        title: '首页',
+        isShow: true,
+      },
+
+      {
+        path: '/index/driveLog',
+        exact: true,
+        component: DriveLog,
+        title: '首页',
+        isShow: true,
+      },
+      {
+        // 此路由废弃不进行注册 isShow: false,
         path: '/index/more',
         exact: false,
         component: MoreRoute,
+        isShow: false,
         title: '更多',
         children: [
           {
@@ -110,6 +88,7 @@ export const routes: SmartWarning.routeType[] = [
             component: Risk,
             title: '今日风险图',
             icon: LineChartOutlined,
+            isShow: true,
           },
           {
             path: '/index/more/schedule',
@@ -117,6 +96,7 @@ export const routes: SmartWarning.routeType[] = [
             component: Schedule,
             title: '待办事项',
             icon: ScheduleOutlined,
+            isShow: false,
           },
           {
             path: '/index/more/equipment',
@@ -124,12 +104,14 @@ export const routes: SmartWarning.routeType[] = [
             component: Equipment,
             title: '设备信息',
             icon: PieChartOutlined,
+            isShow: false,
           },
           {
             path: '/index/more/log',
             exact: true,
-            component: Log,
+            component: DriveLog,
             title: '日志记录',
+            isShow: true,
             icon: OrderedListOutlined,
           },
         ],
@@ -139,48 +121,39 @@ export const routes: SmartWarning.routeType[] = [
         exact: false,
         component: Statistic,
         title: '数据页面',
+        isShow: true,
         children: [
           {
             path: '/index/statistic',
             exact: true,
-            component: Charts,
+            component: TotalChartsPage,
             title: '数据页面',
             isShow: false,
           },
           {
             path: '/index/statistic/all',
             exact: true,
-            component: Charts,
+            component: TotalChartsPage,
             title: '总电表数据',
             isShow: false,
           },
-          {
-            path: '/index/statistic/charts/15/1',
-            exact: true,
-            component: Charts,
-            title: '#电表一',
-            isShow: true,
-            isDisable: true,
-          },
-          {
-            path: '/index/statistic/charts/15/2',
-            exact: true,
-            component: Charts,
-            title: '#电表二',
-            isShow: true,
-            isDisable: true,
-          },
-          ...metersRoutes,
         ],
       },
-      { path: '/index/user', exact: true, component: User, title: '用户' },
-      { path: '/index/userLog', exact: true, component: UserLog, title: '用户操作日志' },
+      { path: '/index/user', exact: true, component: User, title: '用户', isShow: true },
+      {
+        path: '/index/userLog',
+        exact: true,
+        component: UserLog,
+        title: '用户操作日志',
+        isShow: true,
+      },
     ],
   },
   {
     path: '/404',
     component: PageNotFound,
     exact: false,
+    isShow: true,
     title: '404',
   },
 ];

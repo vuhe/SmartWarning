@@ -4,7 +4,13 @@ import { Form, Input, Button, Checkbox, Row, Col, Card, message, Layout } from '
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import { setToken, setUserInfo } from '../utils/localStorage';
 import { login } from '../services/login';
-import { changeUserInfoActionCreator } from '../redux/actions/actionCreator';
+import { getDriveInfo, getDriveLog, getDriveLogsInfo } from '../services/device';
+import {
+  changeUserInfoActionCreator,
+  changeDriveInfoActionCreator,
+  changeDrivesLogsActionCreator,
+  changeWarningLogsActionCreator,
+} from '../redux/actions/actionCreator';
 import store from '@/redux/store';
 // import SWFooter from '@/components/SWFooter';
 
@@ -23,6 +29,81 @@ const bgImgStyle: CSSProperties = {
 
 // 登录页面
 class Login extends React.Component<any, any> {
+  // constructor(props: any) {
+  //   super(props);
+  //   // 订阅 Redux 的状态
+  //   store.subscribe(this.storeChange);
+  // }
+
+  // // 状态改变
+  // storeChange = () => {
+  //   this.setState(store.getState);
+  // };
+
+  // 登录成功会执行的数据请求事件
+  requestHandleApplicationData = () => {
+    // 请求设备基本信息
+    getDriveInfo()
+      .then((result) => {
+        switch (result.code) {
+          case 200: {
+            store.dispatch(changeDriveInfoActionCreator(result.data));
+            break;
+          }
+          default: {
+            message.error('设备基本信息初始化失败');
+            break;
+          }
+        }
+      })
+      // .then(() => console.log(this.state))
+      .catch((error) => {
+        message.error('设备基本信息初始化失败');
+        console.log(error);
+      });
+
+    // 请求设备日志
+    getDriveLog()
+      .then((result) => {
+        switch (result.code) {
+          case 200: {
+            // console.log(result.data);
+            store.dispatch(changeWarningLogsActionCreator(result.data));
+            break;
+          }
+          default: {
+            message.error('设备日志信息初始化失败');
+            break;
+          }
+        }
+      })
+      .catch((error) => {
+        message.error('设备日志信息初始化失败');
+        console.log(error);
+      });
+
+    // 请求设备已处理的日志
+    getDriveLogsInfo()
+      .then((result) => {
+        switch (result.code) {
+          case 200: {
+            // console.log(result.data);
+            store.dispatch(changeDrivesLogsActionCreator(result.data));
+            break;
+          }
+          default: {
+            message.error('设备日志信息初始化失败');
+            break;
+          }
+        }
+      })
+      .catch((error) => {
+        message.error('设备日志信息初始化失败');
+        console.log(error);
+      });
+  };
+
+  // 表单完成事件
   onFinish = (values: { username: string; password: string; remember: boolean }) => {
     const { history } = this.props;
     // 登录
@@ -61,6 +142,9 @@ class Login extends React.Component<any, any> {
           history.push('/index/global');
         }
         return null;
+      })
+      .then(() => {
+        this.requestHandleApplicationData();
       })
       .catch((error) => {
         message.error('登录失败');
@@ -142,8 +226,6 @@ class Login extends React.Component<any, any> {
             <Col span={9}></Col>
           </Row>
         </Content>
-        {/* <SWFooter />
-        test text */}
       </div>
     );
   }

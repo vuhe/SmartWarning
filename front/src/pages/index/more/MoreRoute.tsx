@@ -7,10 +7,13 @@ import MoreLayout from './MoreLayout';
  */
 export default React.memo(function MoreRoute(props: any) {
   const { routes } = props;
+  const showRoutes = (routes as SmartWarning.routeType[]).filter((route) => route.isShow);
+  console.log(showRoutes);
+
   return (
     <MoreLayout>
       <Switch>
-        {routes.map((route: any) => {
+        {showRoutes.map((route: any) => {
           return (
             <Route
               key={route.path}
