@@ -4,6 +4,8 @@ import {
   CHANGE_STORE_STATE,
   CHANGE_DRIVE_INFO,
   CHANGE_RISK_FACTOR,
+  CHANGE_DRIVES_LOGS,
+  CHANGE_WARNING_LOGS,
 } from '../actions/actions';
 
 // 默认 state
@@ -48,7 +50,12 @@ const reducer = (state: any = defaultState, action: any): any => {
     case CHANGE_RISK_FACTOR: {
       return updateState(state, { drivesRiskFactor: action.drivesRiskFactor });
     }
-
+    case CHANGE_DRIVES_LOGS: {
+      return updateState(state, { drivesLogs: action.drivesLogs });
+    }
+    case CHANGE_WARNING_LOGS: {
+      return updateState(state, { warningLogs: action.warningLogs });
+    }
     default:
       return state;
   }

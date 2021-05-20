@@ -5,6 +5,8 @@ import {
   CHANGE_DRIVE_INFO,
   CHANGE_RISK_FACTOR,
   ADD_DRIVE_REALTIME,
+  CHANGE_DRIVES_LOGS,
+  CHANGE_WARNING_LOGS,
 } from './actions';
 
 /**
@@ -65,4 +67,19 @@ export const changeDrivesRiskFactorActionCreator = (drivesRiskFactor: any[]) => 
 export const addDriveRealtimeActionCreator = (drive: any) => ({
   type: ADD_DRIVE_REALTIME,
   drive,
+});
+
+/**
+ *
+ * @param drivesLogs
+ * @returns
+ */
+export const changeDrivesLogsActionCreator = (drivesLogs: string[]) => ({
+  type: CHANGE_DRIVES_LOGS,
+  drivesLogs,
+});
+
+export const changeWarningLogsActionCreator = (warningLogs: any[]) => ({
+  type: CHANGE_WARNING_LOGS,
+  warningLogs,
 });

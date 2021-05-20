@@ -8,6 +8,8 @@ import { getDriveInfo, getDriveLog, getDriveLogsInfo } from '../services/device'
 import {
   changeUserInfoActionCreator,
   changeDriveInfoActionCreator,
+  changeDrivesLogsActionCreator,
+  changeWarningLogsActionCreator,
 } from '../redux/actions/actionCreator';
 import store from '@/redux/store';
 // import SWFooter from '@/components/SWFooter';
@@ -27,16 +29,16 @@ const bgImgStyle: CSSProperties = {
 
 // 登录页面
 class Login extends React.Component<any, any> {
-  constructor(props: any) {
-    super(props);
-    // 订阅 Redux 的状态
-    store.subscribe(this.storeChange);
-  }
+  // constructor(props: any) {
+  //   super(props);
+  //   // 订阅 Redux 的状态
+  //   store.subscribe(this.storeChange);
+  // }
 
-  // 状态改变
-  storeChange = () => {
-    this.setState(store.getState);
-  };
+  // // 状态改变
+  // storeChange = () => {
+  //   this.setState(store.getState);
+  // };
 
   // 登录成功会执行的数据请求事件
   requestHandleApplicationData = () => {
@@ -54,6 +56,7 @@ class Login extends React.Component<any, any> {
           }
         }
       })
+      // .then(() => console.log(this.state))
       .catch((error) => {
         message.error('设备基本信息初始化失败');
         console.log(error);
@@ -64,7 +67,8 @@ class Login extends React.Component<any, any> {
       .then((result) => {
         switch (result.code) {
           case 200: {
-            console.log(result.data);
+            // console.log(result.data);
+            store.dispatch(changeWarningLogsActionCreator(result.data));
             break;
           }
           default: {
@@ -78,12 +82,13 @@ class Login extends React.Component<any, any> {
         console.log(error);
       });
 
-    //
+    // 请求设备已处理的日志
     getDriveLogsInfo()
       .then((result) => {
         switch (result.code) {
           case 200: {
-            console.log(result.data);
+            // console.log(result.data);
+            store.dispatch(changeDrivesLogsActionCreator(result.data));
             break;
           }
           default: {

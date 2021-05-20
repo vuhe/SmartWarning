@@ -20,6 +20,7 @@ import {
 import Warning from '@/pages/index/global/Warning';
 import ChinaMap from './maps/ChinaMap';
 import uuid from '@/utils/uuid';
+import store from '@/redux/store';
 
 // const { Panel } = Collapse;
 const data = [
@@ -89,11 +90,31 @@ export interface GlobalIndexPageState {
   equipmentVisible: boolean;
   /** 今日风险系数百分比 */
   percent: number;
+  // 设备数量
+  drivesNumber: number;
+  // 设备日志数组
+  drivesLogs: string[];
 }
 
 // 首页 /index/global
 class GlobalIndexPages extends React.Component<any, GlobalIndexPageState> {
-  state: GlobalIndexPageState = { logVisible: false, equipmentVisible: false, percent: 5 };
+  state: GlobalIndexPageState = {
+    logVisible: false,
+    equipmentVisible: false,
+    percent: 5,
+    drivesNumber: 0,
+    drivesLogs: [],
+  };
+  constructor(props: any) {
+    super(props);
+    // 订阅 Redux 的状态
+    store.subscribe(this.storeChange);
+  }
+
+  // 状态改变
+  storeChange = () => {
+    this.setState(store.getState);
+  };
 
   componentDidMount() {
     Modal.warning({
@@ -111,6 +132,8 @@ class GlobalIndexPages extends React.Component<any, GlobalIndexPageState> {
 
   /** 打开右侧日志抽屉 */
   openLogDrawer = (): void => {
+    console.log(this.state);
+
     this.setState({
       logVisible: true,
     });
@@ -188,16 +211,18 @@ class GlobalIndexPages extends React.Component<any, GlobalIndexPageState> {
             <Divider orientation="left">
               <Button onClick={this.openLogDrawer}>日志信息</Button>
             </Divider>
-            <Card bordered hoverable style={{ marginRight: 15 }}>
-              <List
-                dataSource={data}
-                renderItem={(item) => (
-                  <List.Item key={uuid()}>
-                    <Typography.Text mark>[设备#**]</Typography.Text> {item}
-                  </List.Item>
-                )}
-              />
-            </Card>
+            <div style={{ height: '200px', overflow: 'auto', background: '#EEEEEE' }}>
+              <Card bordered hoverable style={{ marginRight: 15 }}>
+                <List
+                  dataSource={data}
+                  renderItem={(item) => (
+                    <List.Item key={uuid()}>
+                      <Typography.Text mark>[设备#**]</Typography.Text> {item}
+                    </List.Item>
+                  )}
+                />
+              </Card>
+            </div>
             {/* <Divider orientation="left">
               <Button onClick={this.openEquipmentDrawer}>待办事项</Button>
             </Divider>
